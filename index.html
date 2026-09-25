@@ -497,6 +497,24 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
 .pdec b{font-size:21px;font-weight:800;letter-spacing:-.01em}
 .pdec span{font-size:16px;color:var(--mist);line-height:1.4}
 .pdec small{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cold)}
+
+/* v7: video slaydlari va AI ochilishi */
+.film{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.film video{display:block;height:600px;aspect-ratio:16/9;max-width:100%;background:#000;border:1px solid var(--line);border-radius:4px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+.film p{font-size:20px;color:var(--mist);text-align:center;max-width:1000px}
+.film p b{color:var(--frost);font-weight:700}
+.reveal{flex:1;display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+.thumbs{display:flex;gap:18px}
+.thumbs figure{position:relative;margin:0;width:400px}
+.thumbs img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);border-radius:4px}
+.thumbs figcaption{margin-top:8px;font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+.thumbs .badge{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--cold);color:var(--ink);padding:5px 9px}
+.answer b{display:block;font-size:76px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--cold)}
+.answer p{font-size:23px;line-height:1.45;color:var(--mist);margin-top:14px;max-width:560px}
+.answer p strong{color:var(--frost);font-weight:600}
+.aido4{grid-template-columns:repeat(3,1fr) 1.3fr}
+.bridge{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.bridge i{font-style:normal;color:var(--cold)}
 @media (prefers-reduced-motion:reduce){.st.now i{animation:none}}
 </style>
 
@@ -516,6 +534,14 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
         <div><dt>Katalog</dt><dd>1 482 model · 35 kategoriya</dd></div>
         <div><dt>Sertifikat</dt><dd>ISO 9001 · 14001 · 45001 · EUROVENT</dd></div>
       </dl>
+    </section>
+
+    <!-- 1b · VIDEO: BIZ KIMMIZ (v7) -->
+    <section class="slide" aria-label="Video: biz kimmiz">
+      <div class="tag rise"><b>Video</b> Biz kimmiz · 40 soniya</div>
+      <div class="film rise">
+        <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
+      </div>
     </section>
 
     <!-- 2 · MUAMMO (Pitch 3) -->
@@ -638,6 +664,15 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
       </div>
     </section>
 
+    <!-- 7b · VIDEO: ZAVODDAN MONTAJGACHA (v7) -->
+    <section class="slide" aria-label="Video: zavoddan montajgacha">
+      <div class="tag rise"><b>Video</b> Zavoddan montajgacha · 1 daqiqa 8 soniya</div>
+      <div class="film rise">
+        <video controls playsinline preload="metadata" poster="media/ish.jpg" src="media/ish.mp4" aria-label="Uskuna zavoddan obyektgacha: ishlab chiqarish, yetkazish, o'rnatish"></video>
+        <p>Butun zanjir: <b>ishlab chiqarish → yetkazish → o'rnatish → servis</b>. Keyingi slaydda — shu zanjirning har bo'g'ini uchun xizmat.</p>
+      </div>
+    </section>
+
     <!-- 8 · CLIMAVENT EKOSISTEMASI (Pitch 9) -->
     <section class="slide" aria-label="Climavent ekosistemasi">
       <div class="tag rise"><b>Climavent ekosistemasi</b> 6 yo'nalish</div>
@@ -702,22 +737,6 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
       </div>
     </section>
 
-    <!-- 11 · SUN'IY INTELLEKT (v6, yangi) -->
-    <section class="slide" aria-label="Sun'iy intellekt">
-      <div class="tag rise"><b>Sun'iy intellekt</b> Kichik jamoa, katta ish</div>
-      <h2 class="rise" style="font-size:64px">Sun'iy intellekt <em>nima qila oladi</em></h2>
-      <div class="aiv rise">
-        <figure><video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4"></video><figcaption><b>Biz kimmiz</b><span>40 soniya</span></figcaption></figure>
-        <figure><video controls playsinline preload="metadata" poster="media/ish.jpg" src="media/ish.mp4"></video><figcaption><b>Zavoddan montajgacha</b><span>1 daqiqa 8 soniya</span></figcaption></figure>
-      </div>
-      <div class="aido rise">
-        <div><b>Videolar</b><span>Ikkala video suratga olish guruhisiz yaratilgan</span></div>
-        <div><b>Dastur kodi</b><span>Adminka va ikkala ilova</span></div>
-        <div><b>Hujjatlar</b><span>Oferta va foydalanish shartlari qoralamasi</span></div>
-        <div><b>Taqdimot</b><span>Shu slaydlar va nutq matni</span></div>
-        <div class="check"><b>Nazorat odamda</b><span>Natijani mutaxassis tekshiradi: huquqshunos, muhandis, rahbariyat</span></div>
-      </div>
-    </section>
     <!-- 11 · SERVIS VA AKADEMIYA (Pitch 15–16) -->
     <section class="slide" aria-label="Servis va Akademiya">
       <div class="tag rise"><b>Xizmat 2 va 3</b> Servis · Akademiya</div>
@@ -832,6 +851,26 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
         <div><small>2-yil</small><b>Qozog'iston, Tojikiston</b><span>Jihozvent eksport mijozlari bor — sotuvchi va servis hamkorlari</span></div>
         <div><small>3-yil</small><b>Turkmaniston, Rossiya</b><span>Eksport bozorlari — hamkorlik modeli bilan</span></div>
       </div>
+    </section>
+
+    <!-- 15b · SUN'IY INTELLEKT (v7: ochilish) -->
+    <section class="slide" aria-label="Sun'iy intellekt">
+      <div class="tag rise"><b>Sun'iy intellekt</b> Kichik jamoa, katta ish</div>
+      <h2 class="rise" style="font-size:64px">Siz ko'rgan videolarni <em>kim yasadi?</em></h2>
+      <div class="reveal rise">
+        <div class="thumbs">
+          <figure><span class="badge">AI bilan</span><img src="media/biz.jpg" alt="Biz kimmiz videosidan kadr"><figcaption>Biz kimmiz</figcaption></figure>
+          <figure><span class="badge">AI bilan</span><img src="media/ish.jpg" alt="Zavoddan montajgacha videosidan kadr"><figcaption>Zavoddan montajgacha</figcaption></figure>
+        </div>
+        <div class="answer"><b>Sun'iy intellekt.</b><p>Ikkala video suratga olish guruhisiz va studiyasiz yaratilgan. <strong>Platformaning katta qismi ham shu usulda qurildi.</strong></p></div>
+      </div>
+      <div class="aido aido4 rise">
+        <div><b>Dastur kodi</b><span>Adminka va ikkala ilova</span></div>
+        <div><b>Hujjatlar</b><span>Oferta va foydalanish shartlari qoralamasi</span></div>
+        <div><b>Taqdimot</b><span>Shu slaydlar va nutq matni</span></div>
+        <div class="check"><b>Nazorat odamda</b><span>Natijani mutaxassis tekshiradi: huquqshunos, muhandis, rahbariyat</span></div>
+      </div>
+      <p class="bridge rise">Shuning uchun jamoa kichik, <i>xarajat esa past.</i></p>
     </section>
 
     <!-- 16 · JAMOA VA BOSHQARUV (Pitch 28–30, 33) -->
@@ -968,11 +1007,7 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
   /* ---------- Havo oqimi: har slaydda boshqa joyda ----------
      Tartib all[] bilan bir xil. [yuqori y, pastki y, issiqlik tugaydigan x, sovuq boshlanadigan x, yorqinlik] */
   const PRE=[
-    [0,900, 380,1000, 1],    [560,900, 1500,1900, .6], [0,260, 250,950, .45],  [620,900, 500,1200, .45],
-    [0,200, 600,1300, .4],   [740,900, 300,1100, .45], [300,470, 300,1100, .45],[0,230, 700,1300, .4],
-    [0,900, 600,1300, .3],   [0,210, 700,1300, .4],    [0,180, 900,1600, .35],    [760,900, 200,900, .45], [0,300, 200,1000, .45],
-    [0,190, 700,1400, .45],  [0,300, 400,1200, .4],    [330,540, 0,1600, .5],   [0,220, 300,1100, .4],
-    [0,300, 1200,1800, .45], [0,900, 300,1100, .65],   [0,230, 300,1000, .4]
+    [0,900, 380,1000, 1], [800,900, 300,1200, .3], [560,900, 1500,1900, .6], [0,260, 250,950, .45], [620,900, 500,1200, .45], [0,200, 600,1300, .4], [740,900, 300,1100, .45], [300,470, 300,1100, .45], [800,900, 300,1200, .3], [0,230, 700,1300, .4], [0,900, 600,1300, .3], [0,210, 700,1300, .4], [760,900, 200,900, .45], [0,300, 200,1000, .45], [0,190, 700,1400, .45], [0,300, 400,1200, .4], [330,540, 0,1600, .5], [0,180, 900,1600, .35], [0,220, 300,1100, .4], [0,300, 1200,1800, .45], [0,900, 300,1100, .65], [0,230, 300,1000, .4]
   ];
   all.forEach((s,k)=>{s.dataset.air=k;});
 
@@ -1065,6 +1100,8 @@ body.money-hide .moneybtn .eye-on,body:not(.money-hide) .moneybtn .eye-off{displ
   document.getElementById('next').onclick=()=>show(i+1);
   document.getElementById('full').onclick=toggleFull;
 
+  /* video boshlanganda yoki to'xtaganda fokus olinadi: strelkalar va probel slaydni almashtiradi */
+  stage.querySelectorAll('video[controls]').forEach(v=>{v.addEventListener('play',()=>v.blur());v.addEventListener('pause',()=>v.blur());});
   /* ekran videolari tayyor bo'lganda, slaydi ochiq bo'lsa o'zi boshlanadi */
   stage.querySelectorAll('video[data-auto]').forEach(v=>v.addEventListener('canplay',()=>{
     if(v.paused&&v.closest('.slide.on')){const p=v.play(); if(p&&p.catch)p.catch(()=>{});}
