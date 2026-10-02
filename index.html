@@ -623,8 +623,6 @@ p{margin:0}
 <!-- Fon videolari: bitta marta yuklanadi, slaydga qarab almashadi -->
 <div class="bgs" id="bgs" aria-hidden="true">
   <video data-bg="muqova" muted playsinline preload="auto" poster="media/muqova.jpg?v=0928c" src="media/muqova.mp4?v=0928c"></video>
-  <video class="fit" data-bg="muammo" muted playsinline preload="auto" poster="media/muammo.jpg?v=0928c" src="media/muammo.mp4?v=0928c"></video>
-  <video class="fit" data-bg="muammo" muted playsinline preload="auto" src="media/muammo.mp4?v=0928c"></video>
   <video class="fit" data-bg="yechim" muted playsinline preload="auto" poster="media/yechim.jpg?v=0928c" src="media/yechim.mp4?v=0928c"></video>
   <video class="fit" data-bg="yechim" muted playsinline preload="auto" src="media/yechim.mp4?v=0928c"></video>
   <video class="fit" data-bg="vision" muted playsinline preload="auto" poster="media/vision.jpg?v=0928c" src="media/vision.mp4?v=0928c"></video>
@@ -634,7 +632,6 @@ p{margin:0}
 <div class="stage" id="stage">
   <canvas id="air" aria-hidden="true"></canvas>
 
-  <!-- 1 · MUQOVA -->
   <section class="slide cover" data-bg="muqova" data-veil="left" aria-label="Muqova">
     <div class="toprow rise" style="--d:-.6s">
       <div class="lockup"><img class="m" src="media/logo-m.png" alt=""><img class="wd" src="media/logo-w.png" alt="Climavent"></div>
@@ -648,16 +645,12 @@ p{margin:0}
       <div><dt>Xalqaro</dt><dd>EUROVENT</dd></div>
     </dl>
   </section>
-
-  <!-- 2 · VIDEO: BIZ KIMMIZ -->
   <section class="slide" data-air="790,900,300,1300,.3,.5" aria-label="Video: biz kimmiz">
     <div class="tag rise"><b>Video</b> Biz kimmiz · 40 soniya</div>
     <div class="film rise" style="--d:.2s">
       <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
     </div>
   </section>
-
-  <!-- 3 · JIHOZVENT BUGUN -->
   <section class="slide" data-air="690,900,200,1100,.5,.7" aria-label="Jihozvent bugun">
     <div class="tag rise"><b>Biz qayerdamiz</b> Jihozvent bugun</div>
     <div class="jv-grid">
@@ -681,52 +674,26 @@ p{margin:0}
       <div><i>1</i>Loyiha</div><div><i>2</i>Ishlab chiqarish</div><div><i>3</i>Montaj</div><div><i>4</i>Servis</div>
     </div>
   </section>
-
-  <!-- 4 · MIJOZ QAYERDAN QIDIRADI -->
-  <section class="slide" data-air="0,300,1700,2600,.55,.8" aria-label="Bozor">
-    <div class="ig-grid">
-      <div class="ig-left">
-        <div class="tag hot rise"><b>Bozor</b> Mijoz bugun qanday qidiradi</div>
-        <h2 class="md" data-split>Yangi mijoz uskunani Instagram va Telegram'dan qidiradi.</h2>
-        <p class="punch rise" style="--d:1s">Kim tez va aniq javob bersa — <em>o'sha sotadi.</em></p>
-        <p class="lede rise" style="--d:1.2s">Bozordagi asosiy raqobatchilar shourum, diler va Telegram orqali sotadi. Loyihadan servisgacha hammasini bog'lagan platforma <strong>hali yo'q.</strong></p>
-        <p class="note rise" style="--d:1.4s">Jihozvent raqobat tahlili, 18 kompaniya</p>
-      </div>
-      <div class="phone2 pop" style="--d:.3s">
-        <div class="scr">
-          <div class="hd"><div><b>Direct</b><small>namuna · Instagram</small></div><span class="cnt" id="igcnt">0</span></div>
-          <div class="dm" id="igdm">
-            <div class="row"><i class="av"></i><div><b>Ofis, Chilonzor</b><span>60 m² ofisga konditsioner kerak. Narxi qancha?</span></div><time>21:14</time></div>
-            <div class="row"><i class="av"></i><div><b>Qurilish firmasi</b><span>Sexga ventilyatsiya loyihasi kerak, KP yubora olasizmi?</span></div><time>21:32</time></div>
-            <div class="row"><i class="av"></i><div><b>Restoran</b><span>Oshxonaga vityajka va montaj — qancha vaqtda?</span></div><time>22:05</time></div>
-            <div class="row"><i class="av"></i><div><b>Mehmonxona</b><span>Chiller va fankoyl bormi? Katalog yuboring</span></div><time>22:47</time></div>
-            <div class="row"><i class="av"></i><div><b>Ofis, Chilonzor</b><span>Javob bormi?..</span></div><time>23:20</time></div>
-          </div>
-          <div class="ft">Har bir xabar — potensial buyurtma</div>
-        </div>
-      </div>
+  <section class="slide comp" data-air="0,240,300,1100,.45,.7" aria-label="Raqobat">
+    <div class="tag hot rise"><b>Raqobat</b> Ulardan nimani o'rganamiz</div>
+    <h2 class="md" data-split>IKLIMning zavodi yo'q — <span class="hot">lekin sotuvda bizdan oldinda.</span></h2>
+    <div class="vs">
+      <div><span class="h"></span><span class="h">IKLIM · iklim.uz</span><span class="h us">Jihozvent + Climavent</span></div>
+      <div class="r" style="--k:0"><span class="k">O'z zavodi</span><span><i class="n">✕</i>Distribyutor: Vents va boshqalar</span><span><i class="y">✓</i>2002-yildan</span></div>
+      <div class="r" style="--k:1"><span class="k">Narx saytda ochiq</span><span><i class="y">✓</i>So'mda</span><span><i class="wv">✓</i>Platformada tayyor</span></div>
+      <div class="r" style="--k:2"><span class="k">Savat va yetkazish</span><span><i class="y">✓</i>Bor</span><span><i class="wv">✓</i>Platformada tayyor</span></div>
+      <div class="r" style="--k:3"><span class="k">Instagram</span><span><i class="y">✓</i>Faol</span><span><i class="wv">!</i>Bor, lekin tizimsiz</span></div>
+      <div class="r" style="--k:4"><span class="k">Montaj va servis</span><span><i class="n">—</i>Saytida ko'rsatilmagan</span><span><i class="y">✓</i>O'zimizda</span></div>
+    </div>
+    <div class="verdict rise" style="--d:1.8s">
+      <p>Bozorni zavod emas — <em>sotuv tizimi yutadi.</em> Bizda ikkalasi bo'ladi.</p>
+      <span class="note">iklim.uz, 28.09.2026</span>
     </div>
   </section>
-
-  <!-- 5 · TO'SIQLAR -->
-  <section class="slide pain" data-bg="muammo" aria-label="To'siqlar">
-    <div class="tag hot rise"><b>Bugun</b> Nima to'sqinlik qilyapti</div>
-    <h2 data-split>Yangi mijoz keladi — lekin <span class="hot">hali tizimsiz.</span></h2>
-    <p class="lede rise" style="--d:.7s">O'sishni <strong>5 ta narsa</strong> ushlab turibdi.</p>
-    <div class="stack">
-      <div class="card" style="--k:0"><div class="in"><div class="face front"><small>01 · To'siq</small><strong>Yangi mijoz</strong><span>Instagram'dan keladi, lekin bu oqim tizimga solinmagan</span></div></div></div>
-      <div class="card" style="--k:1"><div class="in"><div class="face front"><small>02 · To'siq</small><strong>Tijorat taklifi</strong><span>Har bir KP ni menejer qo'lda tayyorlaydi</span></div></div></div>
-      <div class="card" style="--k:2"><div class="in"><div class="face front"><small>03 · To'siq</small><strong>Ma'lumot</strong><span>Mahsulot haqidagi ma'lumot turli joylarda</span></div></div></div>
-      <div class="card" style="--k:3"><div class="in"><div class="face front"><small>04 · To'siq</small><strong>Xizmat</strong><span>Uskuna bir joyda, usta va servis boshqa joyda</span></div></div></div>
-      <div class="card" style="--k:4"><div class="in"><div class="face front"><small>05 · To'siq</small><strong>Daromad</strong><span>Asosiy daromad yo'li bitta — uskuna sotuvi</span></div></div></div>
-    </div>
-  </section>
-
-  <!-- 6 · JAVOBLAR: 5-slayddagi kartalar o'sha joyda ag'dariladi -->
   <section class="slide cure" data-bg="yechim" aria-label="Javoblar">
-    <div class="tag rise"><b>Javob</b> Har to'siqqa — yechim</div>
+    <div class="tag rise"><b>Bugun</b> O'sishni 5 ta narsa ushlab turibdi</div>
     <h2 data-split>Har to'siqning javobi bor. <em>Uchtasi allaqachon qurilgan.</em></h2>
-    <p class="lede rise" style="--d:.7s">Noldan boshlamaymiz: platforma, katalog va KP tizimi <strong>tayyor turibdi.</strong></p>
+    <p class="lede rise" style="--d:.7s">Qizil — bugungi to'siq. Moviy — uning javobi. <strong>Noldan boshlamaymiz.</strong></p>
     <div class="stack">
       <div class="card" style="--k:0"><div class="in">
         <div class="face front"><small>01 · To'siq</small><strong>Yangi mijoz</strong><span>Instagram'dan keladi, lekin bu oqim tizimga solinmagan</span></div>
@@ -750,8 +717,6 @@ p{margin:0}
       </div></div>
     </div>
   </section>
-
-  <!-- 7 · EKOTIZIM -->
   <section class="slide eco-s" data-air="180,720,-900,-100,.28,.45" aria-label="Climavent platformasi">
     <div class="eco">
       <div class="eco-left">
@@ -796,8 +761,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-
-  <!-- 8 · ILOVALAR -->
   <section class="slide" data-air="760,900,300,1200,.35,.6" aria-label="Ilovalar">
     <div class="tag rise"><b>Isbot</b> Telefondan yozib olingan · 25.09.2026</div>
     <h2 class="md" data-split>Bu rasm emas — <em>telefonda sinovdagi ilova.</em></h2>
@@ -814,7 +777,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 9 · SANOAT: USKUNANI KIM TANLAYDI -->
   <section class="slide ind" data-air="760,900,300,1200,.35,.6" aria-label="Sanoat zanjiri">
     <div class="tag rise"><b>Sanoat</b> Uskunani kim tanlaydi</div>
     <h2 class="md" data-split style="max-width:1300px">Sanoatda uskunani loyihachi tanlaydi — <em>mijoz emas.</em></h2>
@@ -832,69 +794,12 @@ p{margin:0}
     </div>
     <p class="src rise" style="--d:2.4s">O'lchangan: OLX va kataloglar, 29.09.2026 · baholar (brigada soni) tekshirilmagan · loyihachiga pul emas — vositalar: tanlash, texnik ma'lumot, CAD (rejada)</p>
   </section>
-
-
-  <!-- 9 · RAQAMLI SOTUV: IKKI OQIM -->
-  <section class="slide" data-air="330,720,0,900,.45,1.25" aria-label="Raqamli sotuv">
-    <div class="tag rise"><b>Raqamli sotuv</b> Ikki oqim — bitta tizim</div>
-    <h2 class="md" data-split>Menejer KP yozishga emas, <em>mijozga vaqt sarflaydi.</em></h2>
-    <div class="flow rise" style="--d:.6s">
-      <svg viewBox="0 0 1376 440" aria-hidden="true">
-        <g fill="none" stroke-width="2">
-          <path id="fa" d="M220 110 L310 110 M530 110 L620 110" stroke="#12375C"/>
-          <path id="fa2" d="M110 110 L730 110 C 850 110 850 240 910 240 L1150 240" stroke="#12375C"/>
-          <path id="fb2" d="M110 350 L730 350 C 850 350 850 240 910 240 L1150 240" stroke="#55CDF8" stroke-opacity=".5"/>
-        </g>
-        <g fill="#8DA8C3"><circle r="5"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#fa2"/></animateMotion></circle></g>
-        <g fill="#55CDF8">
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#fb2"/></animateMotion></circle>
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".87s"><mpath href="#fb2"/></animateMotion></circle>
-          <circle r="5"><animateMotion dur="2.6s" repeatCount="indefinite" begin="1.73s"><mpath href="#fb2"/></animateMotion></circle>
-        </g>
-      </svg>
-      <div class="lane" style="top:40px"><b>Bor mijoz</b> — tezroq</div>
-      <div class="lane" style="top:280px;color:var(--cold)"><b>Yangi mijoz</b> — o'zi keladi</div>
-      <div class="fn" style="left:110px;top:110px"><strong>Yirik korxona</strong></div>
-      <div class="fn" style="left:420px;top:110px"><strong>Sotuv menejeri</strong><em class="chip ready">vaqti bo'shaydi</em></div>
-      <div class="fn" style="left:730px;top:110px"><strong>Murakkab loyiha KP</strong></div>
-      <div class="fn go" style="left:110px;top:350px"><strong>Instagram · sayt</strong><em class="chip offer">1-qadam</em></div>
-      <div class="fn" style="left:420px;top:350px"><strong>Katalog</strong><em class="chip ready">Tizim tayyor</em></div>
-      <div class="fn" style="left:730px;top:350px"><strong>Savat → KP bir zumda</strong><em class="chip ready">Tizim tayyor</em></div>
-      <div class="fn hi" style="left:1020px;top:240px"><strong>Buyurtma</strong></div>
-      <div class="fn hi" style="left:1260px;top:240px"><strong>Boshqaruv paneli: hisob va holat</strong><em class="chip live">Ishlayapti</em></div>
-    </div>
-    <div class="perks rise" style="--d:1s">
-      <div><b>QQS o'zi hisoblanadi</b>Narx QQS bilan, KP da ajratib ko'rsatiladi</div>
-      <div><b>Bitta hujjat</b>Climavent blankida — hamma do'kon uchun bir xil</div>
-      <div><b>Hech bir so'rov yo'qolmaydi</b>Kim, qachon, nima so'radi — tizimda turadi</div>
-    </div>
-  </section>
-
-  <!-- 10 · AI MARKETING -->
-  <section class="slide" data-air="0,170,600,1400,.35,.6" aria-label="Sun'iy intellekt: marketing">
-    <div class="tag rise"><b>Sun'iy intellekt</b> Marketing</div>
-    <h2 class="md" data-split style="max-width:none">Reklama videosi endi <em>studiyasiz tayyorlanadi.</em></h2>
-    <div class="ai-grid">
-      <figure class="ai-main rise" style="margin:0;--d:.5s">
-        <video data-auto controls muted playsinline preload="metadata" poster="media/ish.jpg" src="media/ish.mp4" aria-label="Zavoddan montajgacha video"></video>
-        <figcaption>Zavoddan montajgacha · 1 daqiqa 8 soniya · ovozini yoqish mumkin</figcaption>
-      </figure>
-      <div class="ai-side rise" style="--d:.8s">
-        <p class="lede">Bu videoni <strong>suratga olish guruhisiz</strong>, sun'iy intellekt yordamida qildik.</p>
-        <div><small class="ok">AI bilan allaqachon qilingan</small><p>Shu video · boshqaruv paneli va ilovalar kodi · foydalanish shartlari qoralamasi</p></div>
-        <div><small>Keyingi</small><p>Instagram uchun har hafta kontent · mahsulot tavsiflari · menejer yordamchisi</p></div>
-        <div class="ctrl"><b>Nazorat — odamda.</b> Natijani mutaxassis tekshiradi.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 · AI YORDAMCHI -->
   <section class="slide chat" data-air="720,900,-900,-100,.4,.55" aria-label="Sun'iy intellekt: sotuv yordamchisi">
     <div class="chat-grid">
       <div class="chat-left">
         <div class="tag rise"><b>Sun'iy intellekt</b> Sotuv yordamchisi</div>
         <h2 class="md" data-split>Mijoz kechasi yozsa ham — <em>javob darhol.</em></h2>
-        <p class="lede rise" style="--d:.8s">AI savolni tushunadi, uskuna tanlaydi va hisoblaydi. <strong>Oxirgi so'z — menejerda.</strong></p>
+        <p class="lede rise" style="--d:.8s">AI savolni tushunadi, uskuna tanlaydi va hisoblaydi. <strong>Oxirgi so'z — menejerda.</strong> Batafsil — «Agentlar tizimi» taqdimotida.</p>
         <div class="steps rise" style="--d:1s">
           <div><i>01</i>Ehtiyojni aniqlaydi</div>
           <div><i>02</i>Katalogdan mos uskunani topadi</div>
@@ -924,20 +829,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- AI darsi -->
-  <section class="slide dars" data-air="0,170,600,1400,.35,.6" aria-label="Sun'iy intellekt darsi">
-    <div class="tag rise"><b>Sun'iy intellekt</b> O'rganyapmiz</div>
-    <h2 class="md" data-split style="max-width:1300px">Sun'iy intellekt darsiga <em>borib keldik.</em></h2>
-    <div class="ph3 rise" style="--d:.5s">
-      <figure class="ph"><div class="frame"><span>Rasm 1</span></div><figcaption>[izoh]</figcaption></figure>
-      <figure class="ph"><div class="frame"><span>Rasm 2</span></div><figcaption>[izoh]</figcaption></figure>
-      <figure class="ph"><div class="frame"><span>Rasm 3</span></div><figcaption>[izoh]</figcaption></figure>
-    </div>
-    <p class="lede rise" style="--d:.9s">[Qayerda, qachon, nimani o'rgandik — rasmlar kelgach yoziladi]</p>
-  </section>
-
-
-  <!-- 12 · SERVIS VA AKADEMIYA -->
   <section class="slide sv" data-air="300,560,200,1000,.45,.7" aria-label="Servis va Akademiya">
     <div class="tag rise"><b>Xizmatlar</b> Servis · Akademiya</div>
     <h2 class="md" data-split>Uskuna bir marta sotiladi. <em>Servis har yili qaytadi.</em></h2>
@@ -955,13 +846,7 @@ p{margin:0}
       </div>
       <div class="sv-right">
         <div class="life rise" style="--d:.7s">
-          <div class="lifebig"><span class="n30" data-count="30">30</span><b>+</b><p>servis tashrifi — bitta VRF tizimining umri davomida</p></div>
-          <div class="lifefacts">
-            <div><b>15–20 yil</b><span>VRF tizimi shuncha ishlaydi</span></div>
-            <div><b>Yiliga 2 marta</b><span>servis — ishlab chiqaruvchilar tavsiyasi</span></div>
-            <div><b>Kafolat</b><span>ko'p ishlab chiqaruvchilarda muntazam servisga bog'liq</span></div>
-          </div>
-          <p class="note">VRF xizmat ko'rsatish qo'llanmalari (Daikin, Mitsubishi Electric tavsiyalari) · mountainmechanicalny.com, climatecareservices.com, 2026</p>
+          <div class="lifebig"><span class="n30" data-count="30">30</span><b>+</b><p>servis tashrifi — bitta VRF tizimining umri davomida (yiliga 2 marta × 15–20 yil)</p></div>
         </div>
         <div class="acad rise" style="--d:1.1s">
           <strong>Yaxshi uskunani yomon montaj buzadi — ustani o'zimiz o'qitamiz.</strong>
@@ -970,43 +855,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-
-  <!-- 13 · YANGI YO'NALISHLAR -->
-
-  <!-- 14 · RAQOBAT -->
-  <section class="slide comp" data-air="0,240,300,1100,.45,.7" aria-label="Raqobat">
-    <div class="tag hot rise"><b>Raqobat</b> Ulardan nimani o'rganamiz</div>
-    <h2 class="md" data-split>IKLIMning zavodi yo'q — <span class="hot">lekin sotuvda bizdan oldinda.</span></h2>
-    <div class="vs">
-      <div><span class="h"></span><span class="h">IKLIM · iklim.uz</span><span class="h us">Jihozvent + Climavent</span></div>
-      <div class="r" style="--k:0"><span class="k">O'z zavodi</span><span><i class="n">✕</i>Distribyutor: Vents va boshqalar</span><span><i class="y">✓</i>2002-yildan</span></div>
-      <div class="r" style="--k:1"><span class="k">Narx saytda ochiq</span><span><i class="y">✓</i>So'mda</span><span><i class="wv">✓</i>Platformada tayyor</span></div>
-      <div class="r" style="--k:2"><span class="k">Savat va yetkazish</span><span><i class="y">✓</i>Bor</span><span><i class="wv">✓</i>Platformada tayyor</span></div>
-      <div class="r" style="--k:3"><span class="k">Instagram</span><span><i class="y">✓</i>Faol</span><span><i class="wv">!</i>Bor, lekin tizimsiz</span></div>
-      <div class="r" style="--k:4"><span class="k">Montaj va servis</span><span><i class="n">—</i>Saytida ko'rsatilmagan</span><span><i class="y">✓</i>O'zimizda</span></div>
-    </div>
-    <div class="verdict rise" style="--d:1.8s">
-      <p>Bozorni zavod emas — <em>sotuv tizimi yutadi.</em> Bizda ikkalasi bo'ladi.</p>
-      <span class="note">iklim.uz, 28.09.2026</span>
-    </div>
-  </section>
-
-  <!-- 15 · BOSQICHLAR -->
-  <!-- 15 · EKOSISTEMA ZINAPOYASI -->
-  <!-- Arslonlar va Bo'rilar -->
-  <section class="slide arx" data-air="0,240,300,1100,.35,.6" aria-label="Kim boshqaradi">
-    <div class="tag rise"><b>Ekosistema</b> Kim boshqaradi: 4 tur</div>
-    <h2 class="md" data-split style="max-width:1300px">Biz <em>Arslonlar</em> modelida quramiz, Akademiya — <em>Bo'rilar</em> modelida.</h2>
-    <div class="qd rise" style="--d:.5s">
-      <span class="ax y">Murakkablik ↑</span><span class="ax x">Boshqaruv: erkin → qat'iy</span>
-      <div class="q" style="--k:0"><small>Murakkab · erkin</small><strong>Arilar uyasi</strong><span>Murakkab, lekin boshqaruvchi yo'q — tarqoq raqobat</span></div>
-      <div class="q on" style="--k:1"><small>Murakkab · qat'iy</small><strong>Arslonlar</strong><span>Qoidani orkestrator qo'yadi — sifat yuqori</span><em>Apple · Climavent asosi</em></div>
-      <div class="q" style="--k:2"><small>Oddiy · erkin</small><strong>Akulalar</strong><span>Boshqaruvchisiz — qattiq raqobat, sodiqlik yo'q</span></div>
-      <div class="q on2" style="--k:3"><small>Oddiy · qoidasi aniq</small><strong>Bo'rilar</strong><span>Kirish oson, hamkorlik</span><em>Android · Akademiya</em></div>
-    </div>
-    <p class="note rise" style="--d:1.4s">Manba: «Ecosystem mini presentation 1.3» · arxetiplar: acowtancy.com</p>
-  </section>
-
   <section class="slide rd zn" data-air="560,700,0,1600,.5,1.2" aria-label="Bosqichlar">
     <div class="tag rise"><b>Yo'l</b> Ekosistema — maqsad emas, natija</div>
     <h2 class="md" data-split style="max-width:1300px">Avval yadro, keyin uning atrofi. <em>Har bosqich — o'z natijasi bilan.</em></h2>
@@ -1023,9 +871,6 @@ p{margin:0}
       </div>
     </div>
   </section>
-
-
-  <!-- 16 · JAMOA -->
   <section class="slide" data-air="0,220,200,1100,.4,.6" aria-label="Jamoa">
     <div class="tag rise"><b>Jamoa</b> Kim qiladi, qanday nazorat qilinadi</div>
     <h2 data-split style="font-size:60px">Sanoatni biladiganlar <em>va raqamni quradiganlar.</em></h2>
@@ -1049,30 +894,11 @@ p{margin:0}
       </div>
     </div>
   </section>
-
-  <!-- 17 · RISKLAR -->
-  <section class="slide" data-air="0,260,1700,2600,.35,.6" aria-label="Risklar">
-    <div class="tag hot rise"><b>Risklar</b> Va ularga javob</div>
-    <h2 data-split>Xavflarni <span class="hot">oldindan</span> bilamiz.</h2>
-    <div class="risks rise" style="--d:.4s" data-stagger>
-      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Sotuv oz sonli yirik mijozga bog'liq</strong><span>Bitta mijoz ketsa, sotuv sezilarli tushadi. <b>Javob:</b> yangi mijoz oqimi — Instagram va marketplace.</span></div>
-      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Kadr tanqisligi</strong><span>Montajchi va servis ustasi kam. <b>Javob:</b> Akademiya va sertifikat.</span></div>
-      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Raqobatchilar sotuvda kuchli</strong><span>Narx va tez javob bilan mijoz tortadi. <b>Javob:</b> ochiq narx, tez KP, kafolat va servis.</span></div>
-      <div class="risk"><span class="lvl mid">O'rta</span><strong>Bozor sekin o'tadi</strong><span>Onlayn savdo hozircha 4,6%. <b>Javob:</b> mavjud korporativ mijozlardan boshlash, bosqichma-bosqich tekshirish.</span></div>
-      <div class="risk"><span class="lvl mid">O'rta</span><strong>Huquqiy asos</strong><span>Do'konlar tovari uchun Climavent nomidan KP. <b>Javob:</b> agentlik shartnomasi, huquqshunos ko'rigi.</span></div>
-      <div class="risk"><span class="lvl mid">O'rta</span><strong>Import va yetkazish kechikishi</strong><span>Muddat buzilsa, ishonch ketadi. <b>Javob:</b> mahalliy zavod zaxirasi va aniq muddatlar.</span></div>
-    </div>
-    <p class="src rise" style="--d:.7s">Jihozvent SWOT tahlili · marketpleys huquqiy hujjatlari ko'rigi, 2026</p>
-  </section>
-
-  <!-- 18 · MAQSAD -->
   <section class="slide vision" data-bg="vision" data-veil="top" aria-label="Maqsad">
     <div class="tag rise" style="--d:-2.4s"><b>Maqsad</b> Bir necha yildan keyin</div>
     <h2 data-split>HVAC kerak bo'lsa — <em>birinchi Climavent ochiladi.</em></h2>
     <p class="lede rise" style="--d:1s">Loyiha, uskuna, montaj, servis va usta — <strong>bitta platformada.</strong></p>
   </section>
-
-  <!-- 19 · QAROR -->
   <section class="slide qr" data-air="0,900,300,1100,.6,.7" aria-label="Bugungi qaror">
     <div class="tag rise"><b>Bugun</b> Sizdan kerak</div>
     <div class="ask">
@@ -1089,6 +915,43 @@ p{margin:0}
       </div>
     </div>
   </section>
+  <section class="slide" data-z="1" data-air="0,260,1700,2600,.35,.6" aria-label="Risklar">
+    <div class="tag hot rise"><b>Zaxira</b> Savol bo'lsa</div>
+    <h2 data-split>Nimadan ehtiyot bo'lamiz — <em>va qanday.</em></h2>
+    <div class="risks rise" style="--d:.4s" data-stagger>
+      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Sotuv oz sonli yirik mijozga bog'liq</strong><span>Bitta mijoz ketsa, sotuv sezilarli tushadi. <b>Javob:</b> yangi mijoz oqimi — Instagram va marketplace.</span></div>
+      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Kadr tanqisligi</strong><span>Montajchi va servis ustasi kam. <b>Javob:</b> Akademiya va sertifikat.</span></div>
+      <div class="risk"><span class="lvl hi">Yuqori</span><strong>Raqobatchilar sotuvda kuchli</strong><span>Narx va tez javob bilan mijoz tortadi. <b>Javob:</b> ochiq narx, tez KP, kafolat va servis.</span></div>
+      <div class="risk"><span class="lvl mid">O'rta</span><strong>Bozor sekin o'tadi</strong><span>Onlayn savdo hozircha 4,6%. <b>Javob:</b> mavjud korporativ mijozlardan boshlash, bosqichma-bosqich tekshirish.</span></div>
+      <div class="risk"><span class="lvl mid">O'rta</span><strong>Huquqiy asos</strong><span>Do'konlar tovari uchun Climavent nomidan KP. <b>Javob:</b> agentlik shartnomasi, huquqshunos ko'rigi.</span></div>
+      <div class="risk"><span class="lvl mid">O'rta</span><strong>Import va yetkazish kechikishi</strong><span>Muddat buzilsa, ishonch ketadi. <b>Javob:</b> mahalliy zavod zaxirasi va aniq muddatlar.</span></div>
+    </div>
+    <p class="src rise" style="--d:.7s">Jihozvent SWOT tahlili · marketpleys huquqiy hujjatlari ko'rigi, 2026</p>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <!-- AI darsi -->
+
+
+
+
+
+  <!-- Arslonlar va Bo'rilar -->
+
+
+
+
+
+
 
 
   <!-- ================= ZAXIRA: savol bo'lsa ochiladi (Z) ================= -->
