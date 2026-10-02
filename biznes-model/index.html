@@ -1,0 +1,597 @@
+<title>Climavent biznes modeli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: bitta ustunli hujjat (860px), o'rtada interaktiv moliya kalkulyatori. Climavent brend ranglari. */
+:root{
+  --bg:#f3f7fb; --surface:#ffffff; --ink:#0c1d33; --muted:#566a82; --line:#d8e2ed;
+  --navy:#002854; --sky:#55cdf8; --sky-soft:#e3f5fd; --accent-ink:#0a5f86; --bar:#0a6d99;
+  --ok:#1d7a4a; --ok-bg:#e3f4ea; --test:#0a6d99; --test-bg:#e0f3fc;
+  --ready:#2d4a7a; --ready-bg:#e6ecf6; --plan:#5f6b78; --plan-bg:#eceff3;
+  --idea:#8a5a00; --idea-bg:#fbf0d9; --warn:#c0161a; --warn-bg:#fde8e8;
+  --hero-bg:#002854; --hero-ink:#ffffff; --hero-muted:#b3e0fe;
+  --f-display:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#06142a; --surface:#0c2140; --ink:#e4edf7; --muted:#93a8c1; --line:#1d3659;
+    --navy:#b3e0fe; --sky:#55cdf8; --sky-soft:#0f2e4f; --accent-ink:#7fd8fb; --bar:#55cdf8;
+    --ok:#6fd39c; --ok-bg:#12352a; --test:#7fd8fb; --test-bg:#0f2f4a;
+    --ready:#aec3e8; --ready-bg:#1a2d4d; --plan:#a7b3c0; --plan-bg:#1c2a3c;
+    --idea:#f1c46b; --idea-bg:#3a2e12; --warn:#ff8a8a; --warn-bg:#3d1519;
+    --hero-bg:#0c2140; --hero-ink:#ffffff; --hero-muted:#b3e0fe;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#06142a; --surface:#0c2140; --ink:#e4edf7; --muted:#93a8c1; --line:#1d3659;
+  --navy:#b3e0fe; --sky:#55cdf8; --sky-soft:#0f2e4f; --accent-ink:#7fd8fb; --bar:#55cdf8;
+  --ok:#6fd39c; --ok-bg:#12352a; --test:#7fd8fb; --test-bg:#0f2f4a;
+  --ready:#aec3e8; --ready-bg:#1a2d4d; --plan:#a7b3c0; --plan-bg:#1c2a3c;
+  --idea:#f1c46b; --idea-bg:#3a2e12; --warn:#ff8a8a; --warn-bg:#3d1519;
+  --hero-bg:#0c2140; --hero-ink:#ffffff; --hero-muted:#b3e0fe;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-display);font-size:16px;line-height:1.6;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:860px;margin:0 auto}
+h1,h2,h3{font-weight:800;line-height:1.2;text-wrap:balance;margin:0}
+h2{font-size:1.55rem;color:var(--navy)}
+h3{font-size:1.08rem}
+p{margin:0}
+a{color:var(--accent-ink)}
+.mono{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{background:var(--hero-bg);color:var(--hero-ink);border-radius:0 0 18px 18px;padding:40px 28px 32px;margin:0 auto 36px;max-width:860px;display:grid;gap:18px}
+.hero .mono{color:var(--hero-muted)}
+.hero h1{font-size:clamp(1.8rem,5vw,2.5rem)}
+.hero p{color:var(--hero-muted);max-width:64ch}
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.verdict div{background:rgba(255,255,255,.07);border:1px solid rgba(179,224,254,.25);border-radius:12px;padding:14px 16px;display:grid;gap:4px;align-content:start;min-width:0}
+.verdict b{color:#fff;font-size:1rem}
+.verdict span{color:var(--hero-muted);font-size:.9rem;line-height:1.5}
+.verdict .mono{color:var(--sky)}
+
+section{display:grid;gap:16px;padding-block:28px;border-top:1px solid var(--line)}
+section > .mono{color:var(--accent-ink)}
+.lead{color:var(--muted);max-width:66ch}
+
+/* status chips */
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;white-space:nowrap;font-weight:500;font-style:normal}
+.s-ok{color:var(--ok);background:var(--ok-bg)}
+.s-test{color:var(--test);background:var(--test-bg)}
+.s-ready{color:var(--ready);background:var(--ready-bg)}
+.s-plan{color:var(--plan);background:var(--plan-bg)}
+.s-idea{color:var(--idea);background:var(--idea-bg)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:.85rem;color:var(--muted)}
+.legend span{display:flex;gap:6px;align-items:center}
+
+/* chain */
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:6px;align-content:start;min-width:0}
+.node.core{background:var(--navy);border-color:var(--navy);color:var(--bg)}
+.node.core p,.node.core .mono{color:var(--bg);opacity:.9}
+.node h3{font-size:1rem}
+.node p{font-size:.88rem;color:var(--muted);line-height:1.45}
+.node .mono{color:var(--muted)}
+.platform{background:var(--sky-soft);border-radius:12px;padding:14px 16px;font-size:.93rem;display:grid;gap:4px}
+.platform b{color:var(--navy)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:2px;min-width:0}
+.stat b{font-size:1.45rem;color:var(--navy);font-variant-numeric:tabular-nums}
+.stat span{font-size:.84rem;color:var(--muted);line-height:1.4}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:.92rem}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--bg)}
+td b{display:block}
+td small{color:var(--muted);font-size:.84rem;line-height:1.45;display:block;margin-top:2px}
+.rank{font-weight:800;color:var(--accent-ink);font-variant-numeric:tabular-nums;width:36px}
+
+/* cols */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cols.two{grid-template-columns:1fr 1fr}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.col ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:.92rem}
+.col li small{display:block;color:var(--muted);font-size:.84rem}
+.col .mono{color:var(--accent-ink)}
+
+/* steps */
+.steps{display:grid;gap:12px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;grid-template-columns:44px 1fr;gap:14px}
+.step > div{min-width:0}
+.step .n{width:44px;height:44px;border-radius:50%;background:var(--sky-soft);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:1.1rem}
+.step.now .n{background:var(--navy);color:var(--bg)}
+.step h3{margin-bottom:6px}
+.step ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px;font-size:.93rem}
+.gate{margin-top:10px;font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.gate b{color:var(--ink)}
+
+.callout{background:var(--sky-soft);border-radius:12px;padding:16px 18px;display:grid;gap:6px}
+.callout.warn{background:var(--warn-bg)}
+.callout.warn b{color:var(--warn)}
+.callout.idea{background:var(--idea-bg)}
+.callout.idea b{color:var(--idea)}
+
+.qs{margin:0;padding-left:20px;display:grid;gap:10px}
+.qs li small{display:block;color:var(--muted);font-size:.86rem}
+.src{font-size:.84rem;color:var(--muted);display:grid;gap:6px}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:start}
+.inputs{display:grid;gap:12px}
+fieldset{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px 14px;margin:0;display:grid;gap:8px;min-width:0}
+legend{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent-ink);padding:0 6px}
+.f{display:grid;grid-template-columns:1fr 104px;gap:10px;align-items:center}
+.f label{font-size:.88rem;line-height:1.35}
+.f label small{display:block;color:var(--muted);font-size:.76rem}
+.f input{width:100%;font:inherit;font-size:.95rem;font-variant-numeric:tabular-nums;text-align:right;padding:6px 8px;border:1px dashed var(--muted);border-radius:8px;background:var(--bg);color:var(--ink)}
+.f input:focus-visible{outline:2px solid var(--sky);outline-offset:1px;border-style:solid}
+.f input.set{border-style:solid;border-color:var(--accent-ink)}
+.out{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:12px}
+.panel h3{font-size:1rem}
+.bars{display:grid;gap:9px}
+.bar{display:grid;gap:3px}
+.bar .t{display:flex;justify-content:space-between;gap:8px;font-size:.85rem}
+.bar .t b{font-variant-numeric:tabular-nums;font-weight:700}
+.bar .track{height:10px;background:var(--bg);border-radius:4px;overflow:hidden}
+.bar .fill{height:100%;background:var(--bar);border-radius:0 4px 4px 0;min-width:2px;transition:width .25s ease}
+.pl{display:grid;gap:6px;font-size:.92rem}
+.pl div{display:flex;justify-content:space-between;gap:10px}
+.pl div span:last-child{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.pl .tot{border-top:1px solid var(--line);padding-top:8px;font-size:1.05rem}
+.pos{color:var(--ok)}
+.neg{color:var(--warn)}
+.note{font-size:.82rem;color:var(--muted);line-height:1.45}
+.demo{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}
+button{font:inherit;font-size:.85rem;font-weight:600;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+button:hover{border-color:var(--accent-ink)}
+button:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+
+@media (max-width:760px){
+  .verdict,.cols,.cols.two,.calc{grid-template-columns:1fr}
+  .chain,.stats{grid-template-columns:1fr 1fr}
+  .out{position:static}
+  .hero{padding:28px 18px 24px}
+}
+@media (max-width:420px){
+  .chain,.stats{grid-template-columns:1fr}
+  .f{grid-template-columns:1fr 92px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="hero">
+  <span class="mono">Climavent · biznes modeli · 2-versiya · 29.09.2026</span>
+  <h1>Sanoat ventilyatsiyasi va konditsionerlash uchun B2B platforma</h1>
+  <p>Climavent — Jihozvent zavodi tovari, tanlangan hamkor va import tovar, montaj va servis bir joyda. Asosiy yo'nalish xonadon emas, sanoat. Pulni tovar marjasi, takror xarid va servis topadi. Platforma sotuv tizimi va menejerning vositasi.</p>
+  <div class="verdict">
+    <div><span class="mono">Kim uchun</span><b>Montaj firmalari va zavodlar</b><span>Firma sotib oladi, zavod to'laydi. Uskunani esa proyektchi tanlaydi, shuning uchun u bilan ham ishlaymiz.</span></div>
+    <div><span class="mono">Pul qayerdan</span><b>Tovar marjasi, keyin servis</b><span>O'rnatilgan tizimga keyingi xaridlar va servis shartnomasi har yili qaytadi. Komissiya eng kichik daromad.</span></div>
+    <div><span class="mono">Nimadan boshlaymiz</span><b>Bor mijozlar va 30–60 yirik firma</b><span>Reklama emas, har bir firma va loyiha tashkiloti bilan alohida ishlash.</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="bozor">
+  <span class="mono">Bozor va o'rnimiz</span>
+  <h2>Sanoatda xarid qanday bo'ladi</h2>
+  <p class="lead">Xonadonda konditsionerni usta tanlaydi va bir kunda sotib olinadi. Sanoatda qaror bir necha kishi orasida bo'linadi va haftalab davom etadi. Har bir kishiga boshqa narsa kerak.</p>
+  <div class="chain" role="list">
+    <div class="node" role="listitem"><span class="mono">Tanlaydi</span><h3>Loyiha tashkiloti</h3><p>Uskunani loyihaga yozadi. Loyihada Jihozvent yozilsa, tenderda ham u talab qilinadi.</p></div>
+    <div class="node" role="listitem"><span class="mono">Sotib oladi</span><h3>Montaj firmasi, bosh pudratchi</h3><p>Hisob-faktura va shartnoma bilan oladi, o'rnatadi. Yildan-yilga qayta xarid qiladi.</p></div>
+    <div class="node" role="listitem"><span class="mono">To'laydi</span><h3>Zavod, korxona</h3><p>Ko'pincha tender orqali. Bosh mexanik va ta'minot bo'limi qaror qiladi.</p></div>
+    <div class="node core" role="listitem"><span class="mono">Har yili</span><h3>Servis</h3><p>Profilaktika, ta'mir, sarflanuvchi materiallar, ehtiyot qismlar, kengaytirish. Takror daromad shu yerda.</p></div>
+  </div>
+  <div class="platform"><b>Climavent shu zanjirning hammasida ishlaydi:</b><span>proyektchiga texnik ma'lumot va tanlash, firmaga firma narxi va tez KP, zavodga servis va qayta buyurtma, brigadaga ish (Climavent Pro).</span></div>
+
+  <div class="stats">
+    <div class="stat"><b>229</b><span>montaj firmasi kataloglardan topildi <small>(o'lchangan)</small></span></div>
+    <div class="stat"><b>93</b><span>tasida loyiha bilan ishlash belgisi bor <small>(o'lchangan)</small></span></div>
+    <div class="stat"><b>80–150</b><span>loyiha darajasidagi firma <small>(baho)</small></span></div>
+    <div class="stat"><b>30–60</b><span>yirik firma. Birinchi maqsad shular <small>(baho)</small></span></div>
+  </div>
+  <p class="note">Manba: <a href="../montajchilar/" target="_blank" rel="noopener">montajchilar bozori tahlili</a>, 29.09.2026. Firmalar kam, shuning uchun ommaviy reklama emas, har biri bilan alohida ishlash kerak.</p>
+  <div class="callout warn"><b>Asosiy raqib</b><p>IKLIM: ventilyatsiya distribyutori, zavodi yo'q, lekin sotuvda bizdan kuchli. Bozorni zavod emas, sotuv tizimi yutadi. Bizning afzalligimiz: o'z zavodi, montaj va servis tarmog'i, platforma.</p></div>
+</section>
+
+<section id="mijozlar">
+  <span class="mono">Mijozlar</span>
+  <h2>Kimga nima beramiz va qayerdan topamiz</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Kim</th><th>Unga nima beramiz</th><th>Qayerdan topamiz</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td><b>Montaj firmasi, bosh pudratchi</b><small>Asosiy xaridor</small></td><td>Obyektning butun spetsifikatsiyasi bitta joydan: Jihozvent'da HVAC tovarining deyarli hammasi bor. Firma narxi, tez KP, hisob-faktura, ombor holati, yetkazish. Ishonchli firmaga to'lov muddati.</td><td>Firmalar ro'yxati (229), menejer uchrashuvi, ko'rgazmalar</td></tr>
+      <tr><td class="rank">2</td><td><b>Loyiha tashkiloti</b><small>Tanlaydi, pul to'lamaydi</small></td><td>To'liq texnik ma'lumot, tanlash vositasi, CAD chizmalar, seminar</td><td>Ro'yxat tuzish, tashrif, o'quv seminari</td></tr>
+      <tr><td class="rank">3</td><td><b>Zavod va korxona</b><small>To'laydi, servis oladi</small></td><td>Yillik servis shartnomasi, sarflanuvchi material va ehtiyot qismlarni qayta buyurtma, hujjatlar bir joyda, menejer</td><td>Bor mijozlar, tenderlar, yangi sanoat loyihalari (O'zbekistonda zavod qurayotgan Xitoy kompaniyalari ham)</td></tr>
+      <tr><td class="rank">4</td><td><b>Kichik tijorat, yakka usta</b><small>Ikkinchi darajali</small></td><td>Ochiq katalog va narx. Keyinroq usta uchun agent rejimi.</td><td>Instagram, OLX, Telegram guruhlari</td></tr>
+      <tr><td class="rank">5</td><td><b>Brigada, usta, kuryer</b><small>Ijrochi (Climavent Pro)</small></td><td>Ish oqimi, «tekshirilgan» belgisi, o'qitish</td><td>Pro'dagi ariza, Akademiya</td></tr>
+      <tr><td class="rank">6</td><td><b>Hamkor do'kon, Xitoy zavodi</b><small>Ta'minot tomoni</small></td><td>Xaridorlar oqimi, bozorga kirish, kafolat servisi</td><td>Xaridor oqimi paydo bo'lgandan keyin</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>Proyektchiga pul yoki ulush berilmaydi</b><p>Ayniqsa davlat loyihalarida bu korrupsiya hisoblanadi. Unga faqat vosita va xizmat beriladi: ma'lumot, tanlash, chizma, o'qitish.</p></div>
+</section>
+
+<section id="narx">
+  <span class="mono">Narx siyosati</span>
+  <h2>Narx bozor darajasida ochiq, firma pastroq oladi</h2>
+  <p class="lead">Chakana narx ustiga qo'shimcha ustama qo'yilmaydi. Firma narxi chakanadan pastga qarab hisoblanadi. Firmaning foydasi shu farqdan keladi.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Narx</th><th>Kim ko'radi</th><th>Qanday belgilanadi</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ochiq chakana narx</b><small>Qutidagi tovar</small></td><td>Hamma: sayt va ilova</td><td>Bozor narxi, QQS 12% bilan. Uzum va IKLIM bilan solishtiriladi.</td></tr>
+      <tr><td><b>«...dan boshlab»</b><small>Loyiha uskunasi: pritochka, chiller, VRF</small></td><td>Hamma, «Aniq narxni so'rang» tugmasi bilan</td><td>Aniq narxni menejer konfiguratsiya bo'yicha hisoblaydi</td></tr>
+      <tr><td><b>Firma narxi</b></td><td>Tasdiqlangan montaj firmasi, kirgandan keyin</td><td>Chakana − X%, kategoriya bo'yicha. Keyinroq xarid hajmiga qarab darajalar.</td></tr>
+      <tr><td><b>Kelishilgan narx</b></td><td>Yirik mijoz</td><td>Menejer kelishadi, boshqalarga ko'rinmaydi</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cols two">
+    <div class="col">
+      <span class="mono">Mijoz kimniki</span>
+      <ul>
+        <li>Firma olib kelgan mijoz firmaniki. Climavent unga tegmaydi.<small>Watsco ham shunday: montajchi bilan mijoz talashmaydi.</small></li>
+        <li>Mijoz firmaning KP havolasi orqali to'laganda unga biriktiriladi.</li>
+        <li>Menejer biriktirilgan yirik mijoz hech kimga biriktirilmaydi.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="mono">O'zi kelgan mijozning ishi</span>
+      <ul>
+        <li>Boshida ishni operator hudud, ko'nikma va reytingga qarab beradi.</li>
+        <li>Brigadalar ko'paygach: ish avval bizdan xarid qiladigan va «tekshirilgan» brigadalarga, keyin hammaga ochiladi.</li>
+        <li>Montajni bajargan brigada keyingi servis ishida birinchi navbatda turadi.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="daromad">
+  <span class="mono">Daromad</span>
+  <h2>Pul qayerdan keladi</h2>
+  <div class="legend">
+    <span><i class="chip s-ok">Ishlayapti</i>real foydalanuvchi bor</span>
+    <span><i class="chip s-test">Sinovda</i>telefonda yoki prodda sinaldi</span>
+    <span><i class="chip s-ready">Tizim tayyor</i>kod bor, ishlatilmagan</span>
+    <span><i class="chip s-plan">Rejada</i></span>
+    <span><i class="chip s-idea">Taklif</i>kelishilmagan</span>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>Daromad yo'li</th><th>Kim to'laydi</th><th>Kapital</th><th>Holat</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td><b>Jihozvent tovari</b><small>Zavod marjasi. Asosiy daromad.</small></td><td>Firma, zavod</td><td>Yo'q</td><td><span class="chip s-ok">Oflayn</span> <span class="chip s-test">Onlayn</span></td></tr>
+      <tr><td class="rank">2</td><td><b>Takror xarid: sarflanuvchi materiallar va ehtiyot qismlar</b><small>O'rnatilgan har bir tizim keyin ham xarid qiladi: almashtiriladigan qismlar, ta'mir, kengaytirish</small></td><td>Zavod</td><td>Kam</td><td><span class="chip s-idea">Taklif</span></td></tr>
+      <tr><td class="rank">3</td><td><b>Yillik servis shartnomasi</b><small>Ishni Pro'dagi brigada bajaradi, farq bizda qoladi</small></td><td>Zavod</td><td>Yo'q</td><td><span class="chip s-idea">Taklif</span></td></tr>
+      <tr><td class="rank">4</td><td><b>Montajdan ulush</b><small>Uskuna bilan birga sotilgan o'rnatish</small></td><td>Mijoz</td><td>Yo'q</td><td><span class="chip s-ready">Tizim tayyor</span><small>Hali birorta xizmat yaratilmagan</small></td></tr>
+      <tr><td class="rank">5</td><td><b>Import tovar</b><small>Faqat Jihozvent ishlab chiqarmaydigan: split, VRF, chiller, kompressor, avtomatika</small></td><td>Firma, zavod</td><td><b>Ko'p</b></td><td><span class="chip s-idea">Taklif</span></td></tr>
+      <tr><td class="rank">6</td><td><b>Xitoy zavodlari uchun xizmat</b><small>Kafolat ta'miri, bozorga kirish, sertifikat, reklama</small></td><td>Xitoy zavodi</td><td>Kam</td><td><span class="chip s-idea">Taklif</span></td></tr>
+      <tr><td class="rank">7</td><td><b>Hamkor do'kondan komissiya</b></td><td>Do'kon</td><td>Yo'q</td><td><span class="chip s-plan">Rejada</span><small>Agentlik shartnomasi yo'q</small></td></tr>
+      <tr><td class="rank">8</td><td><b>Yetkazish tarifi</b></td><td>Do'kon</td><td>Yo'q</td><td><span class="chip s-ready">Tizim tayyor</span><small>Tariflar kiritilmagan</small></td></tr>
+      <tr><td class="rank">9</td><td><b>Eksport, diler kabineti</b><small>Avval 1 davlat, 1 diler</small></td><td>Diler</td><td>O'rtacha</td><td><span class="chip s-idea">Taklif</span></td></tr>
+      <tr><td class="rank">10</td><td><b>Akademiya</b><small>Brigadalarni o'qitish va sertifikatlash</small></td><td>Usta, zavod</td><td>Yo'q</td><td><span class="chip s-plan">Rejada</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout idea"><b>Import: Climavent importer bo'ladi, logistikani hamkor qiladi</b><p>Xitoy zavodi marketpleysda o'zi sotolmaydi: bu yerda ombori, sertifikati, kafolat xizmati yo'q. Climavent firmalardan oldindan buyurtma yig'adi, partiya to'lganda zavodga buyurtma beradi. Transport va bojxonani logistika kompaniyasi bajaradi. Yerga tushgan narx bozor narxidan kamida ~20% past bo'lmasa, bu tovar olib kelinmaydi.</p></div>
+</section>
+
+<section id="xarajat">
+  <span class="mono">Xarajatlar</span>
+  <h2>Pul nimaga ketadi</h2>
+  <div class="cols">
+    <div class="col">
+      <span class="mono">Har oy doimiy</span>
+      <ul>
+        <li>Jamoa: dasturchilar, sotuv va hamkorlar menejeri, operator</li>
+        <li>Serverlar, SMS, fayl saqlash</li>
+        <li>Sotuv: uchrashuvlar, ko'rgazma, seminar</li>
+        <li>Huquqshunos, buxgalteriya</li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="mono">Har savdodan</span>
+      <ul>
+        <li>Firma chegirmasi</li>
+        <li>Ekvayring va bank to'lovi</li>
+        <li>Yetkazish</li>
+        <li>Kafolat zaxirasi</li>
+        <li>Brigadaga to'lov (montaj, servis)</li>
+      </ul>
+    </div>
+    <div class="col">
+      <span class="mono">Kapital</span>
+      <ul>
+        <li>Import partiyasi oldindan to'lanadi<small>Pul 2–3 oy tovar ichida turadi</small></li>
+        <li>Firmaga berilgan to'lov muddati<small>Debitor qarz</small></li>
+        <li>Sarflanuvchi material va ehtiyot qism zaxirasi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="hisob">
+  <span class="mono">Moliyaviy model</span>
+  <h2>Oylik foyda va zararsizlik nuqtasi</h2>
+  <div class="demo">
+    <p class="lead">Barcha raqamlar <b>shartli misol</b>. Ular sizning haqiqiy raqamingiz emas. Uzuq chiziqli maydon hali misol qiymatida turibdi, o'z raqamingizni kiriting.</p>
+    <button type="button" id="reset">Misolga qaytarish</button>
+  </div>
+  <div class="calc">
+    <form class="inputs" id="calc" autocomplete="off"></form>
+    <div class="out">
+      <div class="panel">
+        <h3>Yalpi foyda, yo'llar bo'yicha</h3>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="panel">
+        <h3>Oylik natija</h3>
+        <div class="pl" id="pl"></div>
+        <p class="note" id="be"></p>
+        <p class="note" id="cap"></p>
+      </div>
+      <p class="note">Hamma summalar mln so'mda, QQSsiz: kiritilgan savdo 1,12 ga bo'linadi. Natija foyda solig'igacha. Hisob Climavent va Jihozvent'ni bitta biznes deb oladi. Oflayn savdo bu yerga kirmaydi.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bosqich">
+  <span class="mono">Ketma-ketlik</span>
+  <h2>Bosqichlar muddat bilan emas, shart bilan</h2>
+  <div class="steps">
+    <div class="step now">
+      <div class="n">1</div>
+      <div>
+        <h3>Bor mijozlar, yirik firmalar, proyektchilar</h3>
+        <ul>
+          <li>Jihozvent katalogi to'liq, texnik ma'lumot va tanlash bilan</li>
+          <li>Firma narxi va savatdan KP. Menejer KP ni qo'lda yozmaydi</li>
+          <li>30–60 yirik firma va loyiha tashkilotlari bilan alohida ishlash</li>
+          <li>Bor mijozlarga servis shartnomasi va o'rnatilgan tizimga qayta buyurtma</li>
+          <li>Huquqiy hujjatlarni huquqshunos ko'radi</li>
+        </ul>
+        <p class="gate"><b>O'tish sharti:</b> firmalar platformadan qayta buyurtma beradi, birinchi servis shartnomalari imzolanadi.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <h3>Montaj va servis, hamkor do'konlar, import sinovi</h3>
+        <ul>
+          <li>Uskuna va montaj bitta buyurtmada, ishni Pro'dagi brigada bajaradi</li>
+          <li>2–3 ishonchli do'kon, agentlik shartnomasi bilan</li>
+          <li>Import: bitta kategoriya, oldindan buyurtma bilan</li>
+        </ul>
+        <p class="gate"><b>O'tish sharti:</b> import tovarining yerga tushgan narxi bozordan ~20% past, oldindan buyurtmalar partiyani to'ldiradi.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <h3>Kengayish</h3>
+        <ul>
+          <li>Eksport: 1 davlat, 1 diler, platforma diler kabineti bo'ladi</li>
+          <li>Xitoy zavodlari uchun kafolat va bozorga kirish xizmati</li>
+          <li>Akademiya, kichik tijorat va usta uchun agent rejimi</li>
+          <li>ClimaSolar, ClimaValve (rahbariyat kelishgandan keyin)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="xavf">
+  <span class="mono">Xavflar</span>
+  <h2>Nima buzishi mumkin</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Xavf</th><th>Nima qilamiz</th></tr></thead>
+    <tbody>
+      <tr><td><b>Import kapitali va valyuta</b></td><td>Faqat oldindan buyurtma bilan, bitta kategoriyadan</td></tr>
+      <tr><td><b>Import Jihozvent tovari bilan raqobat qiladi</b></td><td>Faqat Jihozvent ishlab chiqarmaydigan tovar</td></tr>
+      <tr><td><b>Huquqiy asos to'liq emas</b><small>Agentlik shartnomasi yo'q, hujjatlarni huquqshunos ko'rmagan</small></td><td>Birinchi bosqichda hal qilinadi. Ekvayring boshqa korxona nomidan to'lov olishga ruxsat berishi kerak</td></tr>
+      <tr><td><b>Firmaga berilgan to'lov muddati</b></td><td>Faqat tarixi bor firmaga, limit bilan</td></tr>
+      <tr><td><b>Chakana narx raqibdan qimmat</b></td><td>Narx har oy bozor bilan solishtiriladi</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="olchov">
+  <span class="mono">O'lchov</span>
+  <h2>Har oy rahbariyatga beriladigan 6 ta raqam</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Ko'rsatkich</th><th>Nega muhim</th></tr></thead>
+    <tbody>
+      <tr><td><b>Platforma orqali chiqqan KP soni</b></td><td>Menejer vaqti tejalayotganini ko'rsatadi</td></tr>
+      <tr><td><b>KP dan buyurtmaga o'tish ulushi</b></td><td>Narx va taklif to'g'ri ekanini ko'rsatadi</td></tr>
+      <tr><td><b>Qayta buyurtma bergan firmalar</b></td><td>Modelning asosiy isboti</td></tr>
+      <tr><td><b>Loyihaga yozilgan Jihozvent uskunasi</b></td><td>Proyektchilar bilan ish natija berayotganini ko'rsatadi</td></tr>
+      <tr><td><b>Faol servis shartnomalari</b></td><td>Takror daromad o'sayotganini ko'rsatadi</td></tr>
+      <tr><td><b>Yalpi foyda, yo'llar bo'yicha</b></td><td>Pul aslida qayerdan kelayotganini ko'rsatadi</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="qaror">
+  <span class="mono">Ochiq qarorlar</span>
+  <h2>Rahbariyat hal qilishi kerak</h2>
+  <ol class="qs">
+    <li>Firma chegirmasi (X%) har bir kategoriya uchun necha foiz?<small>Jihozvent hozir oflayn firmalarga chegirma bersa, shu raqamdan boshlanadi.</small></li>
+    <li>Firma o'z mijoziga KP ni o'z nomidan chiqara oladimi?<small>Watsco'da shunday. 23.09 dagi «KP Climavent blankida» qarori do'konlar haqida edi.</small></li>
+    <li>Firmaga to'lov muddati beriladimi, qanday limit bilan?</li>
+    <li>Servis shartnomasi narxi va ichidagi ishlar</li>
+    <li>Mijoz firmaga qancha muddatga biriktiriladi? Taklif: oxirgi xariddan keyin 12 oy.</li>
+    <li>Hamkor do'kon tovaridan komissiya necha foiz?</li>
+    <li>Importni qaysi kategoriyadan boshlaymiz?</li>
+  </ol>
+</section>
+
+<section id="dunyo">
+  <span class="mono">Dunyo tajribasi</span>
+  <h2>Watsco (AQSh) dan nima olamiz</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Watsco qanday ishlaydi</th><th>Biz uchun</th></tr></thead>
+    <tbody>
+      <tr><td>Faqat montajchiga sotadi, uy egasiga sotmaydi. Mijoz montajchiniki.</td><td>Firma olib kelgan mijozga tegmaymiz</td></tr>
+      <tr><td>HVAC Pro+ ilovasi: montajchi o'z narxini, ombordagi qoldiqni ko'radi, buyurtma beradi. 70 mingdan ortiq foydalanuvchi.</td><td>Firma kabineti: firma narxi, qoldiq, qayta buyurtma</td></tr>
+      <tr><td>OnCall Air: montajchi mijozga KP ni o'z nomidan, o'z narxi bilan bir necha daqiqada chiqaradi. Ichida muddatli to'lov.</td><td>Firma uchun tez KP. O'z nomidanmi, rahbariyat hal qiladi</td></tr>
+      <tr><td>Asosan xonadonlardagi eski tizimni almashtirish bozori</td><td>Sanoatda proyektchi va servis qo'shimcha kerak. Buni Watsco'dan olib bo'lmaydi</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="src">
+  <span class="mono">Manbalar</span>
+  <p>Climavent ichki qarorlari: 21.09, 23.09, 24.09, 28.09 va 29.09.2026. Mahsulot holatlari 29.09.2026 holatiga.</p>
+  <p>Watsco, 29.09.2026 da tekshirildi: <a href="https://bizmodelmastery.substack.com/p/watsco" target="_blank" rel="noopener">Antifragile Investor tahlili</a> · <a href="https://www.watsco.com/blogsitem/oncall-air-helps-ductworks-sell-high-efficiency-equipment-and-increase-profitability/" target="_blank" rel="noopener">OnCall Air, Ductworks tajribasi</a> · <a href="https://www.watscoventures.com/contractors/" target="_blank" rel="noopener">Watsco Ventures</a> · <a href="https://www.watsco.com/newsitem/watsco-reports-second-quarter-2025-results-and-provides-update-on-innovation-strategic-technology-initiatives/" target="_blank" rel="noopener">2025 yil 2-chorak hisoboti</a></p>
+  <p>Oldingi versiya («To'g'ri yo'ldamizmi?») xonadon va yakka montajchiga qaratilgan edi. Bu versiya sanoat yo'nalishiga moslab qayta yozildi.</p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var KEY = "cv-biznes-model-v2";
+  var groups = [
+    {t:"Tovar savdosi (Jihozvent)", f:[
+      {id:"sotuv", l:"Platforma orqali oylik savdo", u:"mln so'm, QQS bilan", d:600},
+      {id:"marja", l:"Yalpi marja", u:"% , QQSsiz narxdan", d:25},
+      {id:"firmaUlush", l:"Firma narxida sotilgan ulush", u:"%", d:60},
+      {id:"firmaCheg", l:"Firma chegirmasi", u:"%", d:7},
+      {id:"ozg", l:"Savdodan xarajat", u:"% : to'lov, yetkazish, kafolat", d:3},
+      {id:"chek", l:"O'rtacha buyurtma", u:"mln so'm, QQS bilan", d:25},
+      {id:"yangi", l:"Shundan yangi mijozlardan", u:"%", d:40}
+    ]},
+    {t:"Takror xarid va servis", f:[
+      {id:"filtr", l:"Takror xarid: sarflanuvchi va ehtiyot qismlar", u:"mln so'm/oy, QQS bilan", d:60},
+      {id:"filtrMarja", l:"Takror xarid marjasi", u:"%", d:30},
+      {id:"servisSoni", l:"Faol servis shartnomalari", u:"ta", d:10},
+      {id:"servisTolov", l:"Bitta shartnoma to'lovi", u:"mln so'm/oy, QQS bilan", d:4},
+      {id:"servisMarja", l:"Servisdan qoladigan ulush", u:"% , brigadaga to'lagandan keyin", d:35}
+    ]},
+    {t:"Montaj", f:[
+      {id:"montajSoni", l:"Oylik montaj ishlari", u:"ta", d:8},
+      {id:"montajSumma", l:"O'rtacha montaj summasi", u:"mln so'm, QQS bilan", d:10},
+      {id:"montajUlush", l:"Platforma ulushi", u:"%", d:15}
+    ]},
+    {t:"Hamkor do'kon va import", f:[
+      {id:"hamkorSotuv", l:"Hamkor do'konlar savdosi", u:"mln so'm/oy, QQS bilan", d:150},
+      {id:"hamkorKom", l:"Komissiya", u:"%", d:5},
+      {id:"importSotuv", l:"Import tovar savdosi", u:"mln so'm/oy, QQS bilan", d:0},
+      {id:"importMarja", l:"Import marjasi", u:"%", d:20},
+      {id:"importOy", l:"Pul tovar ichida turadigan vaqt", u:"oy", d:3}
+    ]},
+    {t:"Doimiy xarajat, oyiga", f:[
+      {id:"jamoa", l:"Jamoa", u:"mln so'm", d:70},
+      {id:"infra", l:"Serverlar, SMS, fayl saqlash", u:"mln so'm", d:6},
+      {id:"sotuvX", l:"Sotuv: uchrashuv, ko'rgazma, seminar", u:"mln so'm", d:20},
+      {id:"boshqa", l:"Huquq, buxgalteriya, boshqa", u:"mln so'm", d:12}
+    ]}
+  ];
+  var form = document.getElementById("calc");
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { saved = {}; }
+
+  groups.forEach(function(g){
+    var fs = document.createElement("fieldset");
+    var lg = document.createElement("legend"); lg.textContent = g.t; fs.appendChild(lg);
+    g.f.forEach(function(f){
+      var row = document.createElement("div"); row.className = "f";
+      var lab = document.createElement("label"); lab.htmlFor = "in-" + f.id;
+      lab.innerHTML = ""; lab.appendChild(document.createTextNode(f.l));
+      var sm = document.createElement("small"); sm.textContent = f.u; lab.appendChild(sm);
+      var inp = document.createElement("input");
+      inp.type = "number"; inp.id = "in-" + f.id; inp.name = f.id; inp.min = "0"; inp.step = "any"; inp.inputMode = "decimal";
+      var v = (saved[f.id] !== undefined && saved[f.id] !== "") ? saved[f.id] : f.d;
+      inp.value = v;
+      if (String(v) !== String(f.d)) inp.classList.add("set");
+      inp.addEventListener("input", function(){
+        inp.classList.toggle("set", inp.value !== "" && String(Number(inp.value)) !== String(f.d));
+        saved[f.id] = inp.value;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch(e) {}
+        calc();
+      });
+      row.appendChild(lab); row.appendChild(inp); fs.appendChild(row);
+    });
+    form.appendChild(fs);
+  });
+  form.addEventListener("submit", function(e){ e.preventDefault(); });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    saved = {};
+    try { localStorage.removeItem(KEY); } catch(e) {}
+    groups.forEach(function(g){ g.f.forEach(function(f){
+      var el = document.getElementById("in-" + f.id); el.value = f.d; el.classList.remove("set");
+    }); });
+    calc();
+  });
+
+  function val(id){ var n = parseFloat(document.getElementById("in-" + id).value); return isFinite(n) && n > 0 ? n : 0; }
+  function net(x){ return x / 1.12; }
+  function fmt(n){
+    var s = Math.abs(n) >= 100 ? Math.round(n).toLocaleString("ru-RU") : (Math.round(n * 10) / 10).toLocaleString("ru-RU");
+    return s;
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+
+  function calc(){
+    var m = val("marja")/100, fu = val("firmaUlush")/100, fc = val("firmaCheg")/100, oz = val("ozg")/100;
+    var eff = m - fu*fc - oz;
+    var streams = [
+      {n:"Jihozvent tovari", v: net(val("sotuv")) * eff},
+      {n:"Takror xarid", v: net(val("filtr")) * val("filtrMarja")/100},
+      {n:"Servis shartnomalari", v: val("servisSoni") * net(val("servisTolov")) * val("servisMarja")/100},
+      {n:"Montajdan ulush", v: val("montajSoni") * net(val("montajSumma")) * val("montajUlush")/100},
+      {n:"Hamkor komissiyasi", v: net(val("hamkorSotuv")) * val("hamkorKom")/100},
+      {n:"Import tovar", v: net(val("importSotuv")) * (val("importMarja")/100 - oz)}
+    ];
+    var gp = streams.reduce(function(a,s){ return a + s.v; }, 0);
+    var fixed = val("jamoa") + val("infra") + val("sotuvX") + val("boshqa");
+    var res = gp - fixed;
+    var maxV = Math.max.apply(null, streams.map(function(s){ return Math.max(s.v, 0); }).concat([1]));
+
+    var bars = document.getElementById("bars");
+    bars.innerHTML = streams.map(function(s){
+      var w = s.v > 0 ? (s.v / maxV * 100) : 0;
+      var share = gp > 0 && s.v > 0 ? Math.round(s.v / gp * 100) : 0;
+      return '<div class="bar" title="' + esc(s.n + ": " + fmt(s.v) + " mln so'm, jamining " + share + "%") + '">' +
+        '<div class="t"><span>' + esc(s.n) + '</span><b>' + fmt(s.v) + (s.v > 0 ? ' <span class="note">· ' + share + '%</span>' : '') + '</b></div>' +
+        '<div class="track"><div class="fill" style="width:' + w.toFixed(1) + '%"></div></div></div>';
+    }).join("");
+
+    var cls = res >= 0 ? "pos" : "neg";
+    document.getElementById("pl").innerHTML =
+      '<div><span>Yalpi foyda</span><span>' + fmt(gp) + ' mln</span></div>' +
+      '<div><span>Doimiy xarajat</span><span>−' + fmt(fixed) + ' mln</span></div>' +
+      '<div class="tot"><span>Oylik natija</span><span class="' + cls + '">' + (res >= 0 ? "+" : "−") + fmt(Math.abs(res)) + ' mln</span></div>' +
+      '<div><span>Yillik natija</span><span class="' + cls + '">' + (res >= 0 ? "+" : "−") + fmt(Math.abs(res*12)) + ' mln</span></div>' +
+      '<div><span>Tovar foydasining yangi mijozlardan kelgan qismi</span><span>' + fmt(Math.max(streams[0].v,0) * val("yangi")/100) + ' mln</span></div>';
+
+    var other = gp - streams[0].v;
+    var need = fixed - other;
+    var be = document.getElementById("be");
+    if (eff <= 0) {
+      be.innerHTML = "<b>Diqqat:</b> tovar savdosining samarali marjasi nolga teng yoki manfiy. Firma chegirmasi va savdo xarajatlari marjadan katta.";
+    } else if (need <= 0) {
+      be.innerHTML = "<b>Zararsizlik:</b> boshqa daromad yo'llari doimiy xarajatni tovar savdosisiz ham yopadi.";
+    } else {
+      var s = need * 1.12 / eff, ch = val("chek");
+      be.innerHTML = "<b>Zararsizlik:</b> oyiga kamida <b>" + fmt(s) + " mln so'm</b> tovar savdosi kerak (QQS bilan)" +
+        (ch > 0 ? ", ya'ni o'rtacha buyurtma bo'yicha <b>" + Math.ceil(s / ch) + " ta buyurtma</b>" : "") +
+        ". Tovarning samarali marjasi: " + (Math.round(eff*1000)/10).toLocaleString("ru-RU") + "%.";
+    }
+    var imp = val("importSotuv");
+    document.getElementById("cap").innerHTML = imp > 0
+      ? "<b>Import uchun aylanma pul:</b> taxminan " + fmt(net(imp) * (1 - val("importMarja")/100) * val("importOy")) + " mln so'm tovar ichida turadi (boj va import QQS hisobga olinmagan)."
+      : "Import hozircha nolda. Import savdosini kiritsangiz, kerakli aylanma pul shu yerda chiqadi.";
+  }
+  calc();
+})();
+</script>

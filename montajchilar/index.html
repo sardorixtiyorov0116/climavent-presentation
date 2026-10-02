@@ -1,0 +1,309 @@
+<title>HVAC montajchilari xaritasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Unbounded:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#f4f7fa; --card:#ffffff; --ink:#0f1c2b; --ink-2:#4a5a6c; --line:#d8e1ea;
+  --navy:#002854; --sky:#55cdf8; --sky-soft:#e3f4fd; --vent:#8a6bd6; --vent-soft:#eee8fb;
+  --est:#b26b00; --est-soft:#fff3df; --fire:#ff1918;
+  --bar-k:#0b4f8f; --bar-v:#8a6bd6; --track:#e8eef4;
+  --display:"Unbounded","Golos Text",system-ui,sans-serif;
+  --body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0b1522; --card:#111e2e; --ink:#e7eef6; --ink-2:#9fb0c3; --line:#243447;
+    --navy:#7fd8fb; --sky:#55cdf8; --sky-soft:#12324a; --vent:#b9a2f2; --vent-soft:#2a2442;
+    --est:#ffb547; --est-soft:#3a2a10; --bar-k:#55cdf8; --bar-v:#b9a2f2; --track:#1c2a3b;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0b1522; --card:#111e2e; --ink:#e7eef6; --ink-2:#9fb0c3; --line:#243447;
+  --navy:#7fd8fb; --sky:#55cdf8; --sky-soft:#12324a; --vent:#b9a2f2; --vent-soft:#2a2442;
+  --est:#ffb547; --est-soft:#3a2a10; --bar-k:#55cdf8; --bar-v:#b9a2f2; --track:#1c2a3b;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 var(--body);padding-inline:16px;padding-block:28px 64px}
+.wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);text-wrap:balance;margin:0;color:var(--navy);letter-spacing:-.01em}
+h1{font-size:clamp(24px,4.4vw,34px);line-height:1.2;font-weight:700}
+h2{font-size:19px;font-weight:500;line-height:1.3}
+h3{font-size:15px;margin:0;font-weight:600}
+p{margin:0;max-width:68ch}
+.muted{color:var(--ink-2)}
+.eyebrow{font:600 11px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+header{display:flex;flex-direction:column;gap:12px;padding-bottom:20px;border-bottom:2px solid var(--navy)}
+section{display:flex;flex-direction:column;gap:16px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tag{display:inline-flex;align-items:center;gap:4px;font:600 10.5px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:4px;white-space:nowrap;vertical-align:middle}
+.tag.m{background:var(--navy);color:var(--paper)}
+.tag.e{background:var(--est-soft);color:var(--est);border:1px dashed var(--est)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:13px;color:var(--ink-2)}
+
+/* javob bloki */
+.answer{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.answer>div{background:var(--card);padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.answer .big{font:600 24px/1.1 var(--mono);color:var(--ink);white-space:nowrap}
+.answer .big.e{color:var(--est)}
+.answer .lbl{font-size:13px;color:var(--ink-2);line-height:1.4}
+
+/* piramida */
+.tiers{display:flex;flex-direction:column;gap:10px}
+.tier{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:16px;padding:16px 18px;background:var(--card);border:1px solid var(--line);border-radius:10px;align-items:start}
+.tier .who{display:flex;flex-direction:column;gap:4px}
+.tier .who p{font-size:13.5px;color:var(--ink-2)}
+.tier .cell{display:flex;flex-direction:column;gap:4px}
+.tier .cell .v{font:600 18px/1.2 var(--mono)}
+.tier .cell .s{font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.tier.top{border-left:4px solid var(--navy)}
+.tiers-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:16px;padding:0 18px}
+@media (max-width:640px){.tier,.tiers-head{grid-template-columns:1fr}.tiers-head{display:none}}
+
+/* hisob */
+.calc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.calc ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.calc li{max-width:72ch}
+.formula{font:14px/1.6 var(--mono);background:var(--sky-soft);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:nowrap}
+
+/* viloyat grafigi */
+.chart{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.row{display:grid;grid-template-columns:128px minmax(0,1fr) 44px;gap:10px;align-items:center;font-size:13.5px}
+.row .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{height:14px;background:var(--track);border-radius:3px;display:flex;overflow:hidden}
+.track .k{background:var(--bar-k)} .track .v{background:var(--bar-v)}
+.row .n{text-align:right;font:600 13px var(--mono)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:4px}
+.axis{display:grid;grid-template-columns:128px minmax(0,1fr) 44px;gap:10px;font:11px var(--mono);color:var(--ink-2)}
+.axis .ticks{display:flex;justify-content:space-between}
+
+/* jadvallar */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;font-size:12px;color:var(--ink-2);background:var(--paper);position:sticky;top:0}
+td.r,th.r{text-align:right}
+tr:last-child td{border-bottom:0}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.note{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.note ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.note.vent{border-top:3px solid var(--vent)}
+.note.kond{border-top:3px solid var(--bar-k)}
+
+/* firmalar */
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tools input,.tools select{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);min-width:0}
+.tools input{flex:1 1 220px}
+.tools input:focus-visible,.tools select:focus-visible{outline:2px solid var(--sky);outline-offset:1px}
+#firms{max-height:520px}
+.seg{font-size:11.5px;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.seg.l{background:var(--sky-soft);color:var(--navy)} .seg.m{background:var(--track);color:var(--ink)} .seg.s{background:var(--vent-soft);color:var(--vent)}
+.own{font-size:10.5px;font-weight:700;color:var(--fire);margin-left:6px;letter-spacing:.05em}
+
+.src{font-size:13px;color:var(--ink-2)}
+.src ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+a{color:var(--navy)}
+@media (prefers-reduced-motion:no-preference){.track>span{transition:width .6s ease}}
+</style>
+
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Climavent · bozor tahlili · 29.09.2026</span>
+  <h1>O'zbekistonda konditsioner va ventilyatsiya montajchilari</h1>
+  <p class="muted">Nechta montajchi bor, qanchasi katta, qanchasi kichik va qayerda. Raqamlar OLX, 2GIS, Yellow Pages, GoldenPages va top.uz'dan 29 sentabrda yig'ildi. Rasmiy statistika faqat konditsioner importi va ishlab chiqarishi bo'yicha bor.</p>
+  <div class="legend"><span><span class="tag m">o'lchangan</span> manbadan sanaldi</span><span><span class="tag e">baho</span> hisob-kitob, tekshirilmagan</span></div>
+</header>
+
+<section>
+  <h2>Qisqa javob</h2>
+  <div class="answer">
+    <div><span class="tag e">baho</span><span class="big e">1 750–4 500</span><span class="lbl">montaj brigadasi butun bozorga yetadi (3,5–9 ming kishi)</span></div>
+    <div><span class="tag m">o'lchangan</span><span class="big">1 141</span><span class="lbl">OLX'da faol e'lon beruvchi: 940 konditsioner, 240 ventilyatsiya (39 tasi ikkalasi)</span></div>
+    <div><span class="tag m">o'lchangan</span><span class="big">229</span><span class="lbl">kataloglardagi noyob HVAC firmasi, 93 tasida loyiha belgisi (VRF, chiller, sanoat, loyihalash)</span></div>
+    <div><span class="tag m">o'lchangan</span><span class="big">69%</span><span class="lbl">OLX'dagi e'lon beruvchilar Toshkent shahrida (787 ta). Samarqand ikkinchi, 96 ta</span></div>
+  </div>
+  <p>Bozorning katta qismi yakka usta va kichik brigadalar. Ular internetda ko'rinadiganidan taxminan 2–4 barobar ko'p, chunki ko'pchiligi Telegram, tanishlar va do'kon orqali ishlaydi. Katta loyiha qila oladigan firmalar kam, taxminan 30–60 ta, deyarli hammasi Toshkentda. Ventilyatsiya montaji amalda faqat Toshkent bozori.</p>
+</section>
+
+<section>
+  <h2>Katta va kichik: to'rt toifa</h2>
+  <div class="tiers-head eyebrow"><span>Toifa</span><span>Sanalgani</span><span>Jami (baho)</span></div>
+  <div class="tiers">
+    <div class="tier top">
+      <div class="who"><h3>Loyiha va injiniring firmalari</h3><p>VRF, chiller, kanalli tizimlar, sanoat ventilyatsiyasi, loyihalash. 10–50+ xodim, tender va quruvchilar bilan ishlaydi.</p></div>
+      <div class="cell"><span class="v">93</span><span class="s">kataloglarda loyiha belgisi bor, 39 tasi 2+ manbada. OLX'da 93 e'lon beruvchi VRF, chiller, kasseta yoki kanalni tilga oladi</span></div>
+      <div class="cell"><span class="v" style="color:var(--est)">80–150</span><span class="s">shundan haqiqatan yirik loyiha qiladigani 30–60 ta</span></div>
+    </div>
+    <div class="tier">
+      <div class="who"><h3>Brend dilerlari va do'kon montaj xizmati</h3><p>Daikin, Welkin‑Midea, Gree, AUX, Hisense HVAC dilerlari; Artel, Texnomart kabi do'konlar o'z brigadasi bilan.</p></div>
+      <div class="cell"><span class="v">67</span><span class="s">2GIS'da Toshkentdagi konditsioner savdo nuqtasi; qanchasida o'z brigadasi borligi noma'lum</span></div>
+      <div class="cell"><span class="v" style="color:var(--est)">30–60</span><span class="s">o'z brigadasini ushlab turadiganlar</span></div>
+    </div>
+    <div class="tier">
+      <div class="who"><h3>Kichik montaj firmalari</h3><p>MChJ yoki YaTT, 3–15 kishi, ofis yoki showroom bor. Split, kasseta, mini‑VRF, kichik ventilyatsiya.</p></div>
+      <div class="cell"><span class="v">123 + 130</span><span class="s">kataloglarda 123 montaj/servis firmasi; OLX'da 3+ e'loni bor 130 e'lon beruvchi</span></div>
+      <div class="cell"><span class="v" style="color:var(--est)">300–600</span><span class="s">butun respublika bo'yicha</span></div>
+    </div>
+    <div class="tier">
+      <div class="who"><h3>Yakka usta va brigada</h3><p>1–3 kishi, har buyurtma uchun tovarni alohida oladi, asosan split. Mavsumda ishlaydi, qishda ta'mir yoki boshqa ish.</p></div>
+      <div class="cell"><span class="v">1 011</span><span class="s">OLX'da 1–2 e'loni bor e'lon beruvchi</span></div>
+      <div class="cell"><span class="v" style="color:var(--est)">1 500 – 4 000</span><span class="s">brigada; ko'pchiligi internetda yo'q</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Jami qanday hisoblandi</h2>
+  <div class="calc">
+    <ol>
+      <li><span class="tag m">o'lchangan</span> Import 2024 yilda <span class="num">457,2</span> ming dona (<span class="num">$104</span> mln). Mahalliy ishlab chiqarish 2023 yil yanvar–noyabrda <span class="num">450,1</span> ming dona, bu yiliga taxminan <span class="num">490</span> ming.</li>
+      <li><span class="tag m">o'lchangan</span> Har 100 xonadonga 2020 yilda <span class="num">40</span> ta, 2025 yil birinchi yarmida <span class="num">57</span> ta konditsioner to'g'ri keladi. Uy-joy soni <span class="num">7,3</span> mln, demak xonadonlarda taxminan <span class="num">4,2</span> mln konditsioner bor.</li>
+      <li><span class="tag e">baho</span> Eksportni ayirgandan keyin ichki bozorga yiliga <span class="num">0,7–0,9</span> mln konditsioner kiradi. Har biriga montajchi kerak.</li>
+      <li><span class="tag e">baho</span> 2 kishilik brigada mavsumda (aprel–avgust) kuniga 2–3 ta o'rnatadi, qolgan oylarda kam. Bu yiliga <span class="num">200–400</span> o'rnatish.</li>
+    </ol>
+    <div class="formula">0,7 mln / 400 = 1 750 brigada   ·   0,9 mln / 200 = 4 500 brigada   ·   × 2 kishi = 3 500–9 000 usta</div>
+    <p class="muted" style="font-size:13.5px">Ventilyatsiya bu hisobga kirmagan. U donalab emas, obyekt bo'yicha sotiladi, shuning uchun uni katalog va OLX soni bilan o'lchadik.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Viloyatlar bo'yicha: OLX'dagi faol e'lon beruvchilar</h2>
+  <div class="chart" id="chart">
+    <div class="legend" style="margin-bottom:8px"><span><span class="sw" style="background:var(--bar-k)"></span>konditsioner</span><span><span class="sw" style="background:var(--bar-v)"></span>ventilyatsiya</span><span>raqam: noyob e'lon beruvchi</span></div>
+  </div>
+  <p class="muted" style="font-size:13.5px">Viloyatlarda montajchi kam emas, ular OLX'da e'lon bermaydi. Masalan, Samarqandda 2GIS'da 3 ta montaj firmasi bor, OLX'da esa 96 ta e'lon beruvchi. Toshkent shahri 12 tuman bo'yicha alohida sanaldi, chunki OLX bitta so'rovga 1000 tadan ortiq natija bermaydi.</p>
+</section>
+
+<section>
+  <h2>Konditsioner va ventilyatsiya bozori farq qiladi</h2>
+  <div class="two">
+    <div class="note kond">
+      <h3>Konditsioner</h3>
+      <ul>
+        <li>OLX'da 940 e'lon beruvchi, 13 viloyatning hammasida bor.</li>
+        <li>Asosan yakka usta, split o'rnatish va zapravka. Narx va tezlik bilan raqobatlashadi.</li>
+        <li>Mavsumiy: 2026 yilning 5 oyida 132,7 ming dona import qilingan, eng ko'pi yozdan oldin.</li>
+      </ul>
+    </div>
+    <div class="note vent">
+      <h3>Ventilyatsiya</h3>
+      <ul>
+        <li>OLX'da 240 e'lon beruvchi, 200 tasi Toshkent shahrida. Buxoro va Qashqadaryoda bittadan.</li>
+        <li>Ko'pchiligi tunukachi: havo quvuri va dimoxod yasaydi. Loyiha darajasidagi firmalar alohida.</li>
+        <li>Kataloglarda: sanoat ventilyatsiyasi montaji 33 ta (top.uz), ventilyatsiya tizimlari 57 ta, ventilyatsiya loyihalash 24 ta (GoldenPages).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Bozor yosh va tez almashadi</h2>
+  <p>Hozir faol bo'lgan OLX e'lon beruvchilarning birinchi e'loni qachon chiqqan. 2025–2026 yillarda boshlaganlar <span class="num">60%</span>. Bu yangi ustalar ko'p kirayotganini ham, eskilarining e'lonni to'xtatganini ham ko'rsatadi, faqat OLX ma'lumotidan ikkalasini ajratib bo'lmaydi.</p>
+  <div class="chart" id="years"></div>
+</section>
+
+<section>
+  <h2>Firmalar ro'yxati (229 ta)</h2>
+  <p class="muted" style="font-size:13.5px">Yellow Pages, GoldenPages, top.uz va 2GIS birlashtirildi, bir xil nomlar qo'shildi. "Toifa" katalog ruknidan olingan va firmaning haqiqiy hajmini ko'rsatmaydi. Yakka ustalarning ismlari va telefonlari bu ro'yxatga kiritilmadi.</p>
+  <div class="tools">
+    <input id="q" type="search" placeholder="Firma nomi yoki rukn bo'yicha qidirish" aria-label="Qidirish">
+    <select id="seg" aria-label="Toifa">
+      <option value="">Hamma toifa</option>
+      <option value="loyiha/injiniring">Loyiha/injiniring</option>
+      <option value="montaj/servis">Montaj/servis</option>
+      <option value="savdo">Faqat savdo</option>
+    </select>
+    <span id="cnt" class="muted num" style="font-size:13px"></span>
+  </div>
+  <div class="tbl" id="firms">
+    <table>
+      <thead><tr><th>Firma</th><th>Toifa</th><th>Shahar</th><th class="r">Manba</th><th>Katalog ruknlari</th></tr></thead>
+      <tbody id="fb"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Nima qilinmadi va nega</h2>
+  <div class="note">
+    <ul>
+      <li><b>Davlat xaridlari tenderlari (xarid.uzex.uz).</b> Tugagan savdolarni ochiq qidirish yo'q, shuning uchun yirik firmalarni tender orqali tekshira olmadim.</li>
+      <li><b>Soliq reyestri (orginfo.uz, faoliyat kodi 43.22).</b> Filtrlash uchun login kerak. Bu kod santexnika, isitish va konditsionerni birga qamraydi, shuning uchun soni ko'p chiqardi.</li>
+      <li><b>Telegram guruhlari.</b> Yakka ustalar asosan shu yerda, lekin guruhlar ochiq sanalmaydi.</li>
+      <li><b>2GIS</b> O'zbekistonda faqat Toshkent, Samarqand va Buxoroni qamraydi. Kataloglar ham asosan Toshkent firmalari.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Keyingi qadam</h2>
+  <div class="note">
+    <ul>
+      <li>Jihozvent menejerlari bilan ishlagan montajchilarni ajratish. Bu eng ishonchli ichki manba.</li>
+      <li>Loyiha toifasidagi 39 ta firmani (2+ manbada uchraganlar) birinchi navbatdagi ro'yxat sifatida tekshirish.</li>
+      <li>Toshkentdagi 20–30 ta montajchi bilan suhbat: tovarni qayerdan oladi, oyiga nechta o'rnatadi, KP'ni kim tayyorlaydi.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="src">
+  <h2 style="font-size:15px">Manbalar</h2>
+  <ul>
+    <li><a href="https://www.uzdaily.uz/ru/uzbekistan-importiroval-4572-tysiachi-konditsionerov/">UzDaily: 2024 yil importi, 457,2 ming dona</a></li>
+    <li><a href="https://news.brgbuildingsolutions.com/post/uzbekistan-imports-132-691-air-conditioners-in-first-five-months-of-2026">BRG: 2026 yil 5 oylik importi, 132,7 ming dona</a></li>
+    <li><a href="https://uz.kursiv.media/2024-01-04/proizvodstvo-kondiczionerov-v-uzbekistane-vyroslo-na-315/">Kursiv: 2023 yil yanvar–noyabr ishlab chiqarish, 450,1 ming dona</a></li>
+    <li><a href="https://upl.uz/economy/53687-news.html">Upl.uz: 100 xonadonga 57 ta konditsioner (2025 yil birinchi yarmi)</a></li>
+    <li><a href="https://stat.uz/ru/press-tsentr/novosti-goskomstata/37699-o-">Statistika agentligi: 7 301,2 ming uy-joy (01.01.2023)</a></li>
+    <li>OLX.uz (kategoriyalar 1501, 827, 1503), 2gis.uz, yellowpages.uz, goldenpages.uz, top.uz. Hammasi 29.09.2026 da yig'ildi.</li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+const REG=[["Toshkent sh.", 787, 622, 200, 482], ["Toshkent vil.", 99, 88, 11, 43], ["Samarqand", 96, 81, 16, 55], ["Buxoro", 36, 35, 1, 13], ["Farg'ona", 25, 23, 2, 10], ["Qashqadaryo", 17, 16, 1, 7], ["Navoiy", 16, 16, 0, 11], ["Xorazm", 14, 11, 3, 6], ["Andijon", 14, 13, 2, 10], ["Namangan", 10, 9, 2, 6], ["Sirdaryo", 8, 8, 0, 3], ["Surxondaryo", 7, 7, 1, 2], ["Qoraqalpog'iston", 6, 5, 1, 4], ["Jizzax", 6, 6, 0, 1]];
+const YEARS=[["2018", 18], ["2019", 21], ["2020", 30], ["2021", 52], ["2022", 81], ["2023", 101], ["2024", 136], ["2025", 229], ["2026", 459]];
+const FIRMS=[["APT (Air-Prom-Technology ООО)", "loyiha/injiniring", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "HVAC umumiy; VRF продажа; sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:vent_montaj; Канальные кондиционеры монтаж; Мультизональные (VRF) монтаж; Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa); Чиллеры"], ["AVILON-FS", "loyiha/injiniring", "Toshkent", 3, "2gis, goldenpages, yellowpages", "2gis:montaj_servis; yp:kond_montaj; Канальные кондиционеры монтаж; Промышленные кондиционеры монтаж"], ["AZIA TEXNO XOLOD ООО", "loyiha/injiniring", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:vent_montaj; Системы вентиляции (1-sahifa)"], ["Arbis Klimat Servis ЧП", "loyiha/injiniring", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "HVAC umumiy; konditsioner montaj/servis; sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:kond_montaj; yp:vent_montaj; Системы вентиляции (1-sahifa)"], ["Climatic Group OOO", "loyiha/injiniring", "Toshkent", 3, "2gis, top.uz, yellowpages", "2gis:loyiha; HVAC umumiy; konditsioner montaj/servis; sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:kond_montaj; yp:vent_montaj"], ["Dialeks ООО", "loyiha/injiniring", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "HVAC umumiy; konditsioner montaj/servis; sanoat ventilyatsiya montaji; yp:kond_montaj; yp:vent_montaj; Системы вентиляции (1-sahifa)"], ["Eurovent (Vita Build ООО)", "loyiha/injiniring", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "HVAC umumiy; yp:vent_montaj; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж"], ["UNIVENTSYSTEM ЧП", "loyiha/injiniring", "To'raqo'rg'on, Toshkent", 3, "2gis, top.uz, yellowpages", "2gis:montaj_servis; sanoat ventilyatsiya montaji; yp:vent_montaj"], ["Uzclimat (Aniz OOO)", "loyiha/injiniring", "Buxoro, Toshkent", 3, "2gis, goldenpages, top.uz", "2gis:montaj_servis; HVAC umumiy; Канальные кондиционеры монтаж; Мультизональные (VRF) монтаж; Системы вентиляции (1-sahifa)"], ["VEN-KON ТМ", "loyiha/injiniring", "Namangan, Toshkent", 3, "goldenpages, top.uz, yellowpages", "sanoat ventilyatsiya montaji; yp:vent_montaj; Проектирование кондиционирования"], ["AERO TECHNIC SERVICE ЧП", "montaj/servis", "Toshkent", 3, "goldenpages, top.uz, yellowpages", "ventilyatsiya savdo; yp:vent_montaj; Системы вентиляции (1-sahifa)"], ["ATMOSFER VENT", "montaj/servis", "Toshkent", 3, "2gis, top.uz, yellowpages", "2gis:montaj_servis; HVAC umumiy; ventilyatsiya savdo; yp:vent_montaj"], ["Ned (Air Ned Trade ИП ООО)", "montaj/servis", "Toshkent", 3, "2gis, top.uz, yellowpages", "2gis:montaj_servis; HVAC umumiy; yp:kond_montaj"], ["AGESSA TECHNOLOGY GROUP", "loyiha/injiniring", "Toshkent", 2, "2gis, goldenpages", "2gis:loyiha; VRF продажа; Канальные кондиционеры монтаж; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa)"], ["AIR-ENGINEERING GROUP ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; VRF продажа; ventilyatsiya savdo; Канальные кондиционеры монтаж; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa)"], ["AL BOIS QURILISH ООО", "loyiha/injiniring", "Toshkent", 2, "top.uz, yellowpages", "sanoat ventilyatsiya montaji; yp:vent_montaj"], ["APEX GROUP ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; Мультизональные (VRF) монтаж; Промышленные кондиционеры монтаж"], ["ARIZONA ENGINEERING CORP", "loyiha/injiniring", "Samarqand, Toshkent", 2, "top.uz, yellowpages", "sanoat ventilyatsiya montaji; yp:vent_montaj"], ["ARKTIKA ДП", "loyiha/injiniring", "Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:kond_montaj; yp:vent_montaj"], ["ARTCLIMATE ООО", "loyiha/injiniring", "Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; sanoat ventilyatsiya montaji; yp:kond_montaj; yp:vent_montaj"], ["AYSU MEKANIK ООО", "loyiha/injiniring", "Toshkent", 2, "2gis, top.uz", "2gis:loyiha; HVAC umumiy"], ["Aysu hvac systems", "loyiha/injiniring", "Toshkent", 2, "2gis, yellowpages", "2gis:loyiha; yp:vent_montaj"], ["BREEZE PRO", "loyiha/injiniring", "Toshkent", 2, "2gis, goldenpages", "2gis:montaj_servis; VRF продажа; Канальные кондиционеры монтаж; Проектирование вентиляции"], ["BRO-VENT", "loyiha/injiniring", "Toshkent", 2, "goldenpages, yellowpages", "yp:vent_montaj; Проектирование вентиляции; Проектирование кондиционирования; Системы вентиляции (1-sahifa)"], ["CLIMAT ASIA ООО", "loyiha/injiniring", "Toshkent", 2, "2gis, top.uz", "2gis:loyiha; HVAC umumiy"], ["ClimatPanel", "loyiha/injiniring", "Toshkent", 2, "2gis, yellowpages", "2gis:loyiha; yp:kond_montaj"], ["DAIKIN", "loyiha/injiniring", "Toshkent", 2, "2gis, goldenpages", "2gis:loyiha; VRF продажа; Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa); Чиллеры"], ["DC Engineering", "loyiha/injiniring", "Toshkent", 2, "2gis, yellowpages", "2gis:loyiha; yp:kond_montaj"], ["INJINIRING KLIMAT KONTROL ООО", "loyiha/injiniring", "Buxoro, Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; sanoat ventilyatsiya montaji; yp:kond_montaj; yp:vent_montaj"], ["Jahon & K ЧП", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; Канальные кондиционеры монтаж; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж"], ["Jihozvent ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji; ventilyatsiya savdo; Промышленные кондиционеры монтаж"], ["KASHlux Minor Store (Luxury Climate ООО)", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; Промышленные кондиционеры монтаж"], ["KLIMAT MASTER", "loyiha/injiniring", "Toshkent", 2, "2gis, goldenpages", "2gis:montaj_servis; Канальные кондиционеры монтаж; Промышленные кондиционеры монтаж"], ["KLIMATE HOUSE", "loyiha/injiniring", "Buxoro, Toshkent", 2, "2gis, goldenpages", "2gis:montaj_servis; Канальные кондиционеры монтаж; Проектирование вентиляции; Проектирование кондиционирования"], ["Klimat Ekspert ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; VRF продажа; Канальные кондиционеры монтаж; Проектирование кондиционирования; Промышленные кондиционеры монтаж; Чиллеры"], ["Klimat Komfort ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji; Канальные кондиционеры монтаж; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж"], ["O'zphm (O'zpromholodmontaj ООО)", "loyiha/injiniring", "Toshkent", 2, "2gis, top.uz", "2gis:loyiha; HVAC umumiy; ventilyatsiya savdo"], ["SERVER-SERVICE", "loyiha/injiniring", "Toshkent, Yangiyo'l", 2, "top.uz, yellowpages", "HVAC umumiy; konditsioner montaj/servis; sanoat ventilyatsiya montaji; ventilyatsiya savdo; yp:kond_montaj"], ["UNIVERSAL TEXNIK MONTAJ ООО", "loyiha/injiniring", "Andijon, Toshkent", 2, "top.uz, yellowpages", "sanoat ventilyatsiya montaji; yp:vent_montaj"], ["VALLEY POWER ENERGY ЧП", "loyiha/injiniring", "Farg'ona, Toshkent", 2, "top.uz, yellowpages", "sanoat ventilyatsiya montaji; yp:vent_montaj"], ["Ventr ООО", "loyiha/injiniring", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; Канальные кондиционеры монтаж"], ["Veza Представительство (Россия)", "loyiha/injiniring", "Toshkent", 2, "2gis, top.uz", "2gis:loyiha; HVAC umumiy"], ["AERO DYNAMIC GROUP ЧП", "montaj/servis", "Toshkent", 2, "top.uz, yellowpages", "ventilyatsiya savdo; yp:vent_montaj"], ["AVLODA BEGIM ООО", "montaj/servis", "Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; yp:kond_montaj"], ["All simple", "montaj/servis", "Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; yp:kond_montaj"], ["Atlant", "montaj/servis", "Samarqand, Toshkent", 2, "2gis, yellowpages", "2gis:montaj_servis; yp:kond_montaj"], ["Azon ООО", "montaj/servis", "Toshkent", 2, "goldenpages, top.uz", "HVAC umumiy; ventilyatsiya savdo; Системы вентиляции (1-sahifa)"], ["CLIMAT-PLUS ООО", "montaj/servis", "Toshkent", 2, "2gis, top.uz", "2gis:montaj_servis; konditsioner montaj/servis"], ["COOLCOMFORT ЧП", "montaj/servis", "Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; ventilyatsiya savdo; yp:kond_montaj"], ["MIR KOOL-HEAT ООО", "montaj/servis", "O'rtachirchiq, Toshkent", 2, "top.uz, yellowpages", "HVAC umumiy; konditsioner montaj/servis; ventilyatsiya savdo; yp:kond_montaj; yp:vent_montaj"], ["NamVent", "montaj/servis", "Namangan, Toshkent", 2, "top.uz, yellowpages", "HVAC umumiy; ventilyatsiya savdo; yp:vent_montaj"], ["ROKA VENT СП ООО", "montaj/servis", "Toshkent", 2, "2gis, top.uz", "2gis:montaj_servis; ventilyatsiya savdo"], ["SAMO PLUS TA'MIR ООО", "montaj/servis", "Namangan, Toshkent", 2, "top.uz, yellowpages", "konditsioner montaj/servis; yp:kond_montaj"], ["ADRIAN ECO", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa)"], ["AEROSTAR", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Чиллеры"], ["ARCHIQUAD", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Проектирование кондиционирования"], ["ARKOTECHNOSERVICE ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "konditsioner montaj/servis; sanoat ventilyatsiya montaji; ventilyatsiya savdo"], ["Arvar Group Company ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "sanoat ventilyatsiya montaji"], ["Asaf", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["BARQAROR USTUN", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Промышленные кондиционеры монтаж"], ["Bravium Universal ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji"], ["CHUVANOV S.V.", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Канальные кондиционеры монтаж; Промышленные кондиционеры монтаж"], ["Climapro", "loyiha/injiniring", "Toshkent", 1, "top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji; ventilyatsiya savdo"], ["Climat Control Systems ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "HVAC umumiy; konditsioner montaj/servis; sanoat ventilyatsiya montaji"], ["DAICHI", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа"], ["DIRECT COOL", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж; Системы вентиляции (1-sahifa); Чиллеры"], ["ELEKTROTEXBUTLASH-SERVIS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Системы вентиляции (1-sahifa)"], ["EVEREST BUILDING GROUP", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Канальные кондиционеры монтаж; Промышленные кондиционеры монтаж"], ["EVEREST GROUP", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Мультизональные (VRF) монтаж; Проектирование вентиляции; Проектирование кондиционирования; Промышленные кондиционеры монтаж"], ["FRESH AIR SYSTEM", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Канальные кондиционеры монтаж; Проектирование вентиляции; Промышленные кондиционеры монтаж"], ["HOLOD SYSTEM SERVICE", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Чиллеры"], ["Hisense hvac aventos", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["IRAF", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции"], ["ISHONCH TERMO SERVIS ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "konditsioner montaj/servis; sanoat ventilyatsiya montaji"], ["JALIL-SERVIS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Чиллеры"], ["Klimat Expert Samarkand", "loyiha/injiniring", "Samarqand", 1, "2gis", "2gis:loyiha"], ["MICATO", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции"], ["MICROS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Канальные кондиционеры монтаж; Проектирование вентиляции; Чиллеры"], ["MIDEA CLIMATE", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Чиллеры"], ["MOST TRADE", "loyiha/injiniring", "Toshkent", 1, "top.uz", "sanoat ventilyatsiya montaji"], ["More trade consultants", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["Muhandis-Konsalting", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["NASEN", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Проектирование кондиционирования; Чиллеры"], ["Nasen international invest", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["PETROSERVIS ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "konditsioner montaj/servis; sanoat ventilyatsiya montaji"], ["PROF KAFOLAT TOM ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "sanoat ventilyatsiya montaji; ventilyatsiya savdo"], ["PROMCHILLER", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Чиллеры"], ["PROSYSTEM ENGENIRING", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Проектирование кондиционирования"], ["Premier engineering", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["SANTEX-LYUKS ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "sanoat ventilyatsiya montaji"], ["SERVER-SERVIS-PLYUS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Канальные кондиционеры монтаж; Проектирование вентиляции"], ["SHAMAL CORP", "loyiha/injiniring", "Toshkent", 1, "top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji; ventilyatsiya savdo"], ["SPECIAL PROJECT", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Проектирование вентиляции; Проектирование кондиционирования"], ["Sam Went Group", "loyiha/injiniring", "Samarqand", 1, "2gis", "2gis:loyiha"], ["Sovplym СП ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "HVAC umumiy; sanoat ventilyatsiya montaji"], ["Swegon", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["TDR COOL TECHNOLOGY", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Мультизональные (VRF) монтаж; Проектирование кондиционирования; Чиллеры"], ["TECHNO FREEZE", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Канальные кондиционеры монтаж; Проектирование кондиционирования; Чиллеры"], ["TERMO COOL-BITZER", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "Чиллеры"], ["VENTSYS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Чиллеры"], ["Vent prom", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["VentAir", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["WELKIN", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа"], ["WELKIN. CLIMATE SOLUTIONS", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа; Проектирование кондиционирования; Чиллеры"], ["Welkin-Midea", "loyiha/injiniring", "Toshkent", 1, "2gis", "2gis:loyiha"], ["ZUMA STAR", "loyiha/injiniring", "Toshkent", 1, "goldenpages", "VRF продажа"], ["БУХАРАПРОМВЕНТИЛЯЦИЯ ООО", "loyiha/injiniring", "Toshkent", 1, "top.uz", "sanoat ventilyatsiya montaji"], ["A.C.V. SYSTEM", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["AIR DUCT TECHNOLOGY", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["AIRTECHNIC", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["AUX Group", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Aeros", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Air Freeze ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Air and Expert", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Airvent", "montaj/servis", "Buxoro", 1, "2gis", "2gis:montaj_servis"], ["Asiyatechnostroy", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Atzilut Engineering ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["BASIS CONSTRUCT", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["Beltexnoimport OOO", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Best air", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Bro max vent", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["COOL HOUSE ООО", "montaj/servis", "Toshkent", 1, "yellowpages", "yp:kond_montaj"], ["Carlton Limited ИП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Climacoll", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Climate Vent Engineering ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Climavent", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Cool System CA ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["DAEHAN DUCT ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["DIRA SERVIS", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["Daichi U", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Daikin Service", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Daymond Osiyo ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Destek teknik", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Di Vent Progress ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Dima", "montaj/servis", "Samarqand", 1, "2gis", "2gis:montaj_servis"], ["Ditash ЧФ", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["ECO FILTER TECH", "montaj/servis", "Toshkent", 1, "yellowpages", "yp:vent_montaj"], ["EKS (Elektro Komplekt Servis ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["ELAKO ООО", "montaj/servis", "Toshkent", 1, "yellowpages", "yp:kond_montaj"], ["EPS (Energy Power Solution ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["EVRO PROM LIDER", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy; ventilyatsiya savdo"], ["Eco Komfort ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Eurolux ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Eva Invest (Антоненко Д. Ю. ЧП)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["FUTURE GROWTH ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["GCHV", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["GEFEST МАГАЗИН", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Geco InnoООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["HARORAT NAZORAT", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["HOT GOLD AIR SERVICE ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Heat Standart", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Hepa.uz (Piligrim Trade ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Hiblakk Printex ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Home Expert", "montaj/servis", "Samarqand", 1, "2gis", "2gis:montaj_servis"], ["ICE (Universal Group Service ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["ICEBERG BONUS SERVICE ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["ICEBOX", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Ice profi service", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Iklimuz", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["JAXONGIR PLUS SERVIS ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["KARVON INDUSTRIAL TRADE ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["KASHlux (Salon “KASHlux” Oloy) Djamanov Alisher Eshbayevich Инд П", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Konditsioner ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["MDV", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["MEDIAPARK ТОРГОВЫЙ ЦЕНТР КАРШИ", "montaj/servis", "Qarshi", 1, "yellowpages", "yp:kond_montaj"], ["MOROZ SERVIS ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Magic-Steps.uz (Federal Group ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Master Klimat Sistem ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Maxvent", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy; ventilyatsiya savdo"], ["Midea Welkin service", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Minshen OOO", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Mitsubishi Electric (Fital Stroy ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["NUKUS LED LIGHTING ООО", "montaj/servis", "Nukus", 1, "yellowpages", "yp:kond_montaj"], ["Nurpar Tijorat ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["PETROVS BUSINESS GROUP ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Paradyz Ceramika (Kudratov F.A. Инд П)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["REMONT UTILIZATSIYA SERVIS", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["ROISON ТМ БУХАРСКИЙ ФИЛИАЛ", "montaj/servis", "Buxoro", 1, "yellowpages", "yp:vent_montaj"], ["ROISON ТМ ДЖИЗАКСКИЙ ФИЛИАЛ", "montaj/servis", "Jizzax", 1, "yellowpages", "yp:vent_montaj"], ["ROISON ТМ НАВОИЙСКИЙ ФИЛИАЛ", "montaj/servis", "Navoiy", 1, "yellowpages", "yp:vent_montaj"], ["ROISON ТМ СУРХАНДАРЬИНСКИЙ ФИЛИАЛ", "montaj/servis", "Denov", 1, "yellowpages", "yp:vent_montaj"], ["ROISON ТМ ФЕРГАНСКИЙ ФИЛИАЛ", "montaj/servis", "Farg'ona", 1, "yellowpages", "yp:vent_montaj"], ["Rapid-Time Trade OOO", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Remont Klimata", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Roza Vetrov ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["SERVIS_PLUS", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["SINTA PLUS ООО", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["Semak (Semak Equipments and Technology ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Shomol prom ventilatsiya", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Sloj-System ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["SnabStroySystem", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Sors Group", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Stroy Xolod Tashkent OOO", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["TAMIRLASH TIKLASH XIZMATI TAXIATASH FILIALI УП", "montaj/servis", "Toshkent", 1, "top.uz", "konditsioner montaj/servis"], ["TESCOM", "montaj/servis", "Toshkent", 1, "goldenpages", "Системы вентиляции (1-sahifa)"], ["TVS FIABLE", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy; ventilyatsiya savdo"], ["Techno Cool ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Techno climate", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Techno vent", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Tecnova Alliance", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Tescos", "montaj/servis", "Buxoro", 1, "2gis", "2gis:montaj_servis"], ["Texno Prom Xolod", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Texno-Elektro Spektr ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Texnoklimat", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Vatan Trading Ltd СП ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Vektor ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Vent Prom Montaj (Ventilyatsiya Prom Montaj ООО)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Vent Systems", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["Ventpro", "montaj/servis", "Buxoro", 1, "2gis", "2gis:montaj_servis"], ["Ventr-Vitona СП ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Vitech (Statura ЧП)", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Wilo Nasos Tizimlari ИП ООО", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Yunusov Azamjan Yakubovich ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["ZIMALETA LYUKS ООО", "montaj/servis", "Andijon", 1, "yellowpages", "yp:kond_montaj; yp:vent_montaj"], ["Фазка ЧП", "montaj/servis", "Toshkent", 1, "top.uz", "HVAC umumiy"], ["Фреон", "montaj/servis", "Toshkent", 1, "2gis", "2gis:montaj_servis"], ["AIRBRIDGE ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["ART GRANIT TASHKENT ИП ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["DYNETIC SYSTEM SERVICE ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["ECOSTREAM ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["ECOVENTCOOL ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["EP filters", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["ISTIQLOL IMKON ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["KOMPLEKSNOE SNABJENIE", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["Micros Traning Centre НОУ", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["PRANA PLATINUM ltd double", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["PROVENT AIRCOOL ENGINEERING ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["TERMOFAN-TASHKENT ООО", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"], ["TETM", "savdo", "Toshkent", 1, "top.uz", "ventilyatsiya savdo"]];
+(function(){
+  const c=document.getElementById('chart');
+  const max=800;
+  REG.forEach(r=>{
+    const d=document.createElement('div');d.className='row';
+    const kw=(r[1]-r[3])/max*100, vw=r[3]/max*100;
+    d.innerHTML=`<span class="name">${r[0]}</span><span class="track"><span class="k" style="width:${kw}%"></span><span class="v" style="width:${vw}%"></span></span><span class="n">${r[1]}</span>`;
+    c.appendChild(d);
+  });
+  const ax=document.createElement('div');ax.className='axis';
+  ax.innerHTML='<span></span><span class="ticks"><span>0</span><span>200</span><span>400</span><span>600</span><span>800</span></span><span></span>';
+  c.appendChild(ax);
+  const note=document.createElement('p');note.className='muted';note.style.fontSize='12px';
+  note.textContent="Chiziq uzunligi: konditsioner va ventilyatsiya bo'yicha e'lon beruvchilar yig'indisi (ikkalasini bergan ustalar bir marta sanalgan).";
+  c.appendChild(note);
+
+  const y=document.getElementById('years'); const ym=500;
+  YEARS.forEach(([yr,n])=>{
+    const d=document.createElement('div');d.className='row';
+    d.innerHTML=`<span class="name num">${yr}</span><span class="track"><span class="k" style="width:${n/ym*100}%"></span></span><span class="n">${n}</span>`;
+    y.appendChild(d);
+  });
+  const ay=document.createElement('div');ay.className='axis';
+  ay.innerHTML='<span></span><span class="ticks"><span>0</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span></span><span></span>';
+  y.appendChild(ay);
+
+  const fb=document.getElementById('fb'),q=document.getElementById('q'),sg=document.getElementById('seg'),cnt=document.getElementById('cnt');
+  const cls={'loyiha/injiniring':'l','montaj/servis':'m','savdo':'s'};
+  const esc=s=>s.replace(/[&<>]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]));
+  function draw(){
+    const t=q.value.trim().toLowerCase(), s=sg.value;
+    const rows=FIRMS.filter(f=>(!s||f[1]===s)&&(!t||(f[0]+' '+f[5]).toLowerCase().includes(t)));
+    fb.innerHTML=rows.map(f=>`<tr><td>${esc(f[0])}${/jihozvent|climavent/i.test(f[0])?'<span class="own">O\'ZIMIZ</span>':''}</td><td><span class="seg ${cls[f[1]]}">${f[1]}</span></td><td>${esc(f[2])}</td><td class="r num" title="${esc(f[4])}">${f[3]}</td><td class="muted" style="font-size:12.5px">${esc(f[5])}</td></tr>`).join('');
+    cnt.textContent=rows.length+' ta';
+  }
+  q.addEventListener('input',draw);sg.addEventListener('change',draw);draw();
+})();
+</script>
