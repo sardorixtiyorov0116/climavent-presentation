@@ -823,6 +823,47 @@ p{margin:0}
 .hz b{color:var(--cold);font-size:56px}
 .hz span{font-size:19px;color:var(--frost);line-height:1.35}
 .hz em{font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:#5E7A96;margin-top:auto}
+
+/* ---------- v12: tushuntiruvchi slaydlar ---------- */
+.bm3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:auto}
+.bm3>div{position:relative;overflow:hidden;border:1px solid var(--line);background:rgba(3,21,43,.8);padding:24px 26px;display:flex;flex-direction:column;gap:10px;min-height:250px}
+.bm3 .hd{font-size:52px;font-weight:800;letter-spacing:-.04em;color:var(--mist);line-height:1}
+.bm3 strong{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.bm3 p{font-size:21px;color:var(--mist);line-height:1.4}
+.bm3>div.on{border-color:var(--cold);background:linear-gradient(135deg,rgba(0,40,84,.9),rgba(3,21,43,.85))}
+.bm3>div.on .hd,.bm3>div.on strong{color:var(--cold)}
+.slide.on .bm3>div.on{animation:rise .8s var(--ease) calc(var(--sd) + var(--k)*var(--ss)) both,edge 3.4s ease-in-out 2.4s infinite}
+.bm3>div.on::after{content:"";position:absolute;top:0;bottom:0;left:0;width:24%;background:linear-gradient(90deg,transparent,rgba(85,205,248,.16),transparent);animation:sweepx 4.2s ease-in-out 2.4s infinite}
+.bmx .biz,.ekx .biz,.top3 .biz{margin-top:18px}
+
+.ekx-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:28px;margin-top:auto}
+.shop,.mall{border:1px solid var(--line);background:rgba(3,21,43,.8);padding:24px 28px;display:flex;flex-direction:column;gap:16px}
+.mall{border-color:var(--cold);background:linear-gradient(135deg,rgba(0,40,84,.85),rgba(3,21,43,.85))}
+.shop small,.mall small{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mist)}
+.mall small{color:var(--cold)}
+.flow3{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:800}
+.flow3 i{font-style:normal;color:var(--mist)}
+.shop p,.mall p{font-size:22px;color:var(--mist);line-height:1.4}
+.mall p b{color:var(--frost)}
+.mchips{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mchips span{border:1px solid rgba(85,205,248,.45);background:rgba(85,205,248,.08);padding:12px 14px;font-size:21px;font-weight:700;text-align:center}
+
+.tops{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:auto}
+.tops>div{border:1px solid var(--line);border-top:3px solid var(--cold);background:rgba(3,21,43,.82);padding:22px 26px;display:flex;flex-direction:column;gap:10px}
+.tops small{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist)}
+.tops strong{font-size:40px;font-weight:800;letter-spacing:-.03em}
+.tops p{font-size:19px;line-height:1.4;color:var(--mist)}
+.tops p i{font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);display:block;margin-bottom:2px}
+.tops p.now2{color:var(--frost);font-weight:600}
+.tops p.now2 i{color:var(--cold)}
+.top-n{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:2px}
+.top-n b{font-size:46px;font-weight:800;letter-spacing:-.04em;color:var(--cold);line-height:1}
+.top-n span{font-size:16px;color:var(--mist)}
+
+.cn-s .dots{width:250px}
+.cn-s h2{font-size:66px}
+.legend{font-family:var(--mono);font-size:15px;letter-spacing:.02em;color:var(--mist);opacity:0;transition:opacity .6s 1.8s}
+.step-1 .legend{opacity:1}
 </style>
 </head>
 <body>
@@ -852,12 +893,16 @@ p{margin:0}
     <h1 data-split>Zavod <em>nima sotadi?</em></h1>
     <p class="sub rise" style="--d:1.1s">Dunyodagi eng kuchli zavodlar bu savolga <strong>kutilmagan javob</strong> topgan.<br>Avval ularni ko'ramiz, keyin o'zimizga qaytamiz.</p>
   </section>
-  <!-- 02 · Video: biz kimmiz -->
-  <section class="slide" data-air="790,900,300,1300,.3,.5" aria-label="Video: biz kimmiz">
-    <div class="tag rise"><b>Biz kimmiz</b> 40 soniyalik video</div>
-    <div class="film rise" style="--d:.2s">
-      <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
+  <!-- 02 · Biznes model nima -->
+  <section class="slide bmx" data-air="560,900,200,1200,.3,.55" aria-label="Biznes model nima">
+    <div class="tag rise"><b>Asos</b> Biznes model nima</div>
+    <h2 class="md" data-split style="max-width:1350px">Biznes model — kompaniya pulni <em>nimadan va necha marta</em> oladi.</h2>
+    <div class="bm3" data-stagger style="--sd:.9s;--ss:.3s">
+      <div><span class="hd">1 marta</span><strong>Divan sotish</strong><p>Mijoz bir marta to'laydi — keyin 10 yil qaytmaydi.</p></div>
+      <div class="on"><span class="hd">Har oy</span><strong>Printer va kartridj</strong><p>Printer arzon sotiladi. Asosiy foyda — har oy olinadigan kartridjdan.</p></div>
+      <div><span class="hd">Har oy</span><strong>Telefon aloqasi</strong><p>Mijoz yillar davomida har oy to'laydi.</p></div>
     </div>
+    <div class="biz rise" style="--d:2s"><small>Bizga nima?</small><p>Bizning uskunada ham «kartridj» bor: <em>filtr, ehtiyot qism, servis.</em></p></div>
   </section>
   <!-- 03 · Otis -->
   <section class="slide qz-s" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="Otis">
@@ -866,7 +911,7 @@ p{margin:0}
       <div class="qz-left">
         <h2 data-split>Otis — dunyodagi eng yirik lift zavodlaridan biri.</h2>
         <p class="savol rise" style="--d:.9s">Foydasining qancha qismi <strong>yangi lift sotuvidan</strong> keladi?</p>
-        <div class="biz after"><small>Bizga nima?</small><p>Bizning uskunamiz ham yillar ishlaydi: filtr, ehtiyot qism, ta'mir kerak bo'ladi. <em>Bu yillar ham daromad bo'lishi mumkin.</em></p></div>
+        <div class="biz after"><small>Bizga nima?</small><p>Uskuna o'rnatilgandan keyingi yillar — <em>eng foydali davr bo'lishi mumkin.</em></p></div>
       </div>
       <div class="ans">
         <span class="qm">?</span>
@@ -956,7 +1001,31 @@ p{margin:0}
     </div>
     <div class="biz rise" style="--d:3.2s"><small>O'ylab ko'raylik</small><p>Sotuvdan keyin mijozga <em>qachon, nima kerak bo'lishini</em> oldindan bilamizmi? Shu yillarni ushlab turish uchun tizim kerak.</p></div>
   </section>
-  <!-- 08 · Ekosistema -->
+  <!-- 08 · Ekosistema nima -->
+  <section class="slide ekx" data-air="180,720,-900,-100,.28,.45" aria-label="Ekosistema nima">
+    <div class="tag rise"><b>Asos</b> Ekosistema nima</div>
+    <h2 class="md" data-split style="max-width:1350px">Do'kon bitta narsa sotadi. <em>Savdo markazi — kun bo'yi ushlab turadi.</em></h2>
+    <div class="ekx-grid">
+      <div class="shop rise" style="--d:.8s"><small>Oddiy do'kon</small><div class="flow3"><span>Kirdi</span><i>→</i><span>Oldi</span><i>→</i><span>Ketdi</span></div><p>Bitta xarid — va tamom.</p></div>
+      <div class="mall rise" style="--d:1.1s"><small>Savdo markazi</small>
+        <div class="mchips" data-stagger style="--sd:1.4s;--ss:.12s"><span>Kiyim</span><span>Oziq-ovqat</span><span>Kafe</span><span>Kino</span><span>Bank</span><span>Avtoturargoh</span></div>
+        <p>Bir kelib — ko'p xarid qiladi va <b>yana qaytadi.</b></p></div>
+    </div>
+    <div class="biz rise" style="--d:2.2s"><small>Oddiy qilib aytganda</small><p>Ekosistema — bir-biriga ulangan xizmatlar: <em>mijoz bittasidan foydalansa, keyingisi ham kerak bo'ladi.</em></p></div>
+  </section>
+  <!-- 09 · Kuchli ekosistemalar -->
+  <section class="slide top3" data-air="0,900,300,1100,.25,.5" aria-label="Kuchli ekosistemalar">
+    <div class="tag rise"><b>Dunyodan</b> Ekosistemasi kuchli kompaniyalar</div>
+    <h2 class="md" data-split style="max-width:1350px">Bitta mahsulotdan boshlashdi — <em>atrofida butun dunyo qurishdi.</em></h2>
+    <div class="tops" data-stagger style="--sd:.9s;--ss:.3s">
+      <div><small>AQSh</small><strong>Apple</strong><p class="was"><i>Boshlanishi:</i> iPhone telefoni</p><p class="now2"><i>Bugun:</i> App Store, iCloud, Apple Pay, musiqa</p><div class="top-n"><b>109 mlrd $</b><span>bir yilda xizmatlardan tushum, 2025</span></div></div>
+      <div><small>Xitoy · Tencent</small><strong>WeChat</strong><p class="was"><i>Boshlanishi:</i> Xabar almashish ilovasi</p><p class="now2"><i>Bugun:</i> To'lov, xarid, mini-ilovalar — bitta oynada</p><div class="top-n"><b>1,4 mlrd</b><span>kishi har oy foydalanadi</span></div></div>
+      <div><small>Qozog'iston</small><strong>Kaspi.kz</strong><p class="was"><i>Boshlanishi:</i> To'lov tizimi</p><p class="now2"><i>Bugun:</i> Do'kon, kredit, aviachipta, davlat xizmatlari</p><div class="top-n"><b>2 ilova</b><span>xaridor va sotuvchi uchun — hamma xizmat ichida</span></div></div>
+    </div>
+    <div class="biz rise" style="--d:2s"><small>Bizga nima?</small><p>Hammasi bitta asosiy mahsulotdan boshlagan. <em>Bizniki — zavod uskunasi.</em></p></div>
+    <p class="src rise" style="--d:2.2s">Apple yillik hisoboti (10-K), 2025 · Tencent 2025 yillik natijalari · Kaspi.kz rasmiy taqdimoti</p>
+  </section>
+  <!-- 10 · Ekosistema -->
   <section class="slide eco-s ek4" data-air="180,720,-900,-100,.28,.45" aria-label="Ekosistema">
     <div class="eco">
       <div class="eco-left">
@@ -992,19 +1061,20 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 09 · 100 so'm -->
-  <section class="slide cn-s" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="100 so'm">
+  <!-- 11 · Internet orqali xarid -->
+  <section class="slide cn-s" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="Internet orqali xarid">
     <div class="tag rise"><b>Savol</b> O'zbekiston bozori</div>
-    <h2 data-split style="max-width:1300px">Har 100 so'mlik xariddan <em>qanchasi onlayn?</em></h2>
+    <h2 data-split style="max-width:1300px">Xaridlarning qancha qismi <em>internet orqali bo'ladi?</em></h2>
     <div class="tanga">
-      <figure><div class="dots uz"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on half" style="--k:4"></i><i class="" style="--k:5"></i><i class="" style="--k:6"></i><i class="" style="--k:7"></i><i class="" style="--k:8"></i><i class="" style="--k:9"></i><i class="" style="--k:10"></i><i class="" style="--k:11"></i><i class="" style="--k:12"></i><i class="" style="--k:13"></i><i class="" style="--k:14"></i><i class="" style="--k:15"></i><i class="" style="--k:16"></i><i class="" style="--k:17"></i><i class="" style="--k:18"></i><i class="" style="--k:19"></i><i class="" style="--k:20"></i><i class="" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>4,6 so'm</b>O'zbekiston, bugun</figcaption></figure>
-      <figure><div class="dots goal"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="" style="--k:11"></i><i class="" style="--k:12"></i><i class="" style="--k:13"></i><i class="" style="--k:14"></i><i class="" style="--k:15"></i><i class="" style="--k:16"></i><i class="" style="--k:17"></i><i class="" style="--k:18"></i><i class="" style="--k:19"></i><i class="" style="--k:20"></i><i class="" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>11 so'm</b>Davlat maqsadi</figcaption></figure>
-      <figure><div class="dots world"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="on" style="--k:11"></i><i class="on" style="--k:12"></i><i class="on" style="--k:13"></i><i class="on" style="--k:14"></i><i class="on" style="--k:15"></i><i class="on" style="--k:16"></i><i class="on" style="--k:17"></i><i class="on" style="--k:18"></i><i class="on" style="--k:19"></i><i class="on" style="--k:20"></i><i class="on" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>22 so'm</b>Dunyo o'rtachasi</figcaption></figure>
+      <figure><div class="dots uz"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on half" style="--k:4"></i><i class="" style="--k:5"></i><i class="" style="--k:6"></i><i class="" style="--k:7"></i><i class="" style="--k:8"></i><i class="" style="--k:9"></i><i class="" style="--k:10"></i><i class="" style="--k:11"></i><i class="" style="--k:12"></i><i class="" style="--k:13"></i><i class="" style="--k:14"></i><i class="" style="--k:15"></i><i class="" style="--k:16"></i><i class="" style="--k:17"></i><i class="" style="--k:18"></i><i class="" style="--k:19"></i><i class="" style="--k:20"></i><i class="" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>4,6%</b>O'zbekiston, bugun</figcaption></figure>
+      <figure><div class="dots goal"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="" style="--k:11"></i><i class="" style="--k:12"></i><i class="" style="--k:13"></i><i class="" style="--k:14"></i><i class="" style="--k:15"></i><i class="" style="--k:16"></i><i class="" style="--k:17"></i><i class="" style="--k:18"></i><i class="" style="--k:19"></i><i class="" style="--k:20"></i><i class="" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>9–11%</b>Davlat maqsadi</figcaption></figure>
+      <figure><div class="dots world"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="on" style="--k:11"></i><i class="on" style="--k:12"></i><i class="on" style="--k:13"></i><i class="on" style="--k:14"></i><i class="on" style="--k:15"></i><i class="on" style="--k:16"></i><i class="on" style="--k:17"></i><i class="on" style="--k:18"></i><i class="on" style="--k:19"></i><i class="on" style="--k:20"></i><i class="on" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>22%</b>Dunyo o'rtachasi</figcaption></figure>
     </div>
-    <p class="after2">Holbuki 10 yoshdan katta aholining <em>97%</em>i internetdan foydalanadi. <strong>Bo'sh joyni kim egallaydi — biz yoki raqobatchilar?</strong></p>
+    <p class="legend">Har bir doiracha — 1%. Ya'ni O'zbekistonda 100 so'mlik xariddan atigi 4,6 so'mi internet orqali.</p>
+    <p class="after2">Holbuki aholining <em>97%</em>i internetda. <strong>Onlayn xaridga o'tganda — bizdan oladimi yoki raqobatchidan?</strong></p>
     <p class="src">president.uz, 2026 aprel · Statistika qo'mitasi, 2026</p>
   </section>
-  <!-- 10 · Nega hozir -->
+  <!-- 12 · Nega hozir -->
   <section class="slide hz-s" data-air="0,900,300,1100,.22,.5" aria-label="Nega hozir">
     <div class="tag rise"><b>Nega aynan hozir</b> Bozor va davlat</div>
     <h2 data-split>Bozor o'syapti, <em>davlat qo'llab-quvvatlayapti.</em></h2>
@@ -1017,7 +1087,7 @@ p{margin:0}
       <div><b>2030</b><span>«Raqamli O'zbekiston — 2030» — raqamli iqtisodiyot davlat ustuvorligi</span><em>Prezident farmoni PF-6079, 05.10.2020</em></div>
     </div>
   </section>
-  <!-- 11 · Bizning kuchimiz -->
+  <!-- 13 · Bizning kuchimiz -->
   <section class="slide kuch-s" data-bg="zavod" data-veil="left" aria-label="Bizning kuchimiz">
     <div class="tag rise"><b>Bizning poydevor</b> Jihozvent</div>
     <h2 data-split>Biz noldan <em>boshlamaymiz.</em></h2>
@@ -1030,7 +1100,7 @@ p{margin:0}
     </div>
     <div class="chips rise" style="--d:2.2s;margin-top:auto"><span class="cert">ISO 9001</span><span class="cert">ISO 14001</span><span class="cert">ISO 45001</span><span class="cert">EUROVENT</span></div>
   </section>
-  <!-- 12 · Sanoat zanjiri -->
+  <!-- 14 · Sanoat zanjiri -->
   <section class="slide ind" data-air="760,900,300,1200,.35,.6" aria-label="Sanoat zanjiri">
     <div class="tag rise"><b>Mijozlarimiz zanjiri</b> Sanoatda uskunani kim tanlaydi</div>
     <h2 class="md" data-split style="max-width:1300px">Sanoatda uskunani mijoz emas — <em>loyihachi tanlaydi.</em></h2>
@@ -1048,7 +1118,7 @@ p{margin:0}
     </div>
     <p class="src rise" style="--d:2.4s">OLX va kataloglar bo'yicha o'zimiz sanadik, 29.09.2026</p>
   </section>
-  <!-- 13 · Bitta mijoz hikoyasi -->
+  <!-- 15 · Bitta mijoz hikoyasi -->
   <section class="slide hk" data-air="380,520,0,1600,.35,.6" aria-label="Bitta mijoz hikoyasi">
     <div class="tag rise"><b>Namuna hikoya</b> Real mijoz emas</div>
     <h2 class="md" data-split style="max-width:1300px">Bitta sotuv o'rniga — <em>yillab davom etadigan hamkorlik.</em></h2>
@@ -1063,7 +1133,7 @@ p{margin:0}
     </div>
     <p class="punch2 rise" style="--d:7.4s">Har qadamda mijoz biz bilan qoladi — <em>har qadam yangi daromad.</em></p>
   </section>
-  <!-- 14 · Ilovalar -->
+  <!-- 16 · Ilovalar -->
   <section class="slide" data-air="760,900,300,1200,.35,.6" aria-label="Ilovalar">
     <div class="tag rise"><b>Isbot</b> Telefondan yozib olingan</div>
     <h2 class="md" data-split>Bu rasm emas — <em>telefonda sinovdagi ilovalar.</em></h2>
@@ -1081,7 +1151,7 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 15 · Sun'iy intellekt -->
+  <!-- 17 · Sun'iy intellekt -->
   <section class="slide chat" data-air="720,900,-900,-100,.4,.55" aria-label="Sun'iy intellekt">
     <div class="chat-grid">
       <div class="chat-left">
@@ -1118,7 +1188,7 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 16 · Jonli sinov -->
+  <!-- 18 · Jonli sinov -->
   <section class="slide" data-air="300,600,0,1600,.45,.8" aria-label="Jonli sinov">
     <div class="tag rise"><b>Jonli sinov</b> O'z ko'zingiz bilan ko'ring</div>
     <h2 data-split style="max-width:1300px">Sizning TZ'ingiz bilan — <em>hozir sinab ko'ramiz.</em></h2>
@@ -1129,7 +1199,7 @@ p{margin:0}
     </div>
     <p class="src rise" style="--d:2.4s">Internet yoki tizim ishlamasa — oldindan yozilgan video ko'rsatiladi</p>
   </section>
-  <!-- 17 · Kechiksak -->
+  <!-- 19 · Kechiksak -->
   <section class="slide lag" data-air="0,260,1700,2600,.35,.6" aria-label="Kechiksak">
     <div class="tag hot rise"><b>Kechiksak</b> Nima bo'ladi</div>
     <h2 class="md" data-split>Yangi texnologiyani o'tkazib yuborish — <span class="hot">eng qimmat xato.</span></h2>
@@ -1146,7 +1216,7 @@ p{margin:0}
     </div>
     <p class="src rise" style="--d:2.4s">NPR, Forbes, 2012 · Nokia hisoboti (SEC), 2013</p>
   </section>
-  <!-- 18 · Bosqichlar -->
+  <!-- 20 · Bosqichlar -->
   <section class="slide rd zn" data-air="560,700,0,1600,.5,1.2" aria-label="Bosqichlar">
     <div class="tag rise"><b>Yo'l xaritasi</b> Har pog'ona — o'z sharti bilan</div>
     <h2 class="md" data-split style="max-width:1300px">Birdaniga emas — <em>pog'onama-pog'ona.</em></h2>
@@ -1163,7 +1233,7 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 19 · Xavflar -->
+  <!-- 21 · Xavflar -->
   <section class="slide" data-air="0,260,1700,2600,.35,.6" aria-label="Xavflar">
     <div class="tag hot rise"><b>Ehtiyot</b> Nimadan ehtiyot bo'lamiz</div>
     <h2 data-split>Xavf bor — <em>javobi ham bor.</em></h2>
@@ -1174,7 +1244,14 @@ p{margin:0}
       <div class="risk"><span class="lvl mid">Xavf</span><strong>Mijozlar onlaynga sekin o'tishi</strong><span><b>Javob:</b> yangi mijozni kutmaymiz — mavjud yirik mijozlardan boshlaymiz.</span></div>
     </div>
   </section>
-  <!-- 20 · So'rov -->
+  <!-- 22 · Video: biz kimmiz -->
+  <section class="slide" data-air="790,900,300,1300,.3,.5" aria-label="Video: biz kimmiz">
+    <div class="tag rise"><b>Climavent</b> 40 soniyalik video</div>
+    <div class="film rise" style="--d:.2s">
+      <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
+    </div>
+  </section>
+  <!-- 23 · So'rov -->
   <section class="slide qr" data-air="0,900,300,1100,.6,.7" aria-label="So'rov">
     <div class="tag rise"><b>So'rov</b> Sizdan kerak</div>
     <div class="ask">
