@@ -814,6 +814,15 @@ p{margin:0}
 @keyframes ptlit{to{border-color:var(--cold);box-shadow:0 0 16px rgba(85,205,248,.6)}}
 .bz-s .biz{margin-top:30px}
 .ek4 .eco-left .biz{margin-top:6px}
+
+/* ---------- v11: zaxira yo'q; Watsco o'ng ustuni, «Nega hozir» kataklari ---------- */
+#zbtn{display:none}
+.wt-right{display:flex;flex-direction:column;gap:22px}
+.hz{margin-top:auto}
+.hz>div{gap:10px}
+.hz b{color:var(--cold);font-size:56px}
+.hz span{font-size:19px;color:var(--frost);line-height:1.35}
+.hz em{font-style:normal;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:#5E7A96;margin-top:auto}
 </style>
 </head>
 <body>
@@ -833,7 +842,7 @@ p{margin:0}
 <div class="stage" id="stage">
   <canvas id="air" aria-hidden="true"></canvas>
 
-  <!-- 00 · Muqova -->
+  <!-- 01 · Muqova -->
   <section class="slide cover v10c" data-bg="zavod" data-veil="left" aria-label="Muqova">
     <div class="toprow rise" style="--d:-.6s">
       <div class="lockup"><img class="m" src="media/logo-m.png" alt=""><img class="wd" src="media/logo-w.png" alt="Climavent"></div>
@@ -841,34 +850,41 @@ p{margin:0}
     </div>
     <div class="veil v10veil"></div>
     <h1 data-split>Zavod <em>nima sotadi?</em></h1>
-    <p class="sub rise" style="--d:1.1s">Dunyoning eng kuchli zavodlari bu savolga <strong>kutilmagan javob</strong> topdi.<br>Ularni ko'rib chiqamiz — keyin o'zimizga qaytamiz.</p>
+    <p class="sub rise" style="--d:1.1s">Dunyodagi eng kuchli zavodlar bu savolga <strong>kutilmagan javob</strong> topgan.<br>Avval ularni ko'ramiz, keyin o'zimizga qaytamiz.</p>
   </section>
-  <!-- 01 · Otis -->
+  <!-- 02 · Video: biz kimmiz -->
+  <section class="slide" data-air="790,900,300,1300,.3,.5" aria-label="Video: biz kimmiz">
+    <div class="tag rise"><b>Biz kimmiz</b> 40 soniyalik video</div>
+    <div class="film rise" style="--d:.2s">
+      <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
+    </div>
+  </section>
+  <!-- 03 · Otis -->
   <section class="slide qz-s" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="Otis">
     <div class="tag rise"><b>Savol</b> Taxmin qilib ko'ring</div>
     <div class="qz">
       <div class="qz-left">
         <h2 data-split>Otis — dunyodagi eng yirik lift zavodlaridan biri.</h2>
         <p class="savol rise" style="--d:.9s">Foydasining qancha qismi <strong>yangi lift sotuvidan</strong> keladi?</p>
-        <div class="biz after"><small>Bizga nima?</small><p>Bizning uskuna ham yillar ishlaydi: filtr, ehtiyot qism, ta'mir. <em>Sotuvdan keyingi yillar — ham daromad.</em></p></div>
+        <div class="biz after"><small>Bizga nima?</small><p>Bizning uskunamiz ham yillar ishlaydi: filtr, ehtiyot qism, ta'mir kerak bo'ladi. <em>Bu yillar ham daromad bo'lishi mumkin.</em></p></div>
       </div>
       <div class="ans">
         <span class="qm">?</span>
-        <div class="rv"><b class="big">9%</b><small>foydaning atigi 9 foizi — liftdan</small></div>
+        <div class="rv"><b class="big">9%</b><small>foydaning atigi 9 foizi — yangi liftdan</small></div>
       </div>
     </div>
-    <div class="split"><div class="a"><b>9%</b><span>Yangi lift</span></div><div class="b"><b>91%</b><span>Texnik xizmat, ta'mir, yangilash</span></div></div>
-    <p class="src">Otis yillik hisoboti, 2025: savdoning 65%, foydaning 91% — xizmatdan</p>
+    <div class="split"><div class="a"><b>9%</b><span>Yangi lift</span></div><div class="b"><b>91%</b><span>Texnik xizmat, ta'mir, modernizatsiya</span></div></div>
+    <p class="src">Otis yillik hisoboti, 2025: savdoning 65%, foydaning 91% — texnik xizmatdan</p>
   </section>
-  <!-- 02 · Rolls-Royce -->
+  <!-- 04 · Rolls-Royce -->
   <section class="slide rr-s" data-steps="2" data-air="200,700,0,1600,.3,.6" aria-label="Rolls-Royce">
     <div class="tag rise"><b>1962 yil</b> Rolls-Royce · samolyot dvigatellari</div>
     <div class="rr">
       <div class="rr-left">
         <h2 data-split>Dvigatelni sotish o'rniga —</h2>
-        <p class="l1">u <em>ishlagan har soat uchun</em> pul ola boshladi.</p>
-        <p class="l2">Bugun katta dvigatellar deyarli <strong>tannarxida</strong> sotiladi. Pul — o'n yillik xizmatdan.</p>
-        <div class="biz l2"><small>Bizga nima?</small><p>Mijoz bilan aloqa sotuv kuni <em>tugamaydi — boshlanadi.</em></p></div>
+        <p class="l1"><em>dvigatel ishlagan har soat uchun</em> haq ola boshladi.</p>
+        <p class="l2">Bugun katta dvigatellarni deyarli <strong>tannarxida</strong> sotadi. Asosiy foyda — o'n yillab davom etadigan xizmatdan.</p>
+        <div class="biz l2"><small>Bizga nima?</small><p>Mijoz bilan aloqa sotuv kuni <em>tugamaydi — aksincha, boshlanadi.</em></p></div>
       </div>
       <div class="turb pop" style="--d:.4s">
         <svg viewBox="-170 -170 340 340" aria-hidden="true">
@@ -883,47 +899,71 @@ p{margin:0}
     </div>
     <p class="src">Rolls-Royce, «Power by the Hour» 50 yilligi, 2012 · TotalCare</p>
   </section>
-  <!-- 03 · Amazon -->
+  <!-- 05 · Amazon -->
   <section class="slide qz-s amz" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="Amazon">
     <div class="tag rise"><b>Savol</b> Taxmin qilib ko'ring</div>
     <div class="qz">
       <div class="qz-left">
         <h2 data-split>Amazon — dunyodagi eng katta onlayn do'kon.</h2>
         <p class="savol rise" style="--d:.9s">Foydasining qancha qismi <strong>do'kondan emas</strong>, boshqa xizmatdan keladi?</p>
-        <div class="biz after"><small>Bizga nima?</small><p>Biznes model o'zgaradi — <em>hatto dunyodagi eng katta do'konda ham.</em></p></div>
+        <div class="biz after"><small>Bizga nima?</small><p>Yangi xizmat asosiy daromadga aylanishi mumkin — <em>hatto dunyodagi eng katta do'konda ham.</em></p></div>
       </div>
       <div class="ans">
         <span class="qm">?</span>
-        <div class="rv"><b class="big">57%</b><small>bulut xizmati — AWS</small></div>
+        <div class="rv"><b class="big">57%</b><small>AWS — bulut xizmatidan</small></div>
       </div>
     </div>
-    <div class="split" style="--aw:43%"><div class="a"><b>43%</b><span>Onlayn do'kon</span></div><div class="b"><b>57%</b><span>AWS — kompaniyalarga server va bulut xizmati</span></div></div>
+    <div class="split" style="--aw:43%"><div class="a"><b>43%</b><span>Onlayn do'kon</span></div><div class="b"><b>57%</b><span>AWS: kompaniyalarga server va bulut xizmati</span></div></div>
     <p class="src">Amazon 2025 natijalari: operatsion foyda 80,0 mlrd $, shundan AWS — 45,6 mlrd $</p>
   </section>
-  <!-- 04 · Biz-chi -->
+  <!-- 06 · Watsco -->
+  <section class="slide wt" data-air="0,900,300,1100,.3,.55" aria-label="Watsco">
+    <div class="tag rise"><b>Bizning sohadan</b> Watsco · AQSh, iqlim uskunalari</div>
+    <div class="wt-grid">
+      <div class="wt-left">
+        <h2 class="md" data-split>HVAC sohasida ham onlayn savdo <em>2 baravardan ko'p o'sdi.</em></h2>
+        <p class="lede rise" style="--d:.7s">AQShdagi eng yirik HVAC distribyutori montaj firmalariga ilova berdi: <strong>buyurtma, ombordagi qoldiq, 5 daqiqada tijorat taklifi.</strong></p>
+        <div class="wbars">
+          <div class="wbar dim" style="--k:0"><span>2016</span><div class="t"><i style="--w:30%"></i></div><b><span data-count="15">15</span>%</b></div>
+          <div class="wbar" style="--k:1"><span>2025</span><div class="t"><i style="--w:70%"></i></div><b><span data-count="35">35</span>%</b></div>
+        </div>
+        <p class="note rise" style="--d:1.2s">Watsco savdosidagi onlayn ulush</p>
+      </div>
+      <div class="wt-right">
+        <div class="wfacts rise" style="--d:1s">
+          <div><b>60%+</b><span>eng ilg'or hududlarda — onlayn ulush</span></div>
+          <div><b>73 000</b><span>montajchi ilovadan foydalanadi</span></div>
+          <div><b>28%</b><span>rekord marja — savdo 5% kamaygan yilda ham</span></div>
+        </div>
+        <div class="biz rise" style="--d:1.6s"><small>Bizga nima?</small><p>Sanoat mijozi ham onlayn buyurtma beradi — <em>vosita qulay bo'lsa.</em></p></div>
+      </div>
+    </div>
+    <p class="src rise" style="--d:1.8s">Watsco rasmiy hisobotlari: 08.02.2018 va 17.02.2026</p>
+  </section>
+  <!-- 07 · Biz-chi -->
   <section class="slide bz-s" data-air="380,520,0,1600,.35,.6" aria-label="Biz-chi">
     <div class="tag hot rise"><b>Biz-chi?</b> O'zimizga savol</div>
-    <h2 class="md" data-split style="max-width:1350px">Bizning uskuna yillar ishlaydi. <span class="hot">Asosiy pul esa — sotuv kunida.</span></h2>
+    <h2 class="md" data-split style="max-width:1350px">Uskunamiz yillar ishlaydi. <span class="hot">Asosiy daromad esa — sotuv kunida.</span></h2>
     <div class="umr">
       <div class="umr-track"><i></i></div>
       <div class="umr-pts">
-        <div class="pt sale"><b>Sotuv kuni</b><span>Asosiy daromad shu yerda</span></div>
+        <div class="pt sale"><b>Sotuv kuni</b><span>Asosiy daromad — shu kuni</span></div>
         <div class="pt" style="--k:0"><b>1-yil</b><span>Filtr almashtirish</span></div>
         <div class="pt" style="--k:1"><b>2–3-yil</b><span>Ehtiyot qism</span></div>
         <div class="pt" style="--k:2"><b>5-yil</b><span>Ta'mir, sozlash</span></div>
         <div class="pt" style="--k:3"><b>Keyin</b><span>Kengaytirish, yangilash</span></div>
       </div>
     </div>
-    <div class="biz rise" style="--d:3.2s"><small>Bizga nima?</small><p>Sotuvdan keyin mijoz <em>qachon, nima so'rashini</em> oldindan bilamizmi? Shu yillarni ushlab turadigan tizim kerak.</p></div>
+    <div class="biz rise" style="--d:3.2s"><small>O'ylab ko'raylik</small><p>Sotuvdan keyin mijozga <em>qachon, nima kerak bo'lishini</em> oldindan bilamizmi? Shu yillarni ushlab turish uchun tizim kerak.</p></div>
   </section>
-  <!-- 05 · Ekosistema -->
+  <!-- 08 · Ekosistema -->
   <section class="slide eco-s ek4" data-air="180,720,-900,-100,.28,.45" aria-label="Ekosistema">
     <div class="eco">
       <div class="eco-left">
-        <div class="tag rise"><b>O'zbekistonda</b> Ekosistema qanday ishlaydi</div>
+        <div class="tag rise"><b>O'zbekistondan misol</b> Ekosistema qanday ishlaydi</div>
         <h2 class="md" data-split>Uzum: bitta mijoz — <em>to'rt xizmat.</em></h2>
-        <p class="lede rise" style="--d:.8s">Mijoz Market'dan narsa oldi. Keyin <strong>karta ochdi, nasiyaga oldi, tez yetkazishni tanladi.</strong> Hammasi bitta ilovada.</p>
-        <div class="biz rise" style="--d:1.2s"><small>Bizga nima?</small><p>Mijoz bir joyga o'rgansa — <em>keyingi xaridni ham shu yerdan qiladi.</em></p></div>
+        <p class="lede rise" style="--d:.8s">Mijoz avval Market'dan xarid qildi. Keyin shu ilovaning o'zida <strong>karta ochdi, nasiyaga oldi, tez yetkazishni tanladi.</strong></p>
+        <div class="biz rise" style="--d:1.2s"><small>Bizga nima?</small><p>Mijoz bir joyga o'rganib qolsa — <em>keyingi xaridni ham o'sha yerdan qiladi.</em></p></div>
         <p class="src rise" style="--d:1.4s">Uzum 2025 yakunlari: 20 mln+ foydalanuvchi, nasiya 3 baravar o'sib 1,2 mlrd $</p>
       </div>
       <div class="orb">
@@ -952,7 +992,7 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 06 · 100 so'm -->
+  <!-- 09 · 100 so'm -->
   <section class="slide cn-s" data-steps="1" data-air="0,900,300,1100,.25,.5" aria-label="100 so'm">
     <div class="tag rise"><b>Savol</b> O'zbekiston bozori</div>
     <h2 data-split style="max-width:1300px">Har 100 so'mlik xariddan <em>qanchasi onlayn?</em></h2>
@@ -961,12 +1001,25 @@ p{margin:0}
       <figure><div class="dots goal"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="" style="--k:11"></i><i class="" style="--k:12"></i><i class="" style="--k:13"></i><i class="" style="--k:14"></i><i class="" style="--k:15"></i><i class="" style="--k:16"></i><i class="" style="--k:17"></i><i class="" style="--k:18"></i><i class="" style="--k:19"></i><i class="" style="--k:20"></i><i class="" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>11 so'm</b>Davlat maqsadi</figcaption></figure>
       <figure><div class="dots world"><i class="on" style="--k:0"></i><i class="on" style="--k:1"></i><i class="on" style="--k:2"></i><i class="on" style="--k:3"></i><i class="on" style="--k:4"></i><i class="on" style="--k:5"></i><i class="on" style="--k:6"></i><i class="on" style="--k:7"></i><i class="on" style="--k:8"></i><i class="on" style="--k:9"></i><i class="on" style="--k:10"></i><i class="on" style="--k:11"></i><i class="on" style="--k:12"></i><i class="on" style="--k:13"></i><i class="on" style="--k:14"></i><i class="on" style="--k:15"></i><i class="on" style="--k:16"></i><i class="on" style="--k:17"></i><i class="on" style="--k:18"></i><i class="on" style="--k:19"></i><i class="on" style="--k:20"></i><i class="on" style="--k:21"></i><i class="" style="--k:22"></i><i class="" style="--k:23"></i><i class="" style="--k:24"></i><i class="" style="--k:25"></i><i class="" style="--k:26"></i><i class="" style="--k:27"></i><i class="" style="--k:28"></i><i class="" style="--k:29"></i><i class="" style="--k:30"></i><i class="" style="--k:31"></i><i class="" style="--k:32"></i><i class="" style="--k:33"></i><i class="" style="--k:34"></i><i class="" style="--k:35"></i><i class="" style="--k:36"></i><i class="" style="--k:37"></i><i class="" style="--k:38"></i><i class="" style="--k:39"></i><i class="" style="--k:40"></i><i class="" style="--k:41"></i><i class="" style="--k:42"></i><i class="" style="--k:43"></i><i class="" style="--k:44"></i><i class="" style="--k:45"></i><i class="" style="--k:46"></i><i class="" style="--k:47"></i><i class="" style="--k:48"></i><i class="" style="--k:49"></i><i class="" style="--k:50"></i><i class="" style="--k:51"></i><i class="" style="--k:52"></i><i class="" style="--k:53"></i><i class="" style="--k:54"></i><i class="" style="--k:55"></i><i class="" style="--k:56"></i><i class="" style="--k:57"></i><i class="" style="--k:58"></i><i class="" style="--k:59"></i><i class="" style="--k:60"></i><i class="" style="--k:61"></i><i class="" style="--k:62"></i><i class="" style="--k:63"></i><i class="" style="--k:64"></i><i class="" style="--k:65"></i><i class="" style="--k:66"></i><i class="" style="--k:67"></i><i class="" style="--k:68"></i><i class="" style="--k:69"></i><i class="" style="--k:70"></i><i class="" style="--k:71"></i><i class="" style="--k:72"></i><i class="" style="--k:73"></i><i class="" style="--k:74"></i><i class="" style="--k:75"></i><i class="" style="--k:76"></i><i class="" style="--k:77"></i><i class="" style="--k:78"></i><i class="" style="--k:79"></i><i class="" style="--k:80"></i><i class="" style="--k:81"></i><i class="" style="--k:82"></i><i class="" style="--k:83"></i><i class="" style="--k:84"></i><i class="" style="--k:85"></i><i class="" style="--k:86"></i><i class="" style="--k:87"></i><i class="" style="--k:88"></i><i class="" style="--k:89"></i><i class="" style="--k:90"></i><i class="" style="--k:91"></i><i class="" style="--k:92"></i><i class="" style="--k:93"></i><i class="" style="--k:94"></i><i class="" style="--k:95"></i><i class="" style="--k:96"></i><i class="" style="--k:97"></i><i class="" style="--k:98"></i><i class="" style="--k:99"></i></div><figcaption><b>22 so'm</b>Dunyo o'rtachasi</figcaption></figure>
     </div>
-    <p class="after2">Holbuki 10 yoshdan katta aholining <em>97%</em>i internetda. <strong>Joy bo'sh — kim egallaydi: biz yoki raqib?</strong></p>
+    <p class="after2">Holbuki 10 yoshdan katta aholining <em>97%</em>i internetdan foydalanadi. <strong>Bo'sh joyni kim egallaydi — biz yoki raqobatchilar?</strong></p>
     <p class="src">president.uz, 2026 aprel · Statistika qo'mitasi, 2026</p>
   </section>
-  <!-- 07 · Bizning kuchimiz -->
+  <!-- 10 · Nega hozir -->
+  <section class="slide hz-s" data-air="0,900,300,1100,.22,.5" aria-label="Nega hozir">
+    <div class="tag rise"><b>Nega aynan hozir</b> Bozor va davlat</div>
+    <h2 data-split>Bozor o'syapti, <em>davlat qo'llab-quvvatlayapti.</em></h2>
+    <div class="uzgrid hz" data-stagger style="--sd:.6s;--ss:.15s">
+      <div><b>55%+</b><span>aholi 30 yoshgacha — telefon orqali buyurtma ular uchun odatiy</span><em>O'zbekiston hukumati · EDB, 2026</em></div>
+      <div><b>+14,2%</b><span>qurilish o'sishi, 2025 — har yangi bino uskuna talab qiladi</span><em>stat.uz, 2026</em></div>
+      <div><b>+11,5%</b><span>konditsioner importi, 2026 yanvar–may</span><em>BRG Building Solutions, 2026</em></div>
+      <div><b>20×</b><span>onlayn savdo 8 yilda o'sdi va 1,3 mlrd $ ga yetdi</span><em>president.uz, 2026 aprel</em></div>
+      <div><b>34%</b><span>dunyoda B2B kompaniyalar tushumining onlayn ulushi — eng katta savdo kanali</span><em>McKinsey B2B Pulse, 2024</em></div>
+      <div><b>2030</b><span>«Raqamli O'zbekiston — 2030» — raqamli iqtisodiyot davlat ustuvorligi</span><em>Prezident farmoni PF-6079, 05.10.2020</em></div>
+    </div>
+  </section>
+  <!-- 11 · Bizning kuchimiz -->
   <section class="slide kuch-s" data-bg="zavod" data-veil="left" aria-label="Bizning kuchimiz">
-    <div class="tag rise"><b>Poydevor</b> Bizning kuchimiz</div>
+    <div class="tag rise"><b>Bizning poydevor</b> Jihozvent</div>
     <h2 data-split>Biz noldan <em>boshlamaymiz.</em></h2>
     <div class="kuch" data-stagger style="--sd:.9s;--ss:.22s">
       <div><i>01</i><span><b>2002-yildan</b> — 24 yillik tajriba</span></div>
@@ -977,10 +1030,43 @@ p{margin:0}
     </div>
     <div class="chips rise" style="--d:2.2s;margin-top:auto"><span class="cert">ISO 9001</span><span class="cert">ISO 14001</span><span class="cert">ISO 45001</span><span class="cert">EUROVENT</span></div>
   </section>
-  <!-- 08 · Ilovalar -->
+  <!-- 12 · Sanoat zanjiri -->
+  <section class="slide ind" data-air="760,900,300,1200,.35,.6" aria-label="Sanoat zanjiri">
+    <div class="tag rise"><b>Mijozlarimiz zanjiri</b> Sanoatda uskunani kim tanlaydi</div>
+    <h2 class="md" data-split style="max-width:1300px">Sanoatda uskunani mijoz emas — <em>loyihachi tanlaydi.</em></h2>
+    <div class="zan" data-stagger style="--sd:.7s;--ss:.28s">
+      <div class="zc"><i>1</i><strong>Korxona</strong><span>Obyekt quradi yoki yangilaydi</span><small>Bizning yirik mijozlarimiz</small></div>
+      <div class="zc hi"><i>2</i><strong>Loyihachi</strong><span>Loyihada qaysi uskuna kerakligini yozadi</span><small>Tanlov shu yerda hal bo'ladi</small></div>
+      <div class="zc"><i>3</i><strong>Montaj firmasi</strong><span>Uskunani sotib oladi va o'rnatadi</span><small>Firma narxi, hujjatlar</small></div>
+      <div class="zc"><i>4</i><strong>Servis</strong><span>Filtr, ehtiyot qism, ta'mir</span><small>Har yili qaytadi</small></div>
+    </div>
+    <p class="punch2 rise" style="--d:1.9s">Loyihachi bizning katalogdan tanlasa — <em>butun zanjir bizdan o'tadi.</em></p>
+    <div class="strip rise" style="--d:2.2s">
+      <div><b data-count="1141">1141</b><span>OLX'da faol e'lon beruvchi montajchi</span></div>
+      <div><b data-count="229">229</b><span>kataloglardagi montaj firmasi</span></div>
+      <div><b data-count="93">93</b><span>tasi loyiha bilan ishlashini ko'rsatgan</span></div>
+    </div>
+    <p class="src rise" style="--d:2.4s">OLX va kataloglar bo'yicha o'zimiz sanadik, 29.09.2026</p>
+  </section>
+  <!-- 13 · Bitta mijoz hikoyasi -->
+  <section class="slide hk" data-air="380,520,0,1600,.35,.6" aria-label="Bitta mijoz hikoyasi">
+    <div class="tag rise"><b>Namuna hikoya</b> Real mijoz emas</div>
+    <h2 class="md" data-split style="max-width:1300px">Bitta sotuv o'rniga — <em>yillab davom etadigan hamkorlik.</em></h2>
+    <div class="hk-track"><i></i><b></b></div>
+    <div class="hk-steps" data-stagger>
+      <div><small>1</small><h3>Zavod TZ yuboradi</h3><p>Texnik topshiriq: Excel, Word yoki PDF</p></div>
+      <div><small>2</small><h3>KP qoralamasi tayyor</h3><p>AI tayyorlaydi, menejer tekshiradi</p><em class="chip test">Sinovda</em></div>
+      <div><small>3</small><h3>Montaj firmasi o'rnatadi</h3><p>Firma narxi va hisob-faktura bilan</p><em class="chip plan">Rejada</em></div>
+      <div><small>4</small><h3>Obyekt pasporti</h3><p>Nima, qachon, qayerga o'rnatildi</p><em class="chip plan">Rejada</em></div>
+      <div><small>5</small><h3>6 oydan keyin</h3><p>«Filtrni almashtirish vaqti keldi» — eslatma</p><em class="chip plan">Rejada</em></div>
+      <div class="end"><small>6</small><h3>Mijoz qaytadi</h3><p>Filtr, ehtiyot qism, kengaytirish</p><em class="chip plan">Rejada</em></div>
+    </div>
+    <p class="punch2 rise" style="--d:7.4s">Har qadamda mijoz biz bilan qoladi — <em>har qadam yangi daromad.</em></p>
+  </section>
+  <!-- 14 · Ilovalar -->
   <section class="slide" data-air="760,900,300,1200,.35,.6" aria-label="Ilovalar">
-    <div class="tag rise"><b>Climavent</b> Platforma nima qiladi</div>
-    <h2 class="md" data-split>Sotuvdan keyin ham — <em>mijoz biz bilan.</em></h2>
+    <div class="tag rise"><b>Isbot</b> Telefondan yozib olingan</div>
+    <h2 class="md" data-split>Bu rasm emas — <em>telefonda sinovdagi ilovalar.</em></h2>
     <div class="appsx">
       <div class="phones rise" style="--d:.5s">
         <!-- ma'lumot bitta bazada: xaridor, do'kon, usta, menejer bir xil buyurtmani ko'radi -->
@@ -988,52 +1074,37 @@ p{margin:0}
         <div class="phone"><div class="body"><video data-auto muted loop playsinline preload="auto" poster="media/hamkor.jpg" src="media/hamkor.mp4" aria-label="Hamkor ilovasi"></video></div><small>Hamkor ilovasi</small></div>
       </div>
       <div class="prod rise" style="--d:.8s">
-        <div><strong>Katalog va KP</strong><em class="chip test">Sinovda</em><span>Mijoz tanlaydi — KP bir zumda tayyor.</span></div>
-        <div><strong>Buyurtma va yetkazish</strong><em class="chip test">Sinovda</em><span>Holatini mijoz telefonda ko'rib turadi.</span></div>
-        <div><strong>Obyekt pasporti</strong><em class="chip plan">Rejada</em><span>Qaysi uskuna, qayerga, qachon o'rnatildi.</span></div>
-        <div><strong>Eslatma va qayta buyurtma</strong><em class="chip plan">Rejada</em><span>«Filtr almashtirish vaqti» — bir bosishda buyurtma.</span></div>
+        <div><strong>Xaridor ilovasi</strong><em class="chip test">Sinovda</em><span>Katalog, savatdan KP yoki buyurtma, buyurtma holati, do'kon bilan chat.</span></div>
+        <div><strong>Hamkor ilovasi</strong><em class="chip test">Sinovda</em><span>Do'kon KP ga narx yozadi, buyurtmani yig'adi, yetkazish usulini tanlaydi.</span></div>
+        <div><strong>Boshqaruv paneli</strong><em class="chip live">Ishlayapti</em><span>Katalog, buyurtma, KP va xodimlarni boshqarish.</span></div>
+        <div><strong>Usta va kuryer ilovasi</strong><em class="chip test">Sinovda</em><span>Yetkazish, montaj va servis vazifalari. Hali real kuryer ishlamayapti.</span></div>
       </div>
     </div>
   </section>
-  <!-- 09 · Bitta mijoz hikoyasi -->
-  <section class="slide hk" data-air="380,520,0,1600,.35,.6" aria-label="Bitta mijoz hikoyasi">
-    <div class="tag rise"><b>Hikoya</b> Namuna — real mijoz emas</div>
-    <h2 class="md" data-split style="max-width:1300px">Bitta sotuv o'rniga — <em>yillar davom etadigan munosabat.</em></h2>
-    <div class="hk-track"><i></i><b></b></div>
-    <div class="hk-steps" data-stagger>
-      <div><small>1</small><h3>Zavod TZ yuboradi</h3><p>Texnik topshiriq — Excel, Word yoki PDF</p></div>
-      <div><small>2</small><h3>KP qoralamasi tayyor</h3><p>AI tayyorlaydi, menejer tekshiradi</p><em class="chip test">Sinovda</em></div>
-      <div><small>3</small><h3>Montaj firmasi o'rnatadi</h3><p>Firma narxi, hisob-faktura</p><em class="chip plan">Rejada</em></div>
-      <div><small>4</small><h3>Obyekt pasporti</h3><p>Nima, qachon, qayerga o'rnatildi</p><em class="chip plan">Rejada</em></div>
-      <div><small>5</small><h3>6 oydan keyin</h3><p>«Filtr almashtirish vaqti» eslatmasi</p><em class="chip plan">Rejada</em></div>
-      <div class="end"><small>6</small><h3>Mijoz qaytadi</h3><p>Filtr, ehtiyot qism, kengaytirish</p><em class="chip plan">Rejada</em></div>
-    </div>
-    <p class="punch2 rise" style="--d:7.4s">Har qadamda mijoz bizda qoladi — <em>har qadam yangi daromad.</em></p>
-  </section>
-  <!-- 10 · Sun'iy intellekt -->
+  <!-- 15 · Sun'iy intellekt -->
   <section class="slide chat" data-air="720,900,-900,-100,.4,.55" aria-label="Sun'iy intellekt">
     <div class="chat-grid">
       <div class="chat-left">
         <div class="tag rise"><b>Sun'iy intellekt</b> Menejer yordamchisi</div>
-        <h2 class="md" data-split>TZ yuboriladi — <em>KP qoralamasi tayyor.</em></h2>
-        <p class="lede rise" style="--d:.8s">AI menejer o'rnini olmaydi. <strong>Qoralamani u tayyorlaydi, oxirgi so'z — menejerda.</strong></p>
+        <h2 class="md" data-split>TZ keldi — <em>KP qoralamasi tayyor.</em></h2>
+        <p class="lede rise" style="--d:.8s">AI menejerning o'rnini olmaydi: <strong>qoralamani tayyorlaydi, yakuniy qarorni menejer qabul qiladi.</strong></p>
         <div class="steps rise" style="--d:1s">
           <div><i>01</i>TZ faylini o'qiydi: Excel, Word, PDF, rasm</div>
-          <div><i>02</i>Pozitsiyalarni ajratadi</div>
+          <div><i>02</i>Kerakli uskunalar ro'yxatini ajratadi</div>
           <div><i>03</i>Katalogdan mos uskuna yoki analog topadi</div>
           <div><i>04</i>KP qoralamasini menejerga beradi</div>
         </div>
-        <p class="src rise" style="--d:1.3s"><em class="chip test" style="margin-right:10px">Sinovda</em>7 ta haqiqiy TZ ustida tekshirildi, menejerlar hali sinamagan · Sohada: Watsco AI va narxlash texnologiyasi bilan 2025 da rekord marja oldi</p>
+        <p class="src rise" style="--d:1.3s"><em class="chip test" style="margin-right:10px">Sinovda</em>7 ta haqiqiy TZ ustida tekshirildi, menejerlar hali sinab ko'rmagan</p>
       </div>
       <div class="win pop" style="--d:.3s">
-        <div class="hd"><img src="media/logo-m.png" alt=""><div><b>KP yordamchisi</b><small>● ishlayapti</small></div><em class="chip plan">Namuna</em></div>
+        <div class="hd"><img src="media/logo-m.png" alt=""><div><b>KP yordamchisi</b><small>● namuna</small></div><em class="chip plan">Namuna</em></div>
         <div class="msgs">
           <div class="msg me rise" style="--d:.9s">TZ fayli: ventilyatsiya.xlsx — KP tayyorlab ber<time>10:02</time></div>
           <div class="typing" style="--d:1.9s;--len:1.1s"><i></i><i></i><i></i></div>
-          <div class="msg ai rise" style="--d:3s">Fayl o'qildi. Pozitsiyalar ajratildi, katalogdan mos uskunalar topildi.<time>10:03</time></div>
+          <div class="msg ai rise" style="--d:3s">Fayl o'qildi. Uskunalar ro'yxati ajratildi, katalogdan mos modellar topildi.<time>10:03</time></div>
           <div class="msg me rise" style="--d:4.3s">Topilmaganlari bormi?<time>10:03</time></div>
           <div class="typing" style="--d:5.2s;--len:1.3s"><i></i><i></i><i></i></div>
-          <div class="msg ai rise" style="--d:6.5s">Ikki pozitsiya bo'yicha aniqlik kerak — savollarni KP ostiga yozdim.<time>10:04</time></div>
+          <div class="msg ai rise" style="--d:6.5s">Ikkita pozitsiya bo'yicha aniqlik kerak — savollarni KP ostiga yozdim.<time>10:04</time></div>
         </div>
         <div class="kp">
           <h4>KP qoralamasi <span>narxsiz namuna</span></h4>
@@ -1047,165 +1118,78 @@ p{margin:0}
       </div>
     </div>
   </section>
-  <!-- 11 · Jonli sinov -->
+  <!-- 16 · Jonli sinov -->
   <section class="slide" data-air="300,600,0,1600,.45,.8" aria-label="Jonli sinov">
-    <div class="tag rise"><b>Jonli sinov</b> Gap emas — ko'z bilan</div>
+    <div class="tag rise"><b>Jonli sinov</b> O'z ko'zingiz bilan ko'ring</div>
     <h2 data-split style="max-width:1300px">Sizning TZ'ingiz bilan — <em>hozir sinab ko'ramiz.</em></h2>
     <div class="zan" data-stagger style="grid-template-columns:repeat(3,1fr);margin-top:auto;--sd:1s;--ss:.35s">
-      <div class="zc"><i>1</i><strong>TZ beriladi</strong><span>Sizdan yoki menejerdan — haqiqiy fayl</span></div>
+      <div class="zc"><i>1</i><strong>TZ beriladi</strong><span>Sizdan yoki menejerdan — haqiqiy texnik topshiriq</span></div>
       <div class="zc hi"><i>2</i><strong>KP qoralamasi</strong><span>Ko'z oldingizda chiqadi</span></div>
       <div class="zc"><i>3</i><strong>Solishtiramiz</strong><span>Menejer tayyorlagan KP bilan</span></div>
     </div>
     <p class="src rise" style="--d:2.4s">Internet yoki tizim ishlamasa — oldindan yozilgan video ko'rsatiladi</p>
   </section>
-  <!-- 12 · AI siz -->
-  <section class="slide lag" data-air="0,260,1700,2600,.35,.6" aria-label="AI siz">
+  <!-- 17 · Kechiksak -->
+  <section class="slide lag" data-air="0,260,1700,2600,.35,.6" aria-label="Kechiksak">
     <div class="tag hot rise"><b>Kechiksak</b> Nima bo'ladi</div>
     <h2 class="md" data-split>Yangi texnologiyani o'tkazib yuborish — <span class="hot">eng qimmat xato.</span></h2>
     <div class="lag-grid">
       <div class="sn" data-stagger style="--sd:.8s;--ss:.3s;margin-top:0">
-        <div><span class="a">Raqib KP ni tezroq beradi</span><span class="ar">→</span><span class="b">Buyurtma raqibga ketadi</span></div>
-        <div><span class="a">Yosh mutaxassis AI bilan ishlaydi</span><span class="ar">→</span><span class="b">Eski usuldagi kompaniyaga kelmaydi</span></div>
-        <div><span class="a">Ma'lumot to'planmaydi</span><span class="ar">→</span><span class="b">Qaror taxmin bilan qilinadi</span></div>
+        <div><span class="a">Raqobatchi KP ni tezroq beradi</span><span class="ar">→</span><span class="b">Buyurtma unga ketadi</span></div>
+        <div><span class="a">Yosh mutaxassislar zamonaviy vosita bilan ishlashni xohlaydi</span><span class="ar">→</span><span class="b">Eski usuldagi kompaniyaga kelmaydi</span></div>
+        <div><span class="a">Ma'lumot yig'ilmaydi</span><span class="ar">→</span><span class="b">Qarorlar taxmin bilan qabul qilinadi</span></div>
       </div>
       <div class="yrs" data-stagger style="--sd:1.6s;--ss:.4s">
-        <div class="yr"><strong>Kodak</strong><div class="y"><b>1975</b>Raqamli kamerani o'zi yasadi — qadrlamadi</div><div class="y"><b>2012</b>Bankrot bo'ldi</div></div>
-        <div class="yr"><strong>Nokia</strong><div class="y"><b>2007</b>Telefon bozorining yetakchisi</div><div class="y"><b>2013</b>Telefon biznesi Microsoft'ga sotildi</div></div>
+        <div class="yr"><strong>Kodak</strong><div class="y"><b>1975</b>Raqamli kamerani birinchi bo'lib yasadi, lekin qadrlamadi</div><div class="y"><b>2012</b>Bankrot bo'ldi</div></div>
+        <div class="yr"><strong>Nokia</strong><div class="y"><b>2007</b>Telefon bozorining yetakchisi</div><div class="y"><b>2013</b>Telefon biznesini Microsoft'ga sotdi</div></div>
       </div>
     </div>
     <p class="src rise" style="--d:2.4s">NPR, Forbes, 2012 · Nokia hisoboti (SEC), 2013</p>
   </section>
-  <!-- 13 · Bosqichlar -->
+  <!-- 18 · Bosqichlar -->
   <section class="slide rd zn" data-air="560,700,0,1600,.5,1.2" aria-label="Bosqichlar">
-    <div class="tag rise"><b>Yo'l xaritasi</b> Muddat emas — shart</div>
+    <div class="tag rise"><b>Yo'l xaritasi</b> Har pog'ona — o'z sharti bilan</div>
     <h2 class="md" data-split style="max-width:1300px">Birdaniga emas — <em>pog'onama-pog'ona.</em></h2>
     <div class="road">
       <div class="here" style="left:8.333%">Biz shu yerdamiz</div>
       <div class="track"><i style="--w:8.333%"></i></div>
       <div class="stations">
-        <div class="st" style="--k:0"><small>0 · Yadro</small><h3>Sotuv platformada</h3><ul><li>Jihozvent katalogi</li><li>Spetsifikatsiyadan KP</li><li>Menejer va mavjud mijoz</li></ul><p class="cond"><b>Shart:</b> KP qo'lda emas, platformada; mijoz muntazam buyurtma beradi</p></div>
-        <div class="st" style="--k:1"><small>1 · Takror</small><h3>Obyekt va servis</h3><ul><li>Obyekt pasporti</li><li>Filtr, ehtiyot qism</li><li>Servis eslatmasi</li></ul><p class="cond"><b>Shart:</b> takror xarid platforma orqali</p></div>
-        <div class="st" style="--k:2"><small>2 · Tanlovchilar</small><h3>Firma va loyihachi</h3><ul><li>Firma kabineti, hisob-faktura</li><li>Loyihachiga tanlash vositasi</li></ul><p class="cond"><b>Shart:</b> loyihachi katalogdan uskuna qo'yadi</p></div>
-        <div class="st" style="--k:3"><small>3 · Marketplace</small><h3>Boshqa sotuvchilar</h3><ul><li>Avval bizda yo'q toifalar</li><li>Har toifada 2–3 sotuvchi</li></ul><p class="cond"><b>Shart:</b> buyurtma oqimi sotuvchiga qiziq</p></div>
+        <div class="st" style="--k:0"><small>0 · Yadro</small><h3>Sotuv platformada</h3><ul><li>Jihozvent katalogi</li><li>Spetsifikatsiyadan KP</li><li>Menejer va mavjud mijoz</li></ul><p class="cond"><b>Shart:</b> KP platformada tayyorlanadi, mijozlar muntazam buyurtma beradi</p></div>
+        <div class="st" style="--k:1"><small>1 · Takror</small><h3>Obyekt va servis</h3><ul><li>Obyekt pasporti</li><li>Filtr, ehtiyot qism</li><li>Servis eslatmasi</li></ul><p class="cond"><b>Shart:</b> takroriy xarid platforma orqali bo'ladi</p></div>
+        <div class="st" style="--k:2"><small>2 · Tanlovchilar</small><h3>Firma va loyihachi</h3><ul><li>Firma kabineti, hisob-faktura</li><li>Loyihachiga tanlash vositasi</li></ul><p class="cond"><b>Shart:</b> loyihachilar katalogdan uskuna tanlaydi</p></div>
+        <div class="st" style="--k:3"><small>3 · Marketpleys</small><h3>Boshqa sotuvchilar</h3><ul><li>Avval bizda yo'q toifalar</li><li>Har toifada 2–3 sotuvchi</li></ul><p class="cond"><b>Shart:</b> sotuvchilar uchun buyurtma oqimi yetarli</p></div>
         <div class="st" style="--k:4"><small>4 · Tarmoq</small><h3>Yetkazish va montaj</h3><ul><li>Kuryer, brigada</li><li>Climavent Pro</li></ul><p class="cond"><b>Hozir:</b> Pro ilovasi sinovda</p></div>
-        <div class="st" style="--k:5"><small>5–6 · Keyin</small><h3>Moliya, import</h3><ul><li>Muddatli to'lov, servis obunasi</li><li>Xitoy zavodlari, eksport</li></ul><p class="cond"><b>Avval</b> 1 davlat, 1 diler</p></div>
+        <div class="st" style="--k:5"><small>5–6 · Keyin</small><h3>Moliya, import</h3><ul><li>Muddatli to'lov, servis obunasi</li><li>Xitoy zavodlari, eksport</li></ul><p class="cond"><b>Avval:</b> 1 davlat, 1 diler</p></div>
       </div>
     </div>
   </section>
-  <!-- 14 · Bugungi qaror -->
-  <section class="slide qr" data-air="0,900,300,1100,.6,.7" aria-label="Bugungi qaror">
+  <!-- 19 · Xavflar -->
+  <section class="slide" data-air="0,260,1700,2600,.35,.6" aria-label="Xavflar">
+    <div class="tag hot rise"><b>Ehtiyot</b> Nimadan ehtiyot bo'lamiz</div>
+    <h2 data-split>Xavf bor — <em>javobi ham bor.</em></h2>
+    <div class="risks rise" style="--d:.4s" data-stagger>
+      <div class="risk"><span class="lvl mid">Xavf</span><strong>Kuch tarqalib ketishi</strong><span>Ko'p ishni birdaniga boshlash. <b>Javob:</b> faqat 0-pog'ona; shart bajarilmaguncha keyingisiga o'tmaymiz.</span></div>
+      <div class="risk"><span class="lvl mid">Xavf</span><strong>Menejerlar yangi vositaga ko'nikmasligi</strong><span><b>Javob:</b> AI ishni yengillashtiradi, o'rnini olmaydi. Avval 1–2 menejer bilan sinaymiz.</span></div>
+      <div class="risk"><span class="lvl mid">Xavf</span><strong>Narx va komissiya hali kelishilmagan</strong><span><b>Javob:</b> rahbariyat qarori bilan — keyingi uchrashuvda.</span></div>
+      <div class="risk"><span class="lvl mid">Xavf</span><strong>Mijozlar onlaynga sekin o'tishi</strong><span><b>Javob:</b> yangi mijozni kutmaymiz — mavjud yirik mijozlardan boshlaymiz.</span></div>
+    </div>
+  </section>
+  <!-- 20 · So'rov -->
+  <section class="slide qr" data-air="0,900,300,1100,.6,.7" aria-label="So'rov">
     <div class="tag rise"><b>So'rov</b> Sizdan kerak</div>
     <div class="ask">
       <div>
         <h2 class="md" data-split>Birinchi qadamga <em>ruxsat so'raymiz.</em></h2>
-        <div class="monthly rise" style="--d:.9s"><i></i>Jamoa bor: 2 dasturchi va sotuv bo'limi boshlig'i.</div>
+        <div class="monthly rise" style="--d:.9s"><i></i>Jamoa tayyor: 2 dasturchi va sotuv bo'limi boshlig'i.</div>
         <p class="closing rise" style="--d:2.4s;margin-top:40px">Zavodimiz 24 yil uskuna sotdi. <i>Endi sotuvdan keyingi yillarni ham ushlaymiz.</i></p>
         <div class="contact rise" style="--d:2.6s"><span>sales@climavent.uz</span><span>climavent.uz</span><span>+998 78 777 78 88</span></div>
       </div>
       <div class="asks">
-        <div style="--k:0"><b>1</b><div><strong>0-pog'onani boshlash</strong><span>Katalog va KP vositasini 1–2 menejer bilan real ishda sinaymiz</span></div></div>
-        <div style="--k:1"><b>2</b><div><strong>Natijani birga ko'rish</strong><span>KP vaqti va menejer fikri — keyingi uchrashuvda</span></div></div>
-        <div style="--k:2"><b>→</b><div><strong>Narx siyosati</strong><span>Narx va komissiya bo'yicha qaror — keyingi uchrashuvga</span></div></div>
+        <div style="--k:0"><b>1</b><div><strong>0-pog'onani boshlash</strong><span>Katalog va KP vositasini 1–2 menejer bilan real ishda sinab ko'ramiz</span></div></div>
+        <div style="--k:1"><b>2</b><div><strong>Natijani birga ko'rish</strong><span>KP tayyorlash vaqti va menejerlar fikri — keyingi uchrashuvda</span></div></div>
+        <div style="--k:2"><b>3</b><div><strong>Narx siyosati</strong><span>Narx va komissiya bo'yicha qaror — keyingi uchrashuvda</span></div></div>
       </div>
     </div>
-  </section>
-
-  <!-- ================= ZAXIRA: savol bo'lsa ochiladi (Z) ================= -->
-  <!-- Z1 · Video: biz kimmiz -->
-  <section class="slide" data-z="1" data-air="790,900,300,1300,.3,.5" aria-label="Video: biz kimmiz">
-    <div class="tag rise"><b>Zaxira</b> Video: biz kimmiz · 40 soniya</div>
-    <div class="film rise" style="--d:.2s">
-      <video controls playsinline preload="metadata" poster="media/biz.jpg" src="media/biz.mp4" aria-label="Climavent va Jihozvent haqida video"></video>
-    </div>
-  </section>
-  <!-- Z2 · Watsco -->
-  <section data-z="1" class="slide wt" data-air="0,900,300,1100,.3,.55" aria-label="Watsco">
-    <div class="tag rise"><b>Zaxira</b> Watsco · AQShdagi eng katta HVAC distribyutori</div>
-    <div class="wt-grid">
-      <div class="wt-left">
-        <h2 class="md" data-split>HVAC sohasi: <em>onlayn savdo 15% → 35%.</em></h2>
-        <p class="lede rise" style="--d:.7s">AQShdagi eng katta HVAC distribyutori montajchilarga ilova berdi: <strong>buyurtma, qoldiq, 5 daqiqada taklif.</strong></p>
-        <div class="wbars">
-          <div class="wbar dim" style="--k:0"><span>2016</span><div class="t"><i style="--w:30%"></i></div><b><span data-count="15">15</span>%</b></div>
-          <div class="wbar" style="--k:1"><span>2025</span><div class="t"><i style="--w:70%"></i></div><b><span data-count="35">35</span>%</b></div>
-        </div>
-        <p class="note rise" style="--d:1.2s">Watsco savdosining onlayn ulushi</p>
-      </div>
-      <div class="wfacts rise" style="--d:1s">
-        <div><b>60%+</b><span>eng ilg'or hududlarda onlayn ulush</span></div>
-        <div><b>73 000</b><span>montajchi Watsco ilovasidan foydalanadi</span></div>
-        <div><b>28%</b><span>rekord marja — savdo 5% tushgan yilda ham</span></div>
-        <div><b>Faqat</b><span>montajchiga sotadi, uy egasiga emas — bizning sanoat yo'limizga mos</span></div>
-      </div>
-    </div>
-    <p class="src rise" style="--d:1.6s">Watsco rasmiy hisobotlari: 08.02.2018 va 17.02.2026 · OnCallAir</p>
-  </section>
-  <!-- Z3 · Bozor va davlat -->
-  <section data-z="1" class="slide uzb" data-air="0,900,300,1100,.3,.55" aria-label="Bozor va davlat">
-    <div class="tag rise"><b>Bozor tayyormi</b> Aholi, biznes, davlat</div>
-    <h2 class="md" data-split>Xaridor telefonda. <em>Davlat ham shu tomonga itaryapti.</em></h2>
-    <div class="wt-grid">
-      <div class="wt-left">
-        <div class="wbars">
-          <div class="wbar dim" style="--k:0"><span>O'zbekiston</span><div class="t"><i style="--w:19%"></i></div><b>4,6%</b></div>
-          <div class="wbar" style="--k:1"><span>Maqsad</span><div class="t"><i style="--w:46%"></i></div><b>9–11%</b></div>
-          <div class="wbar hot2" style="--k:2"><span>Dunyo</span><div class="t"><i style="--w:92%"></i></div><b>22%</b></div>
-        </div>
-        <p class="note rise" style="--d:1.2s">Onlayn savdoning chakana savdodagi ulushi</p>
-        <div class="gov2 rise" style="--d:1.8s"><b>«Raqamli O'zbekiston — 2030»</b><span>Prezident farmoni PF-6079 · 05.10.2020</span></div>
-      </div>
-      <div class="wfacts rise" style="--d:1s">
-        <div><b>97,3%</b><span>10 yoshdan katta aholi internetdan foydalanadi</span></div>
-        <div><b>20×</b><span>onlayn savdo 8 yilda o'sdi — 1,3 mlrd $</span></div>
-        <div><b>34%</b><span>dunyoda B2B kompaniyalar tushumi onlayn keladi — eng katta kanal</span></div>
-      </div>
-    </div>
-    <p class="src rise" style="--d:2.2s">president.uz, 2026 aprel · Statistika qo'mitasi, 2026 · lex.uz · McKinsey B2B Pulse 2024</p>
-  </section>
-  <!-- Z4 · Sanoat zanjiri -->
-  <section data-z="1" class="slide ind" data-air="760,900,300,1200,.35,.6" aria-label="Sanoat zanjiri">
-    <div class="tag rise"><b>Bizning model</b> Bugun va ertaga</div>
-    <h2 class="md" data-split style="max-width:1350px">Bugun — zavod va savdo. Ertaga — <em>zanjirning har bo'g'iniga o'z vositasi.</em></h2>
-    <div class="zan" data-stagger style="--sd:.7s;--ss:.28s">
-      <div class="zc"><i>1</i><strong>Korxona</strong><span>Obyekt quradi yoki yangilaydi</span><small>Mavjud yirik mijozlarimiz</small></div>
-      <div class="zc hi"><i>2</i><strong>Loyihachi</strong><span>Qaysi uskuna kerakligini loyihada yozadi</span><small>Tanlov shu yerda hal bo'ladi</small></div>
-      <div class="zc"><i>3</i><strong>Montaj firmasi</strong><span>Sotib oladi, o'rnatadi, hisob-faktura beradi</span><small>Firma narxi, hujjatlar</small></div>
-      <div class="zc"><i>4</i><strong>Servis</strong><span>Filtr, ehtiyot qism, ta'mir, kengaytirish</span><small>Har yili qaytadi</small></div>
-    </div>
-    <p class="punch2 rise" style="--d:1.9s">Loyihachi bizning katalogdan tanlasa — <em>butun zanjir bizdan o'tadi.</em></p>
-    <div class="strip rise" style="--d:2.2s">
-      <div><b data-count="1141">1141</b><span>faol e'lon beruvchi montajchi, OLX</span></div>
-      <div><b data-count="229">229</b><span>noyob montaj firmasi, kataloglarda</span></div>
-      <div><b data-count="93">93</b><span>tasida loyiha bilan ishlash belgisi bor</span></div>
-    </div>
-    <p class="src rise" style="--d:2.4s">O'lchangan: OLX va kataloglar, 29.09.2026 · baholar (brigada soni) tekshirilmagan · loyihachiga pul emas — vositalar: tanlash, texnik ma'lumot, CAD (rejada)</p>
-  </section>
-  <!-- Z5 · Xavflar -->
-  <section data-z="1" class="slide" data-air="0,260,1700,2600,.35,.6" aria-label="Xavflar">
-    <div class="tag hot rise"><b>Ehtiyot</b> Nimadan ehtiyot bo'lamiz</div>
-    <h2 data-split>Xavf bor — <em>javobi ham bor.</em></h2>
-    <div class="risks rise" style="--d:.4s" data-stagger>
-      <div class="risk"><span class="lvl mid">Xavf</span><strong>Kuch tarqalishi</strong><span>Ko'p narsani birdan boshlash. <b>Javob:</b> faqat 0-pog'ona, shart bajarilmaguncha keyingisiga o'tmaymiz.</span></div>
-      <div class="risk"><span class="lvl mid">Xavf</span><strong>Menejer yangi vositaga ko'nikmasa</strong><span><b>Javob:</b> AI ishni yengillashtiradi, o'rnini olmaydi. Avval 1–2 menejer bilan.</span></div>
-      <div class="risk"><span class="lvl mid">Xavf</span><strong>Narx va komissiya kelishilmagan</strong><span><b>Javob:</b> rahbariyat qarori — keyingi uchrashuvda.</span></div>
-      <div class="risk"><span class="lvl mid">Xavf</span><strong>Bozor sekin o'tadi</strong><span>Onlayn savdo hozircha 4–4,6%. <b>Javob:</b> mavjud yirik mijozlardan boshlaymiz.</span></div>
-    </div>
-  </section>
-  <!-- Z6 · Zaxira: nega hozir -->
-  <section class="slide" data-z="1" data-air="0,900,300,1100,.22,.5" aria-label="Zaxira: nega hozir">
-    <div class="tag rise"><b>Zaxira</b> Nega hozir</div>
-    <h2 data-split>Yosh, raqamli va tez o'sayotgan <em>bozor.</em></h2>
-    <div class="cols c3 rise" style="margin-top:auto;--d:.5s" data-stagger>
-      <div><span class="num">38,2 mln</span><h3>Aholi</h3><p>2026-yil boshida. Yiliga taxminan +1,8% o'sadi.</p><span class="src">stat.uz, 2026</span></div>
-      <div><span class="num">55%+</span><h3>30 yoshgacha</h3><p>Aholining yarmidan ko'pi yosh. Telefon orqali buyurtma odatiy hol.</p><span class="src">O'zbekiston hukumati · EDB, 2026</span></div>
-      <div><span class="num">4,6%</span><h3>Onlayn savdo ulushi</h3><p>2025-yilda. Davlat maqsadi — 9–11%, ya'ni kamida ikki barobar o'sish.</p><span class="src">WORLDEF, 2026</span></div>
-    </div>
-    <div class="strip rise" style="--d:.8s" data-stagger>
-      <div><b>+7,7%</b><span>YaIM o'sishi, 2025</span></div>
-      <div><b>+14,2%</b><span>qurilish o'sishi, 2025</span></div>
-      <div><b>+11,5%</b><span>konditsioner importi, 2026 yan–may</span></div>
-    </div>
-    <p class="src rise" style="--d:1s">stat.uz, 2026 · BRG Building Solutions, 2026</p>
   </section>
   <div class="foot"><span class="brand"><img src="media/logo-w.png" alt="Climavent"><span>Climavent · Yangi davr · 2026</span></span><span class="code" id="code">01 / 17</span></div>
   <div class="duct" id="duct"></div>
