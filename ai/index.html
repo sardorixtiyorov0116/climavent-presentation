@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Climavent — AI agentlar</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{
+  --ink:#03152B; --navy:#002854; --line:#12375C; --frost:#EEF5FA; --mist:#8DA8C3;
+  --cold:#55CDF8; --sky:#B3E0FE; --heat:#FF1918; --white:#fff;
+  --sans:'Manrope',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.2,.75,.15,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#03152B;overflow:hidden}
+body{transition:background-color .6s ease}
+body{font-family:var(--sans);color:var(--white);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center}
+.slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s .6s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .6s ease}
+.kick{font-family:var(--mono);font-size:22px;letter-spacing:.14em;text-transform:uppercase}
+.src{position:absolute;left:120px;bottom:44px;font-family:var(--mono);font-size:16px;opacity:.55}
+#hud{position:fixed;right:22px;bottom:16px;font-family:var(--mono);font-size:13px;color:#fff;opacity:.35;z-index:9}
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--cold);z-index:9;transition:width .5s var(--ease)}
+
+/* reveal helpers: animatsiya faqat slayd yoqilganda */
+.rv{opacity:0;transform:translateY(28px)}
+.on .rv{animation:up .9s var(--ease) forwards;animation-delay:var(--d,0s)}
+@keyframes up{to{opacity:1;transform:none}}
+.st{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.st.show{opacity:1;transform:none}
+
+/* havo oqimi (v12 dan): data-air bor slaydlarda */
+#air{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none}
+.grid::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:96px 96px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse at 70% 45%,#000 5%,transparent 70%);mask-image:radial-gradient(ellipse at 70% 45%,#000 5%,transparent 70%)}
+
+/* ---------- 1. MUQOVA ---------- */
+.cover{background:var(--ink)}
+.cover .clip{position:absolute;left:0;right:0;top:85px;height:910px;overflow:hidden}
+.cover .clip video{position:absolute;left:0;top:-85px;width:1920px;height:1080px}
+.cover .clip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ink) 0%,rgba(3,21,43,0) 14%,rgba(3,21,43,0) 86%,var(--ink) 100%)}
+.cover .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,21,43,.96) 0%,rgba(3,21,43,.86) 38%,rgba(3,21,43,.25) 70%,rgba(3,21,43,.1) 100%)}
+.cover .in{position:absolute;left:120px;top:0;bottom:0;width:980px;display:flex;flex-direction:column;justify-content:center}
+.cover .logo{position:absolute;left:120px;top:84px;height:52px}
+.cover .kick{color:var(--cold)}
+.cover h1{font-size:132px;line-height:.98;font-weight:800;letter-spacing:-.03em;margin:30px 0 34px}
+.cover h1 .plus{color:var(--cold)}
+.cover p{font-size:36px;line-height:1.35;color:#D5E4F2;max-width:860px}
+.cover .foot{position:absolute;left:120px;bottom:80px;font-family:var(--mono);font-size:20px;color:var(--mist);letter-spacing:.06em}
+.cover .foot b{color:#fff;font-weight:500}
+
+/* ---------- 2. WATSCO VAQT CHIZIG'I ---------- */
+.tl{background:var(--frost);color:var(--navy)}
+.tl .head{position:absolute;left:120px;top:96px;right:120px}
+.tl .kick{color:#3B6D9A}
+.tl h2{font-size:72px;font-weight:800;letter-spacing:-.025em;line-height:1.02;margin-top:18px}
+.tl h2 em{font-style:normal;color:#0A7FB8}
+.tl .track{position:absolute;left:120px;right:120px;top:450px;height:4px;background:#D3E2EE;border-radius:4px}
+.tl .track i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--navy);border-radius:4px}
+.tl.on .track i{animation:grow 3.6s var(--ease) .4s forwards}
+@keyframes grow{to{width:100%}}
+.tl .nodes{position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+.tl .n{position:relative;padding-top:92px;opacity:0;transform:translateY(20px)}
+.tl.on .n{animation:up .8s var(--ease) forwards;animation-delay:var(--d)}
+.tl .n::before{content:"";position:absolute;left:0;top:38px;width:28px;height:28px;border-radius:50%;background:var(--frost);border:6px solid var(--navy)}
+.tl .n.cut::before{border-color:var(--heat)}
+.tl .n.now::before{background:var(--cold);border-color:var(--cold);box-shadow:0 0 0 12px rgba(85,205,248,.25)}
+.tl .y{font-family:var(--mono);font-size:58px;font-weight:500;letter-spacing:-.02em}
+.tl .n.cut .y{color:var(--heat)}
+.tl .n.now .y{color:#0A7FB8}
+.tl .t{font-size:27px;line-height:1.35;margin-top:14px;color:#21456B}
+.tl .t b{color:var(--navy);font-weight:800}
+.tl .bz{position:absolute;left:120px;right:120px;bottom:118px;background:var(--navy);color:#fff;border-radius:22px;padding:30px 44px;display:flex;align-items:center;gap:34px}
+.tl .bz .q{font-family:var(--mono);font-size:22px;color:var(--cold);letter-spacing:.1em;white-space:nowrap}
+.tl .bz .a{font-size:36px;font-weight:700;line-height:1.25}
+.tl .src{color:var(--navy)}
+
+/* ---------- 3. FARQ SXEMASI ---------- */
+.fq{background:radial-gradient(1200px 700px at 78% 60%,#0A3A6E 0%,var(--navy) 55%,var(--ink) 100%)}
+.fq .head{position:absolute;left:120px;top:96px}
+.fq .kick{color:var(--cold)}
+.fq h2{font-size:74px;font-weight:800;letter-spacing:-.025em;margin-top:18px}
+.fq svg{position:absolute;left:0;top:0}
+.fq .lbl{font-family:var(--mono);font-size:22px;letter-spacing:.14em;fill:var(--mist)}
+.fq .box rect{fill:rgba(255,255,255,.06);stroke:rgba(179,224,254,.35);stroke-width:2}
+.fq .box text{fill:#fff;font-family:var(--sans);font-weight:700;font-size:30px}
+.fq .box .s{font-weight:500;font-size:20px;fill:var(--mist);font-family:var(--mono)}
+.fq .box.hot rect{fill:var(--cold);stroke:var(--cold)}
+.fq .box.hot text{fill:var(--ink)}
+.fq .box.hot .s{fill:#0B3B63}
+.fq .box.dead rect{fill:none;stroke:var(--heat);stroke-dasharray:8 8}
+.fq .box.dead text{fill:#FF8A80}
+.fq .box.dead .s{fill:#FF8A80}
+.fq .box.soon rect{stroke-dasharray:6 7}
+.fq path.p{fill:none;stroke:rgba(179,224,254,.28);stroke-width:3}
+.fq .dot{fill:var(--cold)}
+.fq .x line{stroke:var(--heat);stroke-width:6;stroke-linecap:round}
+.fq .divider{stroke:rgba(179,224,254,.18);stroke-width:2}
+.fq .g{opacity:0;transition:opacity .8s ease}
+.fq.on .g{opacity:1;transition-delay:var(--d)}
+.fq .x{opacity:0}
+.fq.on .x{animation:pop .5s var(--ease) 1.6s forwards}
+@keyframes pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.fq .x{transform-box:fill-box;transform-origin:center}
+
+/* ---------- 4. XARIDOR ILOVASI ---------- */
+.ap{background:#F7FAFD;color:var(--navy)}
+.ap .blob{position:absolute;left:-180px;top:-120px;width:1100px;height:1320px;border-radius:50%;background:radial-gradient(closest-side,var(--sky),rgba(179,224,254,0))}
+.ap .phone{position:absolute;left:250px;top:90px;width:439px;height:900px;border-radius:64px;background:#0B1B2E;padding:16px;box-shadow:0 40px 80px rgba(0,40,84,.28),0 0 0 2px #22364F inset}
+.ap .phone video{width:100%;height:100%;border-radius:50px;object-fit:contain;display:block;background:#fff}
+.ap .txt{position:absolute;left:820px;right:120px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.ap .kick{color:var(--heat)}
+.ap h2{font-size:80px;font-weight:800;letter-spacing:-.025em;line-height:1.02;margin:20px 0 52px}
+.ap ul{list-style:none;display:grid;gap:26px}
+.ap li{display:flex;gap:26px;align-items:center;font-size:34px;font-weight:600;line-height:1.25}
+.ap li span{flex:none;width:68px;height:68px;border-radius:20px;background:var(--navy);color:var(--cold);display:grid;place-items:center;font-family:var(--mono);font-size:26px}
+.ap li small{display:block;font-size:24px;font-weight:500;color:#4A6A8C;margin-top:4px}
+.ap .pill{margin-top:56px;align-self:flex-start;font-family:var(--mono);font-size:22px;padding:12px 22px;border-radius:40px;border:2px solid #E3A400;color:#8A6300;background:#FFF6DB;letter-spacing:.04em}
+.uz{background:var(--ink)}
+.uz .head{position:absolute;left:120px;top:96px}
+.uz .kick{color:var(--cold)}
+.uz h2{font-size:84px;font-weight:800;letter-spacing:-.025em;margin-top:18px;line-height:1.02}
+.uz .nums{position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:60px}
+.uz .num{font-family:var(--sans);font-size:160px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.uz .num i{font-style:normal;font-size:.6em;margin-left:.04em}
+.uz .num.hot{color:var(--heat)} .uz .num.cold{color:var(--cold)}
+.uz .cap{font-size:30px;line-height:1.35;color:#C9DBEC;margin-top:18px;max-width:480px}
+.uz .goal{position:absolute;left:120px;top:770px;font-size:32px;color:#fff}
+.uz .goal b{color:var(--cold)}
+.uz .bz{position:absolute;left:120px;right:120px;bottom:118px;border:2px solid rgba(85,205,248,.5);border-radius:22px;padding:28px 44px;display:flex;gap:34px;align-items:center;background:rgba(3,21,43,.7)}
+.uz .bz .q{font-family:var(--mono);font-size:22px;color:var(--cold);letter-spacing:.1em;white-space:nowrap}
+.uz .bz .a{font-size:36px;font-weight:700}
+.uz .src{color:#fff}
+/* ?still — animatsiyasiz, oxirgi holat (skrinshot/chop etish uchun) */
+body.still *{animation-delay:0s!important;animation-duration:.001s!important;transition:none!important}
+body.still .st{opacity:1;transform:none}
+.vbtn{position:absolute;right:40px;top:36px;z-index:5;font-family:var(--mono);font-size:22px;letter-spacing:.04em;
+  padding:16px 30px;border-radius:40px;border:2px solid rgba(255,255,255,.35);background:rgba(3,21,43,.72);color:#fff;cursor:pointer;opacity:0;transition:opacity .3s}
+.full:hover .vbtn,.full.paused .vbtn{opacity:1}
+
+/* ===== AI yordamchilar v3 — boshliq uchun: sarlavha = foyda, texnik tafsilot yo'q ===== */
+canvas.graf{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 70% 80% at 85% 60%,#000 20%,transparent 80%);mask-image:radial-gradient(ellipse 70% 80% at 85% 60%,#000 20%,transparent 80%)}
+.ben{display:grid;gap:22px}
+.bc{border-radius:24px;padding:26px 30px;background:#fff;box-shadow:0 14px 34px rgba(0,40,84,.08)}
+.bc .i{width:54px;height:54px;border-radius:16px;background:var(--navy);display:grid;place-items:center;margin-bottom:16px}
+.bc .i svg{width:30px;height:30px;stroke:var(--cold);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.bc b{display:block;font-size:30px;font-weight:800;line-height:1.2}
+.bc span{display:block;font-size:22px;line-height:1.4;color:#4A6A8C;margin-top:8px}
+.dk .bc{background:rgba(255,255,255,.06);border:2px solid rgba(179,224,254,.2);box-shadow:none}
+.dk .bc span{color:#C9DBEC}
+.dk .bc .i{background:rgba(85,205,248,.15)}
+
+/* 1. muqova */
+.b1{background:radial-gradient(1100px 760px at 72% 40%,#0A3A6E 0%,var(--navy) 48%,var(--ink) 100%)}
+.b1 .logo{position:absolute;left:120px;top:84px;height:48px}
+.b1 .in{position:absolute;left:120px;right:120px;top:210px}
+.b1 .kick{color:var(--cold)}
+.b1 h1{font-size:112px;font-weight:800;letter-spacing:-.03em;line-height:1.02;margin:24px 0 28px;max-width:1500px}
+.b1 h1 em{font-style:normal;color:var(--cold)}
+.b1 p{font-size:32px;line-height:1.42;color:#D5E4F2;max-width:1250px}
+.b1 .chips{position:absolute;left:120px;right:120px;bottom:100px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.b1 .chip{border-radius:20px;padding:22px 20px;background:rgba(255,255,255,.06);border:2px solid rgba(179,224,254,.22);text-align:center}
+.b1 .chip svg{width:40px;height:40px;stroke:var(--cold);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.b1 .chip span{display:block;font-size:22px;font-weight:800;margin-top:12px;line-height:1.2}
+
+/* 2. KP */
+.b2{background:var(--frost);color:var(--navy)}
+.b2 .head{position:absolute;left:120px;top:90px;right:120px}
+.b2 .kick{color:var(--heat)}
+.b2 h2{font-size:76px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b2 .doc{position:absolute;top:310px;width:520px;height:390px;border-radius:24px;background:#fff;box-shadow:0 18px 44px rgba(0,40,84,.12);padding:26px 28px;overflow:hidden}
+.b2 .doc.l{left:120px}.b2 .doc.r{left:1280px}
+.b2 .doc h4{font-family:var(--mono);font-size:19px;letter-spacing:.08em;color:#6A8AAA;font-weight:500;margin-bottom:16px}
+.b2 .doc.r h4{color:#0A7FB8}
+.b2 .ln{display:flex;align-items:center;gap:12px;height:44px;border-bottom:2px solid #EEF3F8}
+.b2 .ln i{height:14px;border-radius:7px;background:#D3E2EE}
+.b2 .ln em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:15px;padding:4px 10px;border-radius:8px;background:#FFE7E5;color:#C4110F}
+.b2 .doc.r .ln i{background:var(--navy)}
+.b2 .doc.r .ln em{background:#E2F3FC;color:#0A6E9E}
+.b2 .doc.r .ln{opacity:0;transform:translateX(-16px)}
+.b2.on .doc.r .ln{animation:rin .45s var(--ease) forwards;animation-delay:var(--d)}
+@keyframes rin{to{opacity:1;transform:none}}
+.b2 .mid{position:absolute;left:640px;width:640px;top:310px;height:390px}
+.b2 .mid svg{position:absolute;inset:0}
+.b2 .mid .p{fill:none;stroke:rgba(0,40,84,.18);stroke-width:3;stroke-dasharray:6 10}
+.b2 .mid .d{fill:var(--cold)}
+.b2 .ai{position:absolute;left:50%;top:50%;width:170px;height:170px;margin:-85px 0 0 -85px;border-radius:50%;background:var(--navy);display:grid;place-items:center;color:#fff;text-align:center;box-shadow:0 0 0 16px rgba(0,40,84,.06),0 0 0 34px rgba(0,40,84,.03)}
+.b2 .ai{opacity:0;transition:opacity .8s ease .5s}.b2.on .ai{opacity:1;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 24px rgba(0,40,84,.08),0 0 0 50px rgba(0,40,84,.03)}}
+.b2 .ai b{display:block;font-size:44px;font-weight:800;color:var(--cold);line-height:1}
+.b2 .ai span{display:block;font-size:17px;font-family:var(--mono);color:#C9DBEC;margin-top:6px}
+.b2 .ben{position:absolute;left:120px;right:120px;bottom:70px;grid-template-columns:repeat(3,1fr)}
+.b2 .ben .bc{padding:22px 28px}
+.b2 .ben .bc b{font-size:28px}.b2 .ben .bc span{font-size:21px}
+
+/* 3. mijoz */
+.b3{background:#fff;color:var(--navy)}
+.b3 .blob{position:absolute;left:-200px;top:-140px;width:1150px;height:1350px;border-radius:50%;background:radial-gradient(closest-side,var(--sky),rgba(179,224,254,0))}
+.b3 .ph{position:absolute;left:180px;top:90px;width:540px;height:900px;border-radius:60px;background:#0B1B2E;padding:16px;box-shadow:0 40px 80px rgba(0,40,84,.25)}
+.b3 .sc{width:100%;height:100%;border-radius:46px;background:#E9F1F8;overflow:hidden;display:flex;flex-direction:column}
+.b3 .tb{background:var(--navy);color:#fff;padding:26px 26px 18px;display:flex;gap:14px;align-items:center}
+.b3 .tb i{width:46px;height:46px;border-radius:50%;background:var(--cold);color:var(--ink);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:18px}
+.b3 .tb b{font-size:22px}.b3 .tb small{display:block;font-family:var(--mono);font-size:14px;color:var(--mist)}
+.b3 .msgs{padding:30px 20px;display:flex;flex-direction:column;gap:20px}
+.b3 .m{max-width:86%;padding:16px 20px;border-radius:20px;font-size:24px;line-height:1.38;opacity:0;transform:translateY(12px)}
+.b3.on .m{animation:up .5s var(--ease) forwards;animation-delay:var(--d)}
+.b3 .m.u{align-self:flex-end;background:#2B6CB0;color:#fff;border-bottom-right-radius:5px}
+.b3 .m.b{align-self:flex-start;background:#fff;color:var(--navy);border-bottom-left-radius:5px;box-shadow:0 2px 6px rgba(0,40,84,.08)}
+.b3 .m.b b{color:#0A6E9E}
+.b3 .txt{position:absolute;left:840px;right:120px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.b3 .kick{color:var(--heat)}
+.b3 h2{font-size:76px;font-weight:800;letter-spacing:-.025em;line-height:1.04;margin:18px 0 40px}
+.b3 .ben .bc{display:grid;grid-template-columns:54px 1fr;gap:4px 22px;align-items:start}
+.b3 .ben .bc .i{margin:0;grid-row:span 2}
+.b3 .ben .bc span{margin-top:2px}
+
+/* 4. raqobat */
+.b4{background:var(--ink)}
+.b4 .head{position:absolute;left:120px;top:90px;right:120px}
+.b4 .kick{color:var(--cold)}
+.b4 h2{font-size:84px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b4 h2 em{font-style:normal;color:var(--cold)}
+.b4 .ask{position:absolute;left:120px;top:300px;font-size:30px;color:#C9DBEC}
+.b4 .ask b{color:#fff}
+.b4 .res{position:absolute;left:120px;width:1040px;top:380px;display:grid;gap:22px}
+.b4 .r{border-radius:26px;padding:30px 36px;background:rgba(3,21,43,.78);border:2px solid rgba(179,224,254,.22);display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px}
+.b4 .r .s{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--cold)}
+.b4 .r .n{font-size:30px;font-weight:800;margin-top:6px}
+.b4 .r .n small{display:block;font-size:22px;font-weight:500;color:#9FB8D0;margin-top:6px}
+.b4 .r .p{font-size:46px;font-weight:800;text-align:right;letter-spacing:-.02em}
+.b4 .r .p small{display:block;font-size:20px;font-weight:500;color:#9FB8D0;letter-spacing:0}
+.b4 .r.x{border-style:dashed}
+.b4 .r.x .p{font-size:26px;color:#FF8A80}
+.b4 .ben{position:absolute;left:1260px;right:120px;top:380px}
+
+/* 5. tender */
+.b5{background:linear-gradient(135deg,#F7FAFD 0%,var(--sky) 100%);color:var(--navy)}
+.b5 .head{position:absolute;left:120px;top:90px;right:120px}
+.b5 .kick{color:#0A6E9E}
+.b5 h2{font-size:78px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b5 .stats{position:absolute;left:120px;top:330px;width:760px;display:grid;gap:22px}
+.b5 .sv{background:#fff;border-radius:24px;padding:26px 32px;box-shadow:0 12px 30px rgba(0,40,84,.08);display:flex;align-items:center;gap:28px}
+.b5 .sv .v{font-size:66px;font-weight:800;letter-spacing:-.03em;line-height:1;min-width:190px}
+.b5 .sv .t{font-size:25px;color:#33557A;line-height:1.35}
+.b5 .sv.hl{background:var(--navy);color:#fff}.b5 .sv.hl .t{color:#C9DBEC}.b5 .sv.hl .v{color:var(--cold)}
+.b5 .lot{position:absolute;left:1000px;right:120px;top:330px;background:#fff;border-radius:30px;box-shadow:0 30px 70px rgba(0,40,84,.18);overflow:hidden}
+.b5 .lot .tb{background:var(--navy);color:#fff;padding:22px 30px;font-family:var(--mono);font-size:19px;letter-spacing:.08em;color:var(--cold)}
+.b5 .lot .bd{padding:30px 34px}
+.b5 .lot h3{font-size:32px;font-weight:800;line-height:1.25}
+.b5 .lot .sum{font-size:56px;font-weight:800;letter-spacing:-.02em;margin:18px 0 4px}
+.b5 .lot .sum small{font-size:24px;font-weight:600;color:#4A6A8C;margin-left:10px}
+.b5 .lot .row{display:flex;gap:14px;align-items:flex-start;font-size:24px;line-height:1.35;margin-top:18px;opacity:0;transform:translateY(10px)}
+.b5.on .lot .row{animation:up .5s var(--ease) forwards;animation-delay:var(--d)}
+.b5 .lot .row i{flex:none;font-style:normal;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:800}
+.b5 .lot .ok i{background:#E3F7EE;color:#11744B}
+.b5 .lot .wr i{background:#FFF6DB;color:#8A6300}
+.b5 .lot .tm i{background:#E2F3FC;color:#0A6E9E}
+
+/* 6. eslatmalar */
+.b6{background:linear-gradient(150deg,var(--ink) 0%,var(--navy) 100%)}
+.b6 .head{position:absolute;left:120px;top:90px;right:120px}
+.b6 .kick{color:var(--cold)}
+.b6 h2{font-size:80px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b6 h2 em{font-style:normal;color:var(--cold)}
+.b6 .day{position:absolute;left:120px;width:1060px;top:320px}
+.b6 .ax{position:absolute;left:96px;top:10px;bottom:36px;width:3px;background:rgba(179,224,254,.2)}
+.b6 .ax i{position:absolute;left:-6px;width:15px;height:15px;border-radius:50%;background:var(--cold);box-shadow:0 0 16px var(--cold);top:0}
+.b6.on .ax i{animation:kun 6s linear infinite 1s}
+@keyframes kun{to{top:calc(100% - 15px)}}
+.b6 .ev{position:relative;display:grid;grid-template-columns:96px 1fr;gap:40px;align-items:start;margin-bottom:26px}
+.b6 .ev .tm{font-family:var(--mono);font-size:26px;color:var(--cold);padding-top:16px}
+.b6 .ev .c{border-radius:20px;padding:20px 26px;background:rgba(255,255,255,.06);border:2px solid rgba(179,224,254,.2)}
+.b6 .ev .c b{display:block;font-size:30px;font-weight:800}
+.b6 .ev .c span{display:block;font-size:22px;color:#C9DBEC;margin-top:5px;line-height:1.35}
+.b6 .wk{position:absolute;left:1260px;right:120px;top:320px;border-radius:26px;padding:30px 34px;background:var(--cold);color:var(--ink)}
+.b6 .wk h3{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.12em}
+.b6 .wk div{margin-top:22px;padding-top:20px;border-top:2px solid rgba(3,21,43,.15)}
+.b6 .wk b{display:block;font-size:30px;font-weight:800}
+.b6 .wk span{display:block;font-size:22px;line-height:1.38;color:#0B3B63;margin-top:6px}
+.b6 .rule{position:absolute;left:1260px;right:120px;bottom:110px;font-size:24px;line-height:1.4;color:#C9DBEC;border-left:5px solid var(--heat);padding-left:22px}
+.b6 .rule b{color:#fff}
+
+/* 7. bilim */
+.b7{background:#fff;color:var(--navy)}
+.b7 .head{position:absolute;left:120px;top:90px;width:820px}
+.b7 .kick{color:#7B4FD6}
+.b7 h2{font-size:80px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b7 .lead{font-size:28px;line-height:1.42;color:#33557A;margin-top:26px}
+.b7 .nums{position:absolute;left:120px;top:600px;display:flex;gap:70px}
+.b7 .nums .v{font-size:88px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.b7 .nums .t{font-size:24px;color:#4A6A8C;margin-top:8px}
+.b7 .tags{position:absolute;left:120px;width:820px;top:790px;display:flex;flex-wrap:wrap;gap:12px}
+.b7 .tags span{font-size:22px;font-weight:700;padding:10px 20px;border-radius:24px;background:var(--frost);color:var(--navy)}
+.b7 .vf{position:absolute;left:1020px;right:120px;top:120px;bottom:120px;border-radius:30px;overflow:hidden;background:#262626;box-shadow:0 30px 70px rgba(0,40,84,.25)}
+.b7 .vf video{width:100%;height:100%;object-fit:contain;display:block}
+
+/* 8. foyda */
+.b8{background:radial-gradient(1200px 800px at 30% 30%,#0A3A6E 0%,var(--navy) 50%,var(--ink) 100%)}
+.b8 .head{position:absolute;left:120px;top:90px;right:120px}
+.b8 .kick{color:var(--cold)}
+.b8 h2{font-size:84px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.b8 .ben{position:absolute;left:120px;right:120px;top:330px;grid-template-columns:repeat(4,1fr);gap:24px}
+.b8 .ben .bc{min-height:420px;display:flex;flex-direction:column}
+.b8 .ben .bc .big small{display:block;font-size:22px;font-weight:600;color:#C9DBEC;letter-spacing:0;margin-top:10px}
+.b8 .ben .bc .big{font-size:110px;font-weight:800;line-height:1;color:var(--cold);margin:auto 0 0;letter-spacing:-.04em}
+.b8 .ben .bc{padding:32px 30px 34px}
+.b8 .ben .bc .k{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--cold);margin-bottom:6px;display:block}
+.b8 .ben .bc b{font-size:36px;line-height:1.15}
+.b8 .ben .bc>span:not(.k){font-size:23px}
+.b8 .fin{position:absolute;left:120px;right:120px;bottom:110px;display:flex;align-items:center;gap:30px;border-radius:24px;padding:28px 36px;background:var(--cold);color:var(--ink)}
+.b8 .fin .q{font-family:var(--mono);font-size:20px;letter-spacing:.1em;white-space:nowrap}
+.b8 .fin .a{font-size:32px;font-weight:800;line-height:1.3}
+</style>
+</head>
+<body>
+<div id="stage">
+<section class="slide b1 grid" data-air="640,1080,250,1450,.55,.6" aria-label="AI muqova">
+  <img class="logo rv" src="media-agent/logo-w.png" alt="Climavent">
+  <div class="in">
+    <div class="kick rv" style="--d:.1s">Climavent · AI yordamchilar</div>
+    <h1 class="rv" style="--d:.25s">Qo'l ishini AI qiladi — <em>menejer sotadi</em></h1>
+    <p class="rv" style="--d:.45s">Taklif tayyorlaydi, mijozga javob beradi, raqobatchi va tenderlarni kuzatadi, eslatadi va kompaniya bilimini saqlaydi. Oxirgi qaror — doim menejerda.</p>
+  </div>
+  <div class="chips">
+    <div class="chip rv" style="--d:.7s"><svg viewBox="0 0 40 40"><path d="M11 5h13l7 7v23H11z"/><path d="M24 5v7h7M16 21h10M16 27h10"/></svg><span>Tijorat taklifi</span></div>
+    <div class="chip rv" style="--d:.8s"><svg viewBox="0 0 40 40"><path d="M6 10h28v18H18l-7 6v-6H6z"/></svg><span>Mijozga javob</span></div>
+    <div class="chip rv" style="--d:.9s"><svg viewBox="0 0 40 40"><path d="M6 32h28M10 28V18M18 28V10M26 28V15M34 28V22"/></svg><span>Raqobatchi narxi</span></div>
+    <div class="chip rv" style="--d:1s"><svg viewBox="0 0 40 40"><path d="M8 34V8h24v26M14 15h12M14 21h12M14 27h7"/></svg><span>Tenderlar</span></div>
+    <div class="chip rv" style="--d:1.1s"><svg viewBox="0 0 40 40"><path d="M20 6a9 9 0 0 1 9 9v7l3 5H8l3-5v-7a9 9 0 0 1 9-9zM16 31a4 4 0 0 0 8 0"/></svg><span>Eslatmalar</span></div>
+    <div class="chip rv" style="--d:1.2s"><svg viewBox="0 0 40 40"><circle cx="10" cy="12" r="4"/><circle cx="30" cy="10" r="4"/><circle cx="20" cy="28" r="5"/><path d="M13 14l5 10M27 13l-5 11M14 11l12-1"/></svg><span>Bilim bazasi</span></div>
+  </div>
+</section>
+
+<section class="slide b2" aria-label="Tijorat taklifi">
+  <canvas class="graf" data-rang="0,40,84" data-kuch="1"></canvas>
+  <div class="head">
+    <div class="kick rv">01 · Tijorat taklifi</div>
+    <h2 class="rv" style="--d:.15s">Loyiha ro'yxatidan — bir soniyada KP</h2>
+  </div>
+  <div class="doc l rv" style="--d:.3s"><h4>LOYIHA RO'YXATI (TZ)</h4>
+    <div class="ln"><i style="width:230px"></i><em>boshqa brend</em></div>
+    <div class="ln"><i style="width:190px"></i><em>boshqa brend</em></div>
+    <div class="ln"><i style="width:250px"></i><em>boshqa brend</em></div>
+    <div class="ln"><i style="width:170px"></i><em>boshqa brend</em></div>
+    <div class="ln"><i style="width:220px"></i><em>boshqa brend</em></div>
+    <div class="ln"><i style="width:200px"></i><em>boshqa brend</em></div>
+  </div>
+  <div class="mid">
+    <svg viewBox="0 0 640 390"><path class="p" id="kp1" d="M0 195 L640 195"/>
+      <circle class="d" r="7"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#kp1"/></animateMotion></circle>
+      <circle class="d" r="7"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite"><mpath href="#kp1"/></animateMotion></circle></svg>
+    <div class="ai"><div><b>AI</b><span>&lt; 1 soniya</span></div></div>
+  </div>
+  <div class="doc r rv" style="--d:.6s"><h4>KP QORALAMASI · JIHOZVENT</h4>
+    <div class="ln" style="--d:1s"><i style="width:230px"></i><em>Jihozvent</em></div>
+    <div class="ln" style="--d:1.15s"><i style="width:190px"></i><em>Jihozvent</em></div>
+    <div class="ln" style="--d:1.3s"><i style="width:250px"></i><em>Jihozvent</em></div>
+    <div class="ln" style="--d:1.45s"><i style="width:170px"></i><em>Jihozvent</em></div>
+    <div class="ln" style="--d:1.6s"><i style="width:220px"></i><em>Jihozvent</em></div>
+    <div class="ln" style="--d:1.75s"><i style="width:200px"></i><em>Jihozvent</em></div>
+  </div>
+  <div class="ben">
+    <div class="bc rv" style="--d:1.9s"><b>Bizning mahsulot tanlanadi</b><span>Loyihada boshqa brend yozilgan bo'lsa ham, KPga Jihozventning mos mahsuloti tushadi</span></div>
+    <div class="bc rv" style="--d:2s"><b>Bir soniyada</b><span>202 qatorli ro'yxatning qoralamasi soniyadan tez tayyor — Excel, Word, PDF, skan yoki chizmadan</span></div>
+    <div class="bc rv" style="--d:2.1s"><b>Xato o'tib ketmaydi</b><span>Tayyor KPni loyiha bilan solishtirib, tushib qolgan yoki farq qilgan joyni ko'rsatadi</span></div>
+  </div>
+</section>
+
+<section class="slide b3" aria-label="Mijozga javob">
+  <div class="blob"></div>
+  <canvas class="graf" data-rang="10,127,184" data-kuch="1.1"></canvas>
+  <div class="ph rv">
+    <div class="sc">
+      <div class="tb"><i>AI</i><div><b>Climavent yordamchi</b><small>Telegram</small></div></div>
+      <div class="msgs">
+        <div class="m u" style="--d:.6s">RKV 150 narxi qancha?</div>
+        <div class="m b" style="--d:1.1s"><b>РКВ-150</b><br>Narxi: <b>13 848 000 so'm</b> (QQS bilan)</div>
+        <div class="m u" style="--d:1.8s">VKS 200 narxi?</div>
+        <div class="m b" style="--d:2.3s"><b>ВК-200С</b> — katalogimizda bor. Narxini menejerimiz hisoblab beradi — telefon raqamingizni qoldiring.</div>
+      </div>
+    </div>
+  </div>
+  <div class="txt">
+    <div class="kick rv" style="--d:.1s">02 · Mijoz savoli</div>
+    <h2 class="rv" style="--d:.2s">Mijoz savoliga — darhol javob</h2>
+    <div class="ben">
+      <div class="bc rv" style="--d:.4s"><div class="i"><svg viewBox="0 0 30 30"><path d="M5 8h20M5 15h14M5 22h9"/><path d="M20 20l3 3 5-6"/></svg></div><b>Model nomini qanday yozsa ham tushunadi</b><span>lotincha, kirillcha yoki xato bilan</span></div>
+      <div class="bc rv" style="--d:.55s"><div class="i"><svg viewBox="0 0 30 30"><path d="M15 4v22M21 9h-8a3.5 3.5 0 0 0 0 7h4a3.5 3.5 0 0 1 0 7H8"/></svg></div><b>Narxni aytadi — bilmasa o'ylab topmaydi</b><span>mijozni menejerga ulaydi</span></div>
+      <div class="bc rv" style="--d:.7s"><div class="i"><svg viewBox="0 0 30 30"><path d="M5 25V9l10-5 10 5v16z"/><path d="M11 25v-7h8v7"/></svg></div><b>Xona o'lchamidan uskunani hisoblaydi</b><span>kerakli havo hajmi va mos uskuna</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide b4 grid" data-air="820,1080,300,1500,.4,.55" aria-label="Raqobatchi narxi">
+  <div class="head">
+    <div class="kick rv">03 · Raqobat</div>
+    <h2 class="rv" style="--d:.15s">Raqobatchi narxi — <em>11 soniyada</em></h2>
+  </div>
+  <div class="ask rv" style="--d:.3s">Savol: <b>«VKS 200 raqobatchilarda qancha turadi?»</b></div>
+  <div class="res">
+    <div class="r rv" style="--d:.5s"><div><div class="s">IKLIM</div><div class="n">Aynan shu model<small>VKS 200 · o'lchami bor</small></div></div><div class="p">1 233 000<small>so'm</small></div></div>
+    <div class="r rv" style="--d:.7s"><div><div class="s">VENTSTORE</div><div class="n">Boshqa brenddagi o'xshashi<small>turi va o'lchami bir xil</small></div></div><div class="p">630 000 – 1 006 500<small>so'm</small></div></div>
+    <div class="r x rv" style="--d:.9s"><div><div class="s">IKLIM</div><div class="n">VKS 100<small>bot buni ham tekshiradi</small></div></div><div class="p">bu o'lcham yo'q</div></div>
+  </div>
+  <div class="ben dk">
+    <div class="bc rv" style="--d:.6s"><b>Narx qo'yishda bozorni bilamiz</b><span>raqobatchining ochiq narxi bir zumda</span></div>
+    <div class="bc rv" style="--d:.75s"><b>O'xshash mahsulot ham topiladi</b><span>boshqa brend bo'lsa ham</span></div>
+    <div class="bc rv" style="--d:.9s"><b>Har javob manbasi bilan</b><span>menejer o'zi ochib ko'ra oladi</span></div>
+  </div>
+</section>
+
+<section class="slide b5" aria-label="Tenderlar">
+  <canvas class="graf" data-rang="0,40,84" data-kuch="1"></canvas>
+  <div class="head">
+    <div class="kick rv">04 · Tenderlar</div>
+    <h2 class="rv" style="--d:.15s">Mos tenderlar — har kuni ertalab menejerda</h2>
+  </div>
+  <div class="stats">
+    <div class="sv hl rv" style="--d:.4s"><div class="v">09:00</div><div class="t">har kuni o'zi tekshiradi va menejerga yozadi</div></div>
+    <div class="sv rv" style="--d:.55s"><div class="v">4</div><div class="t">tender sayti kuzatiladi</div></div>
+    <div class="sv rv" style="--d:.7s"><div class="v">450+</div><div class="t">e'lon ko'rib chiqilgan</div></div>
+  </div>
+  <div class="lot rv" style="--d:.3s">
+    <div class="tb">MISOL · MOS LOT</div>
+    <div class="bd">
+      <h3>Ventilyatsiya uskunalarini xarid qilish va o'rnatish</h3>
+      <div class="sum">700 mln<small>so'm · Toshkent</small></div>
+      <div class="row ok" style="--d:.9s"><i>✓</i><span>Bizdagi mos mahsulotni ko'rsatadi — shamollatish panjarasi</span></div>
+      <div class="row wr" style="--d:1.2s"><i>!</i><span>Talabni oldindan aytadi — kamida 5 ta bajarilgan shartnoma</span></div>
+      <div class="row tm" style="--d:1.5s"><i>⏱</i><span>Muddatini kuzatadi — yaqinlashsa alohida eslatadi</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide b6 grid" aria-label="Eslatmalar">
+  <div class="head">
+    <div class="kick rv">05 · Eslatmalar</div>
+    <h2 class="rv" style="--d:.15s">Muhim ish unutilmaydi — <em>bot o'zi eslatadi</em></h2>
+  </div>
+  <div class="day">
+    <div class="ax"><i></i></div>
+    <div class="ev rv" style="--d:.4s"><span class="tm">08:30</span><div class="c"><b>Muddati yaqin tenderlar</b><span>«1 kun qoldi» — topilgan lot qo'ldan ketmasin</span></div></div>
+    <div class="ev rv" style="--d:.55s"><span class="tm">09:00</span><div class="c"><b>Yangi mos tenderlar</b><span>bizdagi mos mahsulot bilan</span></div></div>
+    <div class="ev rv" style="--d:.7s"><span class="tm">09:15</span><div class="c"><b>Dollar kursi</b><span>saytdagi kurs Markaziy bankdan chetga chiqsa — xabar</span></div></div>
+    <div class="ev rv" style="--d:.85s"><span class="tm">09:30</span><div class="c"><b>Javob kelmagan KP'lar</b><span>mijoz javob bermagan takliflar — qayta bog'lanish uchun</span></div></div>
+  </div>
+  <div class="wk rv" style="--d:.6s">
+    <h3>HAR DUSHANBA</h3>
+    <div><b>Haftalik hisobot</b><span>o'tgan hafta qancha KP, tender va murojaat bo'lgani</span></div>
+    <div><b>Katalog holati</b><span>narxi kiritilmagan mahsulotlar ro'yxati</span></div>
+  </div>
+  <div class="rule rv" style="--d:1s"><b>Xabar faqat menejerga boradi.</b> Bot mijozga o'zi yozmaydi, narx va kursni o'zgartirmaydi.</div>
+</section>
+
+<section class="slide b7" aria-label="Bilim bazasi">
+  <canvas class="graf" data-rang="123,79,214" data-kuch="1.3"></canvas>
+  <div class="head">
+    <div class="kick rv">06 · Bilim bazasi</div>
+    <h2 class="rv" style="--d:.15s">Xodim ketsa ham — bilim qoladi</h2>
+    <p class="lead rv" style="--d:.3s">Katalog, normativlar, raqobatchilar va mijozlar haqidagi ma'lumot bir-biriga bog'lab saqlanadi. Yordamchi javob berganda shu bilimga tayanadi va manbasini ko'rsatadi.</p>
+  </div>
+  <div class="nums">
+    <div class="rv" style="--d:.5s"><div class="v"><span data-count="229">0</span></div><div class="t">hujjat</div></div>
+    <div class="rv" style="--d:.65s"><div class="v"><span data-count="6131" data-dec="6 131">0</span></div><div class="t">bilim bo'lagi</div></div>
+  </div>
+  <div class="tags rv" style="--d:.8s"><span>Mahsulotlar</span><span>Normativlar</span><span>Raqobatchilar</span><span>Montaj</span><span>Strategiya</span><span>Mijozlar</span></div>
+  <div class="vf rv" style="--d:.3s"><video src="media-agent/graf-v3.mp4" poster="media-agent/graf-toliq.jpg" muted loop playsinline preload="auto"></video></div>
+</section>
+
+<section class="slide b8 grid" data-air="760,1080,300,1500,.45,.55" aria-label="Foydasi">
+  <div class="head">
+    <div class="kick rv">Kompaniyaga foydasi</div>
+    <h2 class="rv" style="--d:.15s">Menejer vaqti — sotuvga</h2>
+  </div>
+  <div class="ben dk">
+    <div class="bc rv" style="--d:.4s"><span class="k">TEZLIK</span><b>KP qoralamasi soniyalarda</b><span>menejer yozmaydi — tekshiradi</span><div class="big">&lt;1 s<small>202 qatorli ro'yxat</small></div></div>
+    <div class="bc rv" style="--d:.55s"><span class="k">SAVDO</span><b>KPga bizning mahsulot tushadi</b><span>loyihada boshqa brend bo'lsa ham</span><div class="big">✓<small>Jihozvent mahsuloti</small></div></div>
+    <div class="bc rv" style="--d:.7s"><span class="k">IMKONIYAT</span><b>Mos tender har kuni</b><span>muddati va talablari bilan</span><div class="big">09:00<small>har kuni ertalab</small></div></div>
+    <div class="bc rv" style="--d:.85s"><span class="k">NAZORAT</span><b>Muhim ish unutilmaydi</b><span>javobsiz KP, tender muddati, kurs</span><div class="big">4<small>kundalik eslatma</small></div></div>
+  </div>
+  <div class="fin rv" style="--d:1.1s"><div class="q">QOIDA</div><div class="a">Yordamchi tayyorlaydi — qarorni har doim menejer qiladi.</div></div>
+</section>
+
+</div>
+<div id="bar"></div><div id="hud"></div>
+<script>
+if(/still/.test(location.search))document.body.classList.add('still');
+const S=[...document.querySelectorAll('.slide')],stage=document.getElementById('stage');
+let i=0,step=0;
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${k})`}
+/* ekran 16:9 bo'lmasa slayd atrofidagi bo'sh joy slayd foni rangida bo'ladi (qora emas) */
+function chet(sl){const cs=getComputedStyle(sl);let c=cs.backgroundColor;if(/rgba\(0, 0, 0, 0\)|transparent/.test(c)){const m=cs.backgroundImage.match(/rgba?\([^)]*\)/g);c=m?m[m.length-1]:'#03152B'}document.body.style.backgroundColor=c}
+function show(n){
+  S[i].classList.remove('on');S[i].querySelectorAll('video').forEach(v=>v.pause());
+  i=Math.max(0,Math.min(S.length-1,n));step=0;
+  S[i].querySelectorAll('.st').forEach(e=>e.classList.remove('show'));
+  void S[i].offsetWidth;S[i].classList.add('on');
+  S[i].querySelectorAll('video').forEach(v=>{v.currentTime=0;v.play().catch(()=>{})});
+  setAir(S[i]);count(S[i]);chet(S[i]);
+  document.getElementById('hud').textContent=(i+1)+' / '+S.length;
+  document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
+  try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+}
+/* havo oqimi: data-air="y0,y1,s0,s1,yorqinlik,tezlik" — s0 gacha qizil va tartibsiz, s1 dan keyin moviy va tekis */
+const air=document.createElement('canvas');air.id='air';air.width=1920;air.height=1080;
+const ctx=air.getContext('2d'),hot=[255,25,24],cold=[85,205,248];
+const P=[...Array(800)].map(()=>({x:0,y:0,s:1+Math.random()*1.6}));
+let cfg=null,t=0;
+function setAir(sl){
+  cfg=sl.dataset.air?sl.dataset.air.split(',').map(Number):null;
+  if(!cfg){air.remove();return}
+  sl.prepend(air);ctx.clearRect(0,0,1920,1080);
+  const[y0,y1]=cfg;for(const p of P){p.x=Math.random()*1920;p.y=y0+Math.random()*(y1-y0)}
+}
+(function loop(){
+  if(cfg){
+    const[y0,y1,s0,s1,a,v]=cfg,mid=(y0+y1)/2,span=y1-y0;
+    ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,.1)';ctx.fillRect(0,0,1920,1080);
+    ctx.globalCompositeOperation='source-over';ctx.lineWidth=1.3;
+    for(const p of P){
+      const k=Math.min(1,Math.max(0,(p.x-s0)/(s1-s0))),turb=(1-k)*2.4;
+      const ang=Math.sin(p.y*.011+t*.9)*turb+Math.cos(p.x*.008-t*.7)*turb*.8;
+      const nx=p.x+v*p.s*(1.2+k*2.2)*1.2*Math.cos(ang*(1-k*.92));
+      const ny=p.y+v*p.s*1.5*Math.sin(ang)*(1-k)*Math.min(1,span/500)+(mid-p.y)*.0012*k;
+      const c=hot.map((h,j)=>Math.round(h+(cold[j]-h)*k));
+      ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${(.2+k*.3)*a})`;
+      ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nx,ny);ctx.stroke();
+      p.x=nx;p.y=ny;
+      if(p.x>1920||p.x<0||p.y<y0-40||p.y>y1+40){p.x=Math.random()*180;p.y=y0+Math.random()*span}
+    }
+    t+=.012*Math.max(.5,v);
+  }
+  requestAnimationFrame(loop);
+})();
+/* sanoq: 0 dan qiymatgacha */
+function count(sl){sl.querySelectorAll('[data-count]').forEach(el=>{
+  const to=+el.dataset.count,dec=el.dataset.dec,t0=performance.now()+500,dur=1500,f=to%1?1:0;
+  if(document.body.classList.contains('still')){el.textContent=dec||String(to).replace('.',',');return}
+  el.textContent='0';
+  (function tick(now){const k=Math.min(1,Math.max(0,(now-t0)/dur));const val=to*(1-Math.pow(1-k,3));
+    el.textContent=k<1?val.toFixed(f).replace('.',','):(dec||String(to).replace('.',','));if(k<1)requestAnimationFrame(tick)})(performance.now());
+})}
+function next(){const st=[...S[i].querySelectorAll('.st')];if(step<st.length){st[step++].classList.add('show');return}show(i+1)}
+function prev(){show(i-1)}
+/* navigatsiya faqat klaviaturadan: → / ← (pult uchun PageDown / PageUp ham). Sichqoncha slaydni almashtirmaydi. */
+function vidToggle(){const v=S[i].querySelector('.full video');if(!v)return;if(v.paused){v.play().catch(()=>{})}else v.pause()}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+  else if(e.key===' '||e.key==='k'||e.key==='K'){e.preventDefault();vidToggle()}
+  else if(e.key==='f'||e.key==='F')document.documentElement.requestFullscreen?.()});
+/* to'liq ekran videolari: pauza tugmasi */
+document.querySelectorAll('.full').forEach(sl=>{
+  const v=sl.querySelector('video'),b=document.createElement('button');
+  b.className='vbtn';b.type='button';b.setAttribute('aria-label','Pauza / davom');sl.appendChild(b);
+  const upd=()=>{sl.classList.toggle('paused',v.paused);b.textContent=v.paused?'▶  Davom etish':'❚❚  Pauza'};
+  b.addEventListener('click',e=>{e.stopPropagation();vidToggle()});
+  v.addEventListener('play',upd);v.addEventListener('pause',upd);v.addEventListener('ended',upd);upd();
+});
+addEventListener('hashchange',()=>{const n=(parseInt(location.hash.slice(1))||1)-1;if(n!==i)show(n)});
+addEventListener('resize',fit);fit();
+show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+<script id="ag-js">
+/* graf maydoni: eski deckdagi «yulduz maydoni» — nuqtalar suzadi, yaqinlari chiziq bilan ulanadi. Faqat faol slaydda chiziladi. */
+(function(){
+  const still=document.body.classList.contains('still');
+  document.querySelectorAll('canvas.graf').forEach(cv=>{
+    const W=1920,H=1080,rang=cv.dataset.rang||'0,40,84',kuch=+(cv.dataset.kuch||1),cx=cv.getContext('2d');
+    cv.width=W;cv.height=H;
+    const nuq=Array.from({length:Math.round(95*kuch)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5*kuch,vy:(Math.random()-.5)*.5*kuch,r:Math.random()*2.6+1.4,hub:Math.random()<.08}));
+    const sl=cv.closest('.slide');
+    function chiz(){
+      cx.clearRect(0,0,W,H);
+      for(const p of nuq){if(!still){p.x+=p.vx;p.y+=p.vy;} if(p.x<0||p.x>W)p.vx*=-1; if(p.y<0||p.y>H)p.vy*=-1;}
+      cx.lineWidth=1.2;
+      for(let i=0;i<nuq.length;i++)for(let j=i+1;j<nuq.length;j++){const dx=nuq[i].x-nuq[j].x,dy=nuq[i].y-nuq[j].y,d2=dx*dx+dy*dy;
+        if(d2<36000){cx.strokeStyle='rgba('+rang+','+((1-d2/36000)*.22)+')';cx.beginPath();cx.moveTo(nuq[i].x,nuq[i].y);cx.lineTo(nuq[j].x,nuq[j].y);cx.stroke();}}
+      for(const p of nuq){cx.fillStyle='rgba('+rang+','+(p.hub?.75:.45)+')';cx.beginPath();cx.arc(p.x,p.y,p.hub?p.r*2.2:p.r,0,6.2832);cx.fill();}
+    }
+    (function loop(){if(sl.classList.contains('on')||still)chiz();requestAnimationFrame(loop);})();
+  });
+})();
+</script>
+</body>
+</html>

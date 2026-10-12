@@ -13,7 +13,8 @@
   --ease:cubic-bezier(.2,.75,.15,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#000;overflow:hidden}
+html,body{height:100%;background:#03152B;overflow:hidden}
+body{transition:background-color .6s ease}
 body{font-family:var(--sans);color:var(--white);-webkit-font-smoothing:antialiased}
 #stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center}
 .slide{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden;transition:opacity .6s ease,visibility 0s .6s}
@@ -131,7 +132,7 @@ body{font-family:var(--sans);color:var(--white);-webkit-font-smoothing:antialias
 .uz .goal b{color:var(--cold)}
 .uz .bz{position:absolute;left:120px;right:120px;bottom:118px;border:2px solid rgba(85,205,248,.5);border-radius:22px;padding:28px 44px;display:flex;gap:34px;align-items:center;background:rgba(3,21,43,.7)}
 .uz .bz .q{font-family:var(--mono);font-size:22px;color:var(--cold);letter-spacing:.1em;white-space:nowrap}
-.uz .bz .a{font-size:36px;font-weight:700}
+.uz .bz .a{font-size:36px;font-weight:700;line-height:1.25}
 .uz .src{color:#fff}
 /* ?still — animatsiyasiz, oxirgi holat (skrinshot/chop etish uchun) */
 body.still *{animation-delay:0s!important;animation-duration:.001s!important;transition:none!important}
@@ -413,6 +414,309 @@ body.still .st{opacity:1;transform:none}
 .pm .row.main .w{color:var(--cold)}
 .pm .note{position:absolute;left:120px;bottom:60px;font-size:24px;color:#33557A}
 .pm .note b{color:var(--navy)}
+
+/* ---------- v14 · BIZNES MODEL NIMA (och, sidebar uslubi) ----------
+   3 panel: faoli keng ochiq, qolganlari tor vertikal yorliq. Boshida Jihozvent ochiladi;
+   → Uzum ochiladi (Jihozvent yig'iladi); → Climavent ochiladi. Holat .bz.u / .bz.k ko'rinishiga qarab :has() bilan. */
+.bmn{background:var(--frost);color:var(--navy)}
+.bmn .head{position:absolute;left:120px;top:96px;right:120px}
+.bmn .kick{color:#0A7FB8}
+.bmn h2{font-size:84px;font-weight:800;letter-spacing:-.025em;margin-top:18px;line-height:1.02}
+.bmn .lead{font-size:34px;line-height:1.35;color:#33557A;margin-top:16px;max-width:1500px}
+.bmn .lead b{color:var(--navy)}
+.bmn .tb{position:absolute;left:120px;right:120px;top:330px;display:flex;gap:24px;height:544px}
+.bmn .qs,.bmn .pn .body{display:grid;grid-template-rows:76px repeat(3,140px);row-gap:16px}
+.bmn .qs{flex:none;width:290px}
+.bmn .q{display:flex;align-items:center;font-family:var(--mono);font-size:22px;letter-spacing:.08em;color:#0A7FB8;border-left:6px solid #0A7FB8;padding-left:22px}
+.bmn .pn{position:relative;flex:0 0 112px;min-width:0;overflow:hidden;border-radius:24px;transition:flex-grow 1s var(--ease)}
+.bmn .pn .tab{position:absolute;inset:0;border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .45s ease .35s}
+.bmn .pn .tab b{writing-mode:vertical-rl;transform:rotate(180deg);font-size:36px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+.bmn .pn .tab i{writing-mode:vertical-rl;transform:rotate(180deg);font-style:normal;font-family:var(--mono);font-size:16px;letter-spacing:.1em;opacity:.7;white-space:nowrap}
+.bmn .pn.j .tab{background:var(--navy);color:#fff}
+.bmn .pn.u .tab{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 2px #CFE3F1}
+.bmn .pn.k .tab{background:var(--cold);color:var(--ink)}
+.bmn .pn .body{position:absolute;left:0;top:0;width:1078px}
+.bmn .ch{display:flex;align-items:center;gap:14px;padding:0 6px;font-size:40px;font-weight:800;opacity:0;transform:translateX(50px);transition:opacity .3s ease,transform .3s ease}
+.bmn .ch small{font-family:var(--mono);font-size:18px;font-weight:500;letter-spacing:.06em;color:#3B6D9A}
+.bmn .pn.k .ch{color:#0A6E9E}
+.bmn .c{border-radius:22px;padding:22px 32px;display:flex;align-items:center;font-size:31px;font-weight:700;line-height:1.3;opacity:0;transform:translateX(70px);transition:opacity .3s ease,transform .3s ease}
+.bmn .pn.j .c{background:var(--navy);color:#fff}
+.bmn .pn.u .c{background:#fff;color:var(--navy);box-shadow:0 14px 34px rgba(0,40,84,.08)}
+.bmn .pn.k .c{background:var(--cold);color:var(--ink);box-shadow:0 14px 34px rgba(85,205,248,.35)}
+.bmn .pn.k .c b{color:#fff;background:var(--ink);border-radius:8px;padding:0 9px;margin:0 3px}
+.bmn .pn.k .c i{font-style:normal;font-weight:600;color:#0B3B63;opacity:.75;margin-left:6px}
+/* faol panel */
+.bmn.on:not(:has(.bz.u.show)) .pn.j,
+.bmn:has(.bz.u.show):not(:has(.bz.k.show)) .pn.u,
+.bmn:has(.bz.k.show) .pn.k{flex-grow:1}
+.bmn.on:not(:has(.bz.u.show)) .pn.j .tab,
+.bmn:has(.bz.u.show):not(:has(.bz.k.show)) .pn.u .tab,
+.bmn:has(.bz.k.show) .pn.k .tab{opacity:0;transition:opacity .25s ease}
+.bmn.on:not(:has(.bz.u.show)) .pn.j :is(.ch,.c),
+.bmn:has(.bz.u.show):not(:has(.bz.k.show)) .pn.u :is(.ch,.c),
+.bmn:has(.bz.k.show) .pn.k :is(.ch,.c){opacity:1;transform:none;transition:opacity .6s ease,transform .8s var(--ease);transition-delay:calc(.45s + var(--r,0s))}
+.bmn .bz{position:absolute;left:120px;right:120px;bottom:54px;border-radius:22px;padding:24px 40px;font-size:31px;font-weight:800}
+.bmn .bz.u{background:#fff;color:var(--navy);border:2px solid #CFE3F1}
+.bmn .bz.k{background:var(--navy);color:#fff}
+.bmn .bz.k em{font-style:normal;color:var(--cold)}
+.bmn:has(.bz.k.show) .bz.u{opacity:0;transform:translateY(24px)}
+
+/* ---------- v14 · EKOSISTEMA NIMA (to'q, markazda mijoz) ---------- */
+.eko{background:linear-gradient(160deg,var(--ink) 0%,var(--navy) 100%)}
+.eko .head{position:absolute;left:120px;top:96px;width:800px}
+.eko .kick{color:var(--cold)}
+.eko h2{font-size:84px;font-weight:800;letter-spacing:-.025em;margin-top:18px;line-height:1.02}
+.eko .lead{font-size:34px;line-height:1.38;color:#C9DBEC;margin-top:26px}
+.eko .lead b{color:#fff}
+.eko .story{position:absolute;left:120px;top:560px;width:760px;display:grid;gap:22px}
+.eko .story div{display:flex;gap:22px;align-items:baseline;font-size:29px;line-height:1.35;color:#C9DBEC}
+.eko .story span{flex:none;width:150px;font-family:var(--mono);font-size:20px;letter-spacing:.08em;color:var(--cold)}
+.eko .story b{color:#fff}
+.eko svg.hub{position:absolute;left:0;top:0}
+.eko .ln{stroke:rgba(85,205,248,.55);stroke-width:4;stroke-dasharray:1;stroke-dashoffset:1;fill:none}
+.eko.on .ln{animation:draw .9s var(--ease) forwards;animation-delay:var(--d)}
+.eko .me circle{fill:var(--cold)}
+.eko .me text{fill:var(--ink);font-family:var(--sans);font-weight:800;font-size:34px;text-anchor:middle}
+.eko .me .r{fill:none;stroke:var(--cold);stroke-width:3}
+.eko .sv{opacity:0;transform-box:fill-box;transform-origin:center}
+.eko.on .sv{animation:pop .6s var(--ease) forwards;animation-delay:var(--d)}
+.eko .sv rect{fill:#0B2A4E;stroke:rgba(179,224,254,.45);stroke-width:2}
+.eko .sv.f rect{fill:#fff;stroke:#fff}
+.eko .sv text{fill:#fff;font-family:var(--sans);font-weight:800;font-size:32px;text-anchor:middle}
+.eko .sv.f text{fill:var(--navy)}
+.eko .sv text.s{font-family:var(--mono);font-weight:500;font-size:17px;letter-spacing:.08em;fill:var(--cold)}
+.eko .sv.f text.s{fill:#0A7FB8}
+.eko .dot{fill:var(--cold);filter:drop-shadow(0 0 8px var(--cold))}
+.eko .bz{position:absolute;left:120px;right:120px;bottom:100px;border:2px solid rgba(85,205,248,.5);background:rgba(3,21,43,.6);border-radius:22px;padding:24px 40px;display:flex;gap:30px;align-items:center}
+.eko .bz .q{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--cold);white-space:nowrap}
+.eko .bz .a{font-size:30px;font-weight:700;line-height:1.3}
+.eko .src{bottom:40px;color:#fff}
+
+/* ---------- v14 · CLIMAVENT YO'LI (to'q, 4 pog'ona zinapoya + muddat) ---------- */
+.yol{background:radial-gradient(1300px 900px at 80% 20%,#0A3A6E 0%,var(--navy) 50%,var(--ink) 100%)}
+.yol .head{position:absolute;left:120px;top:84px;right:120px}
+.yol .kick{color:var(--cold)}
+.yol h2{font-size:76px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.02}
+.yol h2 em{font-style:normal;color:var(--cold)}
+.yol .base{position:absolute;left:120px;right:120px;top:960px;height:4px;background:rgba(179,224,254,.25);border-radius:4px}
+.yol .today{position:absolute;left:120px;top:984px;font-family:var(--mono);font-size:20px;letter-spacing:.06em;color:#8FE3BE}
+.yol .steps{position:absolute;left:120px;right:120px;top:290px;height:670px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:end}
+.yol .s{position:relative;border-radius:26px 26px 0 0;padding:26px 30px;background:rgba(255,255,255,.07);border:2px solid rgba(179,224,254,.25);border-bottom:0;height:0;overflow:hidden;transition:height 1s var(--ease);display:flex;flex-direction:column}
+.yol.on .s{height:var(--h)}
+.yol.on .s:nth-child(1){transition-delay:.3s}.yol.on .s:nth-child(2){transition-delay:.55s}.yol.on .s:nth-child(3){transition-delay:.8s}.yol.on .s:nth-child(4){transition-delay:1.05s}
+.yol .s .tm{align-self:flex-start;font-family:var(--mono);font-size:22px;font-weight:500;letter-spacing:.06em;padding:6px 14px;border-radius:20px;background:rgba(85,205,248,.16);color:var(--cold)}
+.yol .s .nm{font-size:38px;font-weight:800;margin:14px 0 10px;letter-spacing:-.01em;line-height:1.08}
+.yol .s .iz{font-size:20px;font-weight:700;color:var(--sky);margin:-4px 0 10px}
+.yol .s.now .iz{color:#0B3B63}
+.yol .s .t{font-size:23px;line-height:1.38;color:#C9DBEC}
+.yol .s .fy{margin-top:auto;padding-top:14px;border-top:2px solid rgba(179,224,254,.2);font-size:22px;line-height:1.35;color:#fff;font-weight:700}
+.yol .s .fy i{display:block;font-style:normal;font-family:var(--mono);font-weight:500;font-size:16px;letter-spacing:.1em;color:var(--mist);margin-bottom:4px}
+.yol .s:not(.now){border-style:dashed}
+.yol .s .qr{position:absolute;right:22px;top:30px;font-family:var(--mono);font-size:15px;letter-spacing:.08em;color:var(--mist)}
+.yol .s.now{background:var(--cold);border-color:var(--cold);color:var(--ink)}
+.yol .s.now .tm{background:var(--ink);color:var(--cold)}
+.yol .s.now .t,.yol .s.now .fy{color:#0B3B63}.yol .s.now .fy{border-color:rgba(3,21,43,.2)}.yol .s.now .fy i{color:#0B3B63}
+.yol .here{position:absolute;left:120px;width:396px;top:calc(960px - var(--hh) - 64px);text-align:center;font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--cold)}
+.yol .here::after{content:"▼";display:block;font-size:16px;margin-top:4px;animation:bob 1.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+.yol .note{position:absolute;right:120px;top:984px;font-size:22px;color:#C9DBEC}
+.yol .note b{color:#fff}
+
+/* ---------- v14 · 1-QISM XULOSASI → 2-QISM (to'q, ajratuvchi) ---------- */
+.ajr{background:linear-gradient(120deg,var(--ink) 0%,var(--navy) 100%)}
+.ajr .lt{position:absolute;left:120px;top:150px;width:900px}
+.ajr .lt .kick{color:var(--mist)}
+.ajr .lt ul{margin-top:44px;display:grid;gap:40px}
+.ajr .lt li{list-style:none;display:flex;gap:26px}
+.ajr .lt li span{flex:none;width:64px;height:64px;border-radius:18px;background:rgba(85,205,248,.15);color:var(--cold);display:grid;place-items:center;font-family:var(--mono);font-size:24px}
+.ajr .lt li b{display:block;font-size:36px;font-weight:800;line-height:1.2}
+.ajr .lt li small{display:block;font-size:26px;line-height:1.4;color:#C9DBEC;margin-top:8px}
+.ajr .rt{position:absolute;left:1120px;right:0;top:0;bottom:0;background:var(--cold);color:var(--ink);padding:0 120px 0 90px;display:flex;flex-direction:column;justify-content:center}
+.ajr .rt .kick{color:#0B3B63}
+.ajr .rt .no{font-size:150px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:18px 0 10px}
+.ajr .rt h2{font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1.08}
+.ajr .rt p{font-size:28px;line-height:1.4;color:#0B3B63;margin-top:26px}
+.ajr .rt .logo{position:absolute;right:120px;top:96px;height:44px}
+
+/* ---------- v14 · JIHOZVENT'GA FOYDASI (oq, 4 karta + o'lchovlar) ---------- */
+.fyd{background:#fff;color:var(--navy)}
+.fyd .head{position:absolute;left:120px;top:96px;right:120px}
+.fyd .kick{color:#0A7FB8}
+.fyd h2{font-size:80px;font-weight:800;letter-spacing:-.025em;margin-top:18px;line-height:1.02}
+.fyd .lead{font-size:30px;color:#33557A;margin-top:16px}
+.fyd .lead b{color:var(--navy)}
+.fyd .cards{position:absolute;left:120px;right:120px;top:350px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.fyd .c{border-radius:26px;padding:32px 30px 34px;background:var(--frost);display:flex;flex-direction:column;min-height:440px}
+.fyd .c .pg{align-self:flex-start;font-family:var(--mono);font-size:19px;letter-spacing:.06em;padding:6px 14px;border-radius:20px;background:#E2F3FC;color:#0A6E9E}
+.fyd .c .ic{font-size:52px;font-weight:800;color:#0A7FB8;line-height:1;margin:22px 0 12px;font-family:var(--mono)}
+.fyd .c .nm{font-size:38px;font-weight:800;line-height:1.1;margin-bottom:14px}
+.fyd .c .t{font-size:28px;line-height:1.38;color:#33557A}
+.fyd .c.n{background:var(--navy);color:#fff}
+.fyd .c.n .pg{background:rgba(85,205,248,.18);color:var(--cold)}
+.fyd .c.n .ic{color:var(--cold)}
+.fyd .c.n .t{color:#C9DBEC}
+.fyd .ol{position:absolute;left:120px;right:120px;bottom:90px;border-radius:22px;padding:26px 40px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:34px}
+.fyd .ol .q{font-family:var(--mono);font-size:20px;letter-spacing:.1em;color:var(--cold);white-space:nowrap}
+.fyd .ol .a{font-size:28px;font-weight:700;line-height:1.35}
+.fyd .ol .a i{font-style:normal;color:var(--cold);margin:0 10px}
+
+/* ---------- v14 · WATSCO (och, vaqt chizig'i + summalar) ---------- */
+.ws{background:var(--frost);color:var(--navy)}
+.ws .head{position:absolute;left:120px;top:84px;right:120px}
+.ws .kick{color:#3B6D9A}
+.ws h2{font-size:64px;font-weight:800;letter-spacing:-.025em;line-height:1.04;margin-top:14px}
+.ws h2 em{font-style:normal;color:#0A7FB8}
+.ws .iz{font-size:24px;line-height:1.4;color:#33557A;margin-top:14px}
+.ws .iz b{color:var(--navy)}
+.ws .track{position:absolute;left:120px;right:120px;top:388px;height:4px;background:#D3E2EE;border-radius:4px}
+.ws .track i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--navy);border-radius:4px}
+.ws.on .track i{animation:grow 3.6s var(--ease) .4s forwards}
+.ws .nodes{position:absolute;left:120px;right:120px;top:338px;display:grid;grid-template-columns:repeat(5,1fr);gap:26px}
+.ws .n{position:relative;padding-top:84px;opacity:0;transform:translateY(20px);display:flex;flex-direction:column}
+.ws.on .n{animation:up .8s var(--ease) forwards;animation-delay:var(--d)}
+.ws .n::before{content:"";position:absolute;left:0;top:36px;width:28px;height:28px;border-radius:50%;background:var(--frost);border:6px solid var(--navy)}
+.ws .n.cut::before{border-color:var(--heat)}
+.ws .n.now::before{background:var(--cold);border-color:var(--cold);box-shadow:0 0 0 12px rgba(85,205,248,.25)}
+.ws .y{font-family:var(--mono);font-size:50px;font-weight:500;letter-spacing:-.02em;line-height:1}
+.ws .n.cut .y{color:var(--heat)}
+.ws .n.now .y{color:#0A7FB8}
+.ws .nm{font-size:27px;font-weight:800;line-height:1.2;margin-top:12px}
+.ws .t{font-size:22px;line-height:1.38;margin-top:8px;color:#33557A}
+.ws .pul{align-self:flex-start;margin-top:14px;font-family:var(--sans);font-size:24px;font-weight:800;padding:8px 16px;border-radius:14px;background:#fff;color:var(--navy);box-shadow:0 8px 20px rgba(0,40,84,.08)}
+.ws .pul small{display:block;font-family:var(--mono);font-size:14px;font-weight:500;letter-spacing:.06em;color:#3B6D9A;margin-bottom:2px}
+.ws .n.cut .pul{color:var(--heat)}
+.ws .n.now .pul{background:var(--navy);color:#fff}.ws .n.now .pul small{color:var(--cold)}
+.ws .bz{position:absolute;left:120px;right:120px;bottom:86px;background:var(--navy);color:#fff;border-radius:22px;padding:24px 40px;display:flex;align-items:center;gap:30px}
+.ws .bz .q{font-family:var(--mono);font-size:20px;color:var(--cold);letter-spacing:.1em;white-space:nowrap}
+.ws .bz .a{font-size:30px;font-weight:700;line-height:1.3}
+.ws .src{color:var(--navy);bottom:36px}
+
+/* ---------- v14 · SAVDO INTERNETGA (to'q, 3 raqam + bozor hajmi) ---------- */
+.inet{background:var(--ink)}
+.inet .head{position:absolute;left:120px;top:90px;right:120px}
+.inet .kick{color:var(--cold)}
+.inet h2{font-size:76px;font-weight:800;letter-spacing:-.025em;margin-top:16px;line-height:1.04}
+.inet .nums{position:absolute;left:120px;right:120px;top:350px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:60px}
+.inet .num{font-size:150px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.inet .num i{font-style:normal;font-size:.6em;margin-left:.04em}
+.inet .num.hot{color:var(--heat)} .inet .num.cold{color:var(--cold)}
+.inet .cap{font-size:28px;line-height:1.35;color:#C9DBEC;margin-top:16px;max-width:500px}
+.inet .cap b{color:#fff}
+.inet .hj{position:absolute;left:120px;right:120px;top:680px;display:flex;gap:40px;font-size:29px;line-height:1.35;color:#fff}
+.inet .hj div{flex:1;border-left:4px solid var(--cold);padding-left:22px}
+.inet .hj b{color:var(--cold)}
+.inet .bz{position:absolute;left:120px;right:120px;bottom:100px;border:2px solid rgba(85,205,248,.5);border-radius:22px;padding:24px 40px;display:flex;gap:30px;align-items:center;background:rgba(3,21,43,.7)}
+.inet .bz .q{font-family:var(--mono);font-size:20px;color:var(--cold);letter-spacing:.1em;white-space:nowrap}
+.inet .bz .a{font-size:31px;font-weight:700;line-height:1.3}
+.inet .src{color:#fff;bottom:40px}
+
+/* ---------- v14 · EKOSISTEMA FOYDASI (to'q: Yandex Go + bizda qanday + 3 foyda) ---------- */
+.ekf{background:linear-gradient(160deg,var(--ink) 0%,var(--navy) 100%)}
+.ekf .head{position:absolute;left:120px;top:96px;right:120px}
+.ekf .kick{color:var(--cold)}
+.ekf h2{font-size:80px;font-weight:800;letter-spacing:-.025em;margin-top:18px;line-height:1.02}
+.ekf h2 em{font-style:normal;color:var(--cold)}
+.ekf .chains{position:absolute;left:120px;top:330px;width:1010px;display:grid;gap:56px}
+.ekf .ch .nm{font-size:30px;font-weight:800;margin-bottom:16px;display:flex;align-items:baseline;gap:16px}
+.ekf .ch .nm small{font-family:var(--mono);font-size:17px;font-weight:500;color:var(--mist);letter-spacing:.06em}
+.ekf .row{position:relative;display:flex;gap:16px}
+.ekf .row::before{content:"";position:absolute;left:20px;right:20px;top:50%;height:3px;background:rgba(179,224,254,.22)}
+.ekf .pt{position:relative;flex:1;text-align:center;padding:20px 8px;border-radius:20px;background:#0B2A4E;border:2px solid rgba(179,224,254,.3);font-size:25px;font-weight:700;opacity:0;transform:translateY(16px)}
+.ekf.on .pt{animation:up .6s var(--ease) forwards;animation-delay:var(--d)}
+.ekf .pt.f{background:var(--cold);border-color:var(--cold);color:var(--ink)}
+.ekf .ch.biz .pt{background:#0E3A66;border-color:rgba(85,205,248,.55)}
+.ekf .ch.biz .pt.f{background:#fff;border-color:#fff;color:var(--navy)}
+.ekf .ch .t{font-size:24px;color:#C9DBEC;margin-top:14px;line-height:1.35}
+.ekf .ch .t b{color:var(--cold)}
+.ekf .fy{position:absolute;left:1190px;right:120px;top:330px;border-radius:28px;padding:34px 38px;background:rgba(255,255,255,.06);border:2px solid rgba(85,205,248,.45)}
+.ekf .fy h3{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.12em;color:var(--cold);margin-bottom:26px}
+.ekf .fy li{list-style:none;display:flex;gap:18px;font-size:31px;font-weight:800;line-height:1.25;margin-bottom:30px}
+.ekf .fy li:last-child{margin-bottom:0}
+.ekf .fy li span{flex:none;font-family:var(--mono);font-size:22px;color:var(--cold);padding-top:6px}
+.ekf .fy li small{display:block;font-size:23px;font-weight:500;color:#A9C2D8;margin-top:6px;line-height:1.35}
+.ekf .src{bottom:40px;color:#fff}
+
+/* ---------- v14 · TA'SISCHI UCHUN (oq: oddiy zavod vs ekosistema egasi, 5 qator) ---------- */
+.tas{background:#fff;color:var(--navy)}
+.tas .head{position:absolute;left:120px;top:84px;right:120px}
+.tas .kick{color:#3B6D9A}
+.tas h2{font-size:68px;font-weight:800;letter-spacing:-.025em;line-height:1.04;margin-top:14px}
+.tas h2 em{font-style:normal;color:#0A7FB8}
+.tas .tb{position:absolute;left:120px;right:120px;top:262px;display:grid;grid-template-columns:400px 1fr 1fr}
+.tas .tb>div{padding:20px 30px;font-size:25px;line-height:1.32;display:flex;flex-direction:column;justify-content:center;min-height:100px;border-bottom:2px solid #E3EDF5}
+.tas .tb .hd{min-height:0;padding:16px 30px;font-family:var(--mono);font-size:19px;letter-spacing:.1em;color:#3B6D9A;border-bottom:3px solid var(--navy)}
+.tas .tb .q{padding-left:0;font-size:28px;font-weight:800}
+.tas .tb .a{color:#4A6683}
+.tas .tb .b{background:var(--navy);color:#fff;font-weight:700;border-bottom-color:rgba(179,224,254,.18)}
+.tas .tb .b small{display:block;font-size:22px;font-weight:500;color:#A9C2D8;margin-top:4px}
+.tas .tb .hd.b{color:var(--cold);border-radius:22px 22px 0 0;border-bottom-color:var(--cold)}
+.tas .tb .b.end{border-radius:0 0 22px 22px;border-bottom:0}
+.tas .tb>.r{opacity:0;transform:translateY(18px)}
+.tas.on .tb>.r{animation:up .7s var(--ease) forwards;animation-delay:var(--d)}
+.tas .bz{position:absolute;left:120px;right:120px;bottom:86px;background:var(--frost);border-radius:22px;padding:24px 40px;display:flex;align-items:center;gap:30px}
+.tas .bz .q{font-family:var(--mono);font-size:20px;color:#0A7FB8;letter-spacing:.1em;white-space:nowrap}
+.tas .bz .a{font-size:30px;font-weight:700;line-height:1.3}
+
+/* Ekosistema foydasi — 9 video, pul seyfga (10.10) */
+.ekz{background:#fff}
+.ekz::before{content:"";position:absolute;left:0;right:0;top:150px;bottom:0;pointer-events:none;
+  background-image:radial-gradient(rgba(0,40,84,.07) 1px,transparent 1.2px);background-size:28px 28px;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,0) 70%);mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,0) 70%)}
+.ekz-hd{position:absolute;left:0;right:0;top:0;height:150px;display:flex;align-items:center;justify-content:center;gap:26px;z-index:2;
+  background:radial-gradient(900px 260px at 50% -20%,rgba(85,205,248,.28),transparent 70%),linear-gradient(180deg,#00336b 0%,#002854 100%);
+  box-shadow:0 10px 30px rgba(0,40,84,.18)}
+.ekz-hd::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,transparent,#55cdf8 20%,#55cdf8 80%,transparent)}
+.ekz-belgi{height:88px;width:auto;filter:drop-shadow(0 6px 18px rgba(85,205,248,.35))}
+.ekz-nom{display:flex;align-items:baseline;gap:22px}
+.ekz-yozuv{height:58px;width:auto;transform:translateY(4px)}
+.ekz-mp{font-family:Manrope,sans-serif;font-size:64px;line-height:1;font-weight:800;letter-spacing:-.5px;color:#55cdf8}
+.ekz-seyf-joy{width:132px;height:122px;margin-left:30px;margin-top:6px}
+.ekz-seyf{width:132px;height:122px;display:block;overflow:visible}
+.ekz-seyf .ekz-nur{opacity:0;transition:opacity .25s}
+.ekz-seyf.qabul .ekz-nur{opacity:1;transition:none}
+.ekz-disk{transform-origin:66px 66px;transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.ekz-setka{position:absolute;left:0;right:0;top:150px;bottom:0;display:grid;grid-template-columns:repeat(3,404px);
+  grid-template-rows:repeat(3,auto);justify-content:space-evenly;align-content:space-evenly}
+.ekz-k{border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 12px 30px rgba(0,40,84,.14),0 0 0 1px #dbe6f2}
+.ekz-k video{display:block;width:404px;height:227px;object-fit:cover;background:#fff}
+.ekz-y{height:54px;display:flex;align-items:baseline;gap:12px;padding:13px 18px 0;border-bottom:1px solid #e6eef7;
+  background:linear-gradient(180deg,#f4f8fd,#fff);font-family:Manrope,sans-serif}
+.ekz-y b{font-size:25px;line-height:1.1;font-weight:800;color:#002854;letter-spacing:-.3px;white-space:nowrap}
+.ekz-y span{font-size:17px;font-weight:600;color:#5d7290;white-space:nowrap}
+.ekz-y i{flex:none;width:5px;height:5px;border-radius:50%;background:#55cdf8;transform:translateY(-4px)}
+.ekz-pullar{position:absolute;inset:0;pointer-events:none;z-index:5}
+.ekz-pul{position:absolute;left:0;top:0;will-change:transform;opacity:0}
+.ekz-pul svg{display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28))}
+
+/* ---------- ILOVALAR (xaridor + hamkor, ikki telefon) ---------- */
+.ilv{background:linear-gradient(120deg,var(--ink) 0%,var(--navy) 100%)}
+.ilv .txt{position:absolute;left:120px;top:0;bottom:0;width:820px;display:flex;flex-direction:column;justify-content:center}
+.ilv .kick{color:var(--cold)}
+.ilv h2{font-size:70px;font-weight:800;letter-spacing:-.025em;line-height:1.04;margin:18px 0 40px}
+.ilv .gr{margin-bottom:30px}
+.ilv .gr h3{display:flex;align-items:baseline;gap:16px;font-size:32px;font-weight:800;margin-bottom:12px}
+.ilv .gr h3 small{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--mist);letter-spacing:.02em}
+.ilv .gr ul{list-style:none;display:grid;gap:10px}
+.ilv .gr li{position:relative;padding-left:30px;font-size:26px;line-height:1.3;color:#D5E4F2}
+.ilv .gr li::before{content:"";position:absolute;left:0;top:13px;width:12px;height:12px;border-radius:50%;background:var(--cold)}
+.ilv .pro{margin-top:8px;border:2px solid rgba(85,205,248,.35);border-radius:22px;padding:20px 26px;display:flex;gap:22px;align-items:center}
+.ilv .pro .bd{flex:none;font-weight:800;font-size:20px;padding:7px 12px;border-radius:10px;background:var(--cold);color:var(--ink)}
+.ilv .pro .t{font-size:24px;line-height:1.35;color:#D5E4F2}
+.ilv .pro .t b{color:#fff}
+.ilv .pill{margin-top:30px;align-self:flex-start;font-family:var(--mono);font-size:20px;color:#FFD66B}
+.ilv .phone{position:absolute;top:120px;width:380px;height:774px;border-radius:58px;background:#0B1B2E;padding:16px;box-shadow:0 40px 90px rgba(0,0,0,.5),0 0 0 2px #2A4566 inset}
+.ilv .phone video{width:100%;height:100%;border-radius:44px;object-fit:contain;display:block;background:#fff}
+.ilv .phone.x{left:1020px}.ilv .phone.h{left:1440px}
+.ilv .cap{position:absolute;top:912px;width:380px;text-align:center;font-family:var(--mono);font-size:20px;letter-spacing:.06em;color:var(--sky)}
+.ilv .cap.x{left:1020px}.ilv .cap.h{left:1440px}
+/* ---------- HAVOLA TUGMASI (slayd ichidan ochiladi, yangi oynada) ---------- */
+.lnk{display:inline-flex;align-items:center;gap:14px;padding:14px 26px;border-radius:40px;font-size:24px;font-weight:700;text-decoration:none;cursor:pointer;
+  background:var(--navy);color:#fff;box-shadow:0 10px 30px rgba(0,40,84,.25);transition:transform .2s,box-shadow .2s}
+.lnk:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(0,40,84,.35)}
+.lnk small{font-family:var(--mono);font-size:17px;font-weight:500;color:var(--cold)}
+.lnk::after{content:"↗";font-size:24px;color:var(--cold)}
+.lnks{position:absolute;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.lnks .q{font-family:var(--mono);font-size:18px;letter-spacing:.08em;color:#4A6A8C;margin-right:4px}
 </style>
 </head>
 <body>
@@ -424,183 +728,283 @@ body.still .st{opacity:1;transform:none}
   <div class="in">
     <div class="kick rv" style="--d:.2s">Jihozvent · 2002 yildan beri zavod</div>
     <h1 class="rv" style="--d:.35s">Zavod <span class="plus">+</span><br>Climavent</h1>
-    <p class="rv" style="--d:.55s">O'zimiz ishlab chiqargan tovarni va boshqa brendlarni bitta onlayn platformada sotish taklifi</p>
+    <p class="rv" style="--d:.55s">Jihozvent — zavod. Climavent — marketpleys, unda birinchi sotuvchi Jihozvent bo'ladi</p>
   </div>
   <div class="foot rv" style="--d:.8s"><b>Jihozvent rahbariyati uchun</b> · Oktyabr 2026</div>
 </section>
 
-<section class="slide kuch" aria-label="Bizning kuchimiz">
-  <div class="vid"><video src="media/ishlab-chiqarish.mp4" poster="media/ishlab-chiqarish.jpg" muted loop playsinline preload="auto"></video></div>
-  <div class="txt">
-    <div class="kick rv">Jihozvent bugun</div>
-    <h2 class="rv" style="--d:.15s">Biz allaqachon<br>ishlab chiqaramiz</h2>
-    <ul>
-      <li class="rv" style="--d:.4s"><b>2002</b>yildan beri o'z zavodi</li>
-      <li class="rv" style="--d:.55s"><b>HVAC</b>ventilyatsiya va konditsionerlash tovarlarining deyarli hammasi o'zimizda</li>
-      <li class="rv" style="--d:.7s"><b>Mijoz</b>yirik sanoat korxonalari bilan ishlaymiz</li>
-    </ul>
+<section class="slide bmn" aria-label="Biznes model nima">
+  <div class="head">
+    <div class="kick rv">1-qism · Tushunchalar</div>
+    <h2 class="rv" style="--d:.15s">Biznes model nima?</h2>
+    <p class="lead rv" style="--d:.3s">Har bir kompaniya <b>uchta savolga</b> javob beradi. Shu uch javob — uning biznes modeli.</p>
   </div>
+  <div class="tb">
+    <div class="qs"><div></div>
+      <div class="q rv" style="--d:.4s">NIMA SOTADI?</div>
+      <div class="q rv" style="--d:.5s">KIMGA SOTADI?</div>
+      <div class="q rv" style="--d:.6s">PUL QAYERDAN?</div>
+    </div>
+    <div class="pn j">
+      <div class="tab"><b>Jihozvent</b><i>ZAVOD</i></div>
+      <div class="body">
+        <div class="ch">Jihozvent <small>ZAVOD</small></div>
+        <div class="c" style="--r:0.12s"><span>O'z zavodida ishlab chiqargan ventilyatsiya va konditsionerlash mahsulotlari</span></div>
+        <div class="c" style="--r:0.24s"><span>Yirik sanoat korxonalariga</span></div>
+        <div class="c" style="--r:0.36s"><span>O'z mahsulotining narxidan</span></div>
+      </div>
+    </div>
+    <div class="pn u">
+      <div class="tab"><b>Uzum Market</b><i>MARKETPLEYS</i></div>
+      <div class="body">
+        <div class="ch">Uzum Market <small>MARKETPLEYS</small></div>
+        <div class="c" style="--r:0.12s"><span>Boshqalarning mahsulotini — o'zi ishlab chiqarmaydi</span></div>
+        <div class="c" style="--r:0.24s"><span>Hammaga — internet orqali</span></div>
+        <div class="c" style="--r:0.36s"><span>Har savdodan ulush oladi</span></div>
+      </div>
+    </div>
+    <div class="pn k">
+      <div class="tab"><b>Climavent</b><i>MARKETPLEYS</i></div>
+      <div class="body">
+        <div class="ch">Climavent <small>MARKETPLEYS</small></div>
+        <div class="c" style="--r:0.12s"><span>Avval Jihozvent mahsuloti <i>(keyinchalik — boshqa zavodlar mahsuloti ham)</i></span></div>
+        <div class="c" style="--r:0.24s"><span>Quruvchilar, korxonalar, loyiha tashkilotlari, montaj firmalariga — internet orqali</span></div>
+        <div class="c" style="--r:0.36s"><span>Jihozvent mahsuloti savdosidan <i>(keyinchalik — har savdodan ulush)</i></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bz u st" data-g="u">Savollar bir xil, javoblar har xil — shuning uchun pul topish yo'li ham har xil.</div>
+  <div class="bz k st" data-g="k"><em>Jihozvent — zavod bo'lib qoladi.</em> Climavent — uning mahsulotini internet orqali ko'proq mijozga yetkazadi.</div>
 </section>
 
-<section class="slide uz grid" data-steps="1" data-air="560,1080,250,1450,.6,.75" aria-label="O'zbekiston">
+<section class="slide eko grid" aria-label="Ekosistema nima">
   <div class="head">
-    <div class="kick rv">Nega aynan hozir · O'zbekiston, 2026</div>
-    <h2 class="rv" style="--d:.15s">Xaridor internetda.<br>Savdo hali u yerga ko'chmagan.</h2>
+    <div class="kick rv">1-qism · Tushunchalar</div>
+    <h2 class="rv" style="--d:.15s">Ekosistema nima?</h2>
+    <p class="lead rv" style="--d:.3s">Bitta mijozga <b>bir-biriga ulangan</b> bir nechta xizmat. Mijoz bittasidan boshlaydi — qolganini ham shu yerdan oladi.</p>
   </div>
-  <div class="nums">
-    <div class="rv" style="--d:.4s"><div class="num"><span data-count="97" data-dec="97,3">0</span><i>%</i></div><div class="cap">10 yoshdan katta aholi internetdan foydalanadi</div></div>
-    <div class="rv" style="--d:.7s"><div class="num hot"><span data-count="4.6" data-dec="4,6">0</span><i>%</i></div><div class="cap">chakana savdoning internet orqali qismi</div></div>
-    <div class="rv" style="--d:1s"><div class="num cold"><span data-count="22">0</span><i>%</i></div><div class="cap">dunyoda o'rtacha — bizdan 5 baravar ko'p</div></div>
+  <div class="story">
+    <div class="rv" style="--d:.6s"><span>AVVAL</span><p>Uzum faqat <b>Market</b> edi — internet do'kon</p></div>
+    <div class="rv" style="--d:1.6s"><span>KEYIN</span><p>Shu mijozlarga <b>karta, nasiya, tezkor yetkazish</b> qo'shildi</p></div>
+    <div class="rv" style="--d:2.4s"><span>BUGUN</span><p><b>20 mln+</b> foydalanuvchi — hammasi bitta ilovada</p></div>
   </div>
-  <div class="goal rv" style="--d:1.4s">Davlat maqsadi — bu ulushni <b>9–11%</b> ga yetkazish</div>
-  <div class="bz st"><div class="q">BIZGA NIMA?</div><div class="a">Odamlar allaqachon internetda. Bo'sh joy — savdoning o'zida.</div></div>
-  <div class="src">Manba: Prezident yig'ilishi, 2026 aprel (president.uz) · Statistika qo'mitasi, 2026 yanvar–avgust</div>
+  <svg class="hub" width="1920" height="1080" viewBox="0 0 1920 1080">
+    <path class="ln" pathLength="1" style="--d:.9s" d="M1440 560 L1440 360"/>
+    <path class="ln" pathLength="1" style="--d:1.5s" d="M1440 560 L1700 560"/>
+    <path class="ln" pathLength="1" style="--d:1.7s" d="M1440 560 L1440 760"/>
+    <path class="ln" pathLength="1" style="--d:1.9s" d="M1440 560 L1180 560"/>
+    <circle class="dot" r="7"><animateMotion dur="2.2s" repeatCount="indefinite" begin="2.6s" path="M1440 360 L1440 560 L1700 560 L1440 560 L1440 760 L1440 560 L1180 560 L1440 560 Z"/></circle>
+    <g class="me"><circle class="r" cx="1440" cy="560" r="96"><animate attributeName="r" values="96;140" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="2s" repeatCount="indefinite"/></circle><circle cx="1440" cy="560" r="96"/><text x="1440" y="572">Mijoz</text></g>
+    <g class="sv f" style="--d:.7s"><rect x="1320" y="270" width="240" height="96" rx="22"/><text class="s" x="1440" y="304">BOSHLANISHI</text><text x="1440" y="346">Market</text></g>
+    <g class="sv" style="--d:1.7s"><rect x="1590" y="512" width="230" height="96" rx="22"/><text x="1705" y="572">Karta</text></g>
+    <g class="sv" style="--d:1.9s"><rect x="1320" y="754" width="240" height="96" rx="22"/><text x="1440" y="814">Nasiya</text></g>
+    <g class="sv" style="--d:2.1s"><rect x="1010" y="512" width="250" height="96" rx="22"/><text x="1135" y="546" class="s">TEZKOR</text><text x="1135" y="588">Yetkazish</text></g>
+  </svg>
+  <div class="bz rv" style="--d:2.8s"><div class="q">ODDIY DO'KON</div><div class="a">mijoz bitta narsa oladi va ketadi. <span style="color:var(--cold)">Ekosistemada</span> — keyingi ehtiyojini ham shu yerdan oladi.</div></div>
+  <div class="src">Manba: Uzum 2025 yil yakunlari (uzum.com)</div>
 </section>
 
-<section class="slide bm" data-steps="1" aria-label="Biznes model turlari">
-  <div class="head">
-    <div class="kick rv">Biznes model turlari</div>
-    <h2 class="rv" style="--d:.15s">Kompaniya pulni qanday topadi: <em>to'rt pog'ona</em></h2>
+<section class="slide ekz" aria-label="Ekosistema foydasi">
+  <div class="ekz-hd">
+    <img class="ekz-belgi" src="media/logo-belgi.png" alt="">
+    <div class="ekz-nom"><img class="ekz-yozuv" src="media/logo-w.png" alt="Climavent"><div class="ekz-mp">Marketplace</div></div>
+    <div class="ekz-seyf-joy">
+      <svg class="ekz-seyf" viewBox="0 0 132 122" aria-label="Seyf">
+        <defs>
+          <linearGradient id="ekzTana" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a6aa3"/><stop offset=".5" stop-color="#1b4478"/><stop offset="1" stop-color="#0d2a52"/></linearGradient>
+          <linearGradient id="ekzEshik" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4c80bd"/><stop offset="1" stop-color="#143a6a"/></linearGradient>
+          <radialGradient id="ekzDisk" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f4f9ff"/><stop offset=".55" stop-color="#b9cde3"/><stop offset="1" stop-color="#6f8cad"/></radialGradient>
+          <linearGradient id="ekzOltin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe58a"/><stop offset="1" stop-color="#e2a521"/></linearGradient>
+          <linearGradient id="ekzPul" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9be0a8"/><stop offset="1" stop-color="#3f9e5a"/></linearGradient>
+        </defs>
+        <rect x="16" y="112" width="18" height="8" rx="2" fill="#0a1f3c"/>
+        <rect x="98" y="112" width="18" height="8" rx="2" fill="#0a1f3c"/>
+        <rect x="4" y="8" width="124" height="106" rx="12" fill="url(#ekzTana)" stroke="#7fb4e6" stroke-opacity=".55" stroke-width="1.5"/>
+        <rect x="40" y="0" width="52" height="12" rx="6" fill="#0d2a52" stroke="#7fb4e6" stroke-opacity=".6"/>
+        <rect class="ekz-teshik" x="48" y="4" width="36" height="4" rx="2" fill="#020c1a"/>
+        <rect class="ekz-nur" x="44" y="1" width="44" height="10" rx="5" fill="none" stroke="#ffe58a" stroke-width="2.5"/>
+        <rect x="14" y="18" width="104" height="88" rx="8" fill="url(#ekzEshik)" stroke="#0a2347" stroke-width="2"/>
+        <rect class="ekz-nur" x="14" y="18" width="104" height="88" rx="8" fill="none" stroke="#55cdf8" stroke-width="3"/>
+        <rect x="9" y="30" width="7" height="16" rx="2" fill="#9fb8d4"/>
+        <rect x="9" y="78" width="7" height="16" rx="2" fill="#9fb8d4"/>
+        <g class="ekz-disk">
+          <circle cx="66" cy="66" r="25" fill="url(#ekzDisk)" stroke="#0a2347" stroke-width="2"/>
+          <g stroke="#3d5a7e" stroke-width="2" stroke-linecap="round">
+            <line x1="66" y1="44" x2="66" y2="49"/><line x1="66" y1="83" x2="66" y2="88"/>
+            <line x1="44" y1="66" x2="49" y2="66"/><line x1="83" y1="66" x2="88" y2="66"/>
+            <line x1="50.4" y1="50.4" x2="53.9" y2="53.9"/><line x1="78.1" y1="78.1" x2="81.6" y2="81.6"/>
+            <line x1="81.6" y1="50.4" x2="78.1" y2="53.9"/><line x1="53.9" y1="78.1" x2="50.4" y2="81.6"/>
+          </g>
+          <circle cx="66" cy="66" r="9" fill="#123561"/>
+          <rect x="64" y="44" width="4" height="10" rx="2" fill="#ff1918"/>
+        </g>
+        <rect x="100" y="56" width="8" height="22" rx="4" fill="#cfdeee" stroke="#0a2347"/>
+      </svg>
+    </div>
   </div>
-  <div class="steps">
-    <div class="s now" style="--h:52%"><div class="no">1 · ZAVOD</div><div class="nm">Zavod</div><div class="t">O'zi ishlab chiqaradi va sotadi. Pul — o'z tovaridan.</div><div class="ex"><b>Jihozvent</b></div></div>
-    <div class="s" style="--h:68%"><div class="no">2 · DISTRIBYUTOR</div><div class="nm">Distribyutor</div><div class="t">Boshqa zavodlarning tovarini olib, ko'p mijozga sotadi. Pul — narx farqidan.</div><div class="ex"><b>Iklim</b><b>Watsco</b></div></div>
-    <div class="s" style="--h:84%"><div class="no">3 · MARKETPLEYS</div><div class="nm">Marketpleys</div><div class="t">Sotuvchi va xaridorni bitta joyda uchrashtiradi. Pul — har savdodan ulush.</div><div class="ex"><b>Uzum Market</b></div></div>
-    <div class="s top" style="--h:100%"><div class="no">4 · EKOSISTEMA</div><div class="nm">Ekosistema</div><div class="t">Bir-biriga ulangan xizmatlar: mijoz bittasidan boshlab, qolganlaridan ham foydalanadi.</div><div class="ex"><b>Uzum</b><b>Yandex Go</b></div></div>
+  <div class="ekz-setka">
+    <div class="ekz-k" data-n="1"><div class="ekz-y"><b>Ishlab chiqarish</b><i></i><span>Zavod · Jihozvent</span></div><video src="media/eko-1.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="4"><div class="ekz-y"><b>Yetkazib berish</b><i></i><span>Yuk mashinasi</span></div><video src="media/eko-4.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="8"><div class="ekz-y"><b>Vent do'kon</b><i></i><span>Savdo</span></div><video src="media/eko-8.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="9"><div class="ekz-y"><b>Vent Akademiya</b><i></i><span>O'quv markazi</span></div><video src="media/eko-9.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="5"><div class="ekz-y"><b>Loyihachi</b><i></i><span>Loyihalash</span></div><video src="media/eko-5.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="6"><div class="ekz-y"><b>Montajchi</b><i></i><span>O'rnatish</span></div><video src="media/eko-6.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="7"><div class="ekz-y"><b>Servis ustasi</b><i></i><span>Texnik xizmat</span></div><video src="media/eko-7.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="2"><div class="ekz-y"><b>Yetkazib berish</b><i></i><span>Mototsikl</span></div><video src="media/eko-2.mp4" muted loop playsinline preload="auto"></video></div>
+    <div class="ekz-k" data-n="3"><div class="ekz-y"><b>Yetkazib berish</b><i></i><span>Yengil mashina</span></div><video src="media/eko-3.mp4" muted loop playsinline preload="auto"></video></div>
   </div>
-  <div class="tags rv" style="--d:1.3s"><span class="a">JIHOZVENT BUGUN</span><span class="b">CLIMAVENT BILAN — ZAVODNI SAQLAGAN HOLDA</span></div>
-  <div class="bz st"><div class="q">BIZGA NIMA?</div><div class="a">Biz bugun birinchi pog'onadamiz. Climavent bilan zavod qoladi — ustiga keyingi uch pog'ona qo'shiladi.</div></div>
+  <div class="ekz-pullar"></div>
+<script>
+/* Ekosistema: har video qimirlagan sari undan pul chiqib, tepadagi seyfga uchadi.
+   HARAKAT — har video uchun soniyasiga 8 marta o'lchangan qimirlash (m, 0..1) va qimirlash markazi (x, y). */
+(function(){
+const HARAKAT={"1":{"m":[0.0,0.0,0.0,0.0,0.0,0.0,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.03,0.04,0.04,0.03,0.03,0.03,0.07,0.05,0.04,0.05,0.04,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.03,1.0,0.42,0.46,0.47,0.48,0.46,0.45,0.43,0.43,0.42,0.54,0.66,0.89,1.0,1.0,1.0,0.61,0.5,0.48,0.44,0.44,0.5,0.48,0.54,0.53,0.55,0.55,0.53,0.37,0.48,0.51,1.0,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.03,0.04,0.03,0.04,0.03],"x":[0.5,0.5,0.5,0.34,0.34,0.29,0.25,0.25,0.25,0.34,0.37,0.36,0.36,0.36,0.36,0.37,0.38,0.55,0.53,0.56,0.59,0.65,0.68,0.61,0.64,0.7,0.65,0.66,0.7,0.68,0.7,0.72,0.71,0.7,0.65,0.64,0.73,0.76,0.35,0.52,0.52,0.54,0.53,0.47,0.45,0.46,0.46,0.49,0.47,0.47,0.46,0.44,0.43,0.41,0.37,0.48,0.48,0.47,0.47,0.47,0.44,0.46,0.46,0.48,0.49,0.49,0.48,0.49,0.49,0.47,0.54,0.54,0.6,0.65,0.7,0.71,0.73,0.74,0.73,0.77,0.79,0.82],"y":[0.4,0.4,0.4,0.22,0.2,0.3,0.38,0.36,0.34,0.19,0.14,0.14,0.13,0.14,0.13,0.14,0.13,0.55,0.56,0.59,0.56,0.58,0.61,0.58,0.6,0.61,0.59,0.58,0.57,0.55,0.56,0.58,0.56,0.57,0.56,0.58,0.6,0.6,0.47,0.57,0.57,0.57,0.58,0.58,0.58,0.58,0.58,0.58,0.59,0.6,0.61,0.6,0.59,0.56,0.56,0.6,0.6,0.6,0.6,0.59,0.61,0.59,0.59,0.61,0.62,0.63,0.67,0.62,0.61,0.61,0.51,0.52,0.54,0.55,0.55,0.56,0.55,0.54,0.57,0.58,0.59,0.61]},"2":{"m":[0.0,0.25,0.21,0.23,0.2,0.18,0.19,0.21,0.14,0.2,0.19,0.2,0.21,0.18,0.24,0.22,0.14,0.24,0.14,0.24,0.16,0.23,0.21,0.2,0.2,0.15,0.22,0.16,0.22,0.21,0.19,0.21,0.14,0.21,0.16,0.15,0.21,0.14,0.21,0.17,0.15,0.19,0.15,0.24,0.27,0.23,0.33,0.41,0.38,0.42,0.42,0.41,0.44,0.47,0.5,0.57,0.63,0.59,0.6,0.58,0.57,0.53,0.57,0.6,0.63,0.64,0.6,0.66,0.69,0.71,0.78,0.84,0.89,0.92,0.98,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"x":[0.5,0.15,0.16,0.27,0.42,0.42,0.42,0.43,0.42,0.43,0.43,0.45,0.46,0.45,0.42,0.44,0.45,0.44,0.47,0.45,0.43,0.43,0.43,0.41,0.43,0.43,0.42,0.42,0.43,0.43,0.42,0.42,0.42,0.42,0.43,0.43,0.46,0.44,0.41,0.42,0.43,0.43,0.44,0.51,0.58,0.68,0.66,0.66,0.69,0.63,0.62,0.64,0.62,0.6,0.57,0.55,0.52,0.49,0.47,0.45,0.46,0.49,0.5,0.49,0.47,0.46,0.49,0.5,0.5,0.5,0.51,0.51,0.5,0.5,0.53,0.5,0.49,0.49,0.51,0.53,0.49,0.44],"y":[0.4,0.6,0.61,0.68,0.71,0.72,0.71,0.7,0.78,0.7,0.72,0.7,0.68,0.72,0.67,0.68,0.77,0.68,0.76,0.69,0.74,0.66,0.67,0.7,0.69,0.75,0.67,0.69,0.65,0.67,0.68,0.67,0.71,0.67,0.68,0.68,0.68,0.75,0.69,0.7,0.71,0.68,0.71,0.67,0.65,0.65,0.6,0.59,0.57,0.56,0.54,0.52,0.53,0.54,0.54,0.54,0.53,0.53,0.52,0.52,0.51,0.51,0.52,0.52,0.53,0.52,0.52,0.53,0.54,0.56,0.57,0.56,0.55,0.55,0.56,0.57,0.56,0.55,0.55,0.56,0.57,0.56]},"3":{"m":[0.0,0.03,0.03,0.1,0.13,0.14,0.11,0.14,0.07,0.14,0.06,0.13,0.1,0.14,0.12,0.11,0.13,0.08,0.14,0.09,0.17,0.15,0.16,0.18,0.12,0.19,0.15,0.19,0.19,0.14,0.18,0.13,0.15,0.16,0.11,0.16,0.17,0.16,0.22,0.18,0.23,0.22,0.18,0.2,0.14,0.18,0.14,0.18,0.11,0.15,0.09,0.14,0.1,0.18,0.3,0.48,0.72,0.97,1.0,1.0,0.84,0.64,0.5,0.19,0.33,0.1,0.47,0.89,1.0,1.0,1.0,0.76,0.57,0.38,0.22,0.14,0.16,0.14,0.17,0.17,0.13,0.17],"x":[0.5,0.47,0.48,0.45,0.44,0.43,0.43,0.43,0.39,0.44,0.44,0.45,0.45,0.46,0.47,0.5,0.49,0.5,0.47,0.54,0.54,0.57,0.55,0.52,0.53,0.52,0.55,0.54,0.54,0.53,0.52,0.54,0.55,0.52,0.55,0.53,0.55,0.58,0.56,0.59,0.54,0.53,0.51,0.46,0.42,0.38,0.32,0.36,0.38,0.47,0.51,0.48,0.49,0.49,0.51,0.51,0.52,0.52,0.54,0.54,0.55,0.55,0.55,0.6,0.49,0.44,0.54,0.54,0.54,0.55,0.55,0.54,0.53,0.54,0.53,0.52,0.49,0.47,0.45,0.44,0.45,0.5],"y":[0.4,0.57,0.58,0.56,0.56,0.57,0.56,0.57,0.53,0.55,0.51,0.54,0.56,0.56,0.55,0.56,0.58,0.58,0.56,0.55,0.57,0.58,0.59,0.58,0.56,0.56,0.56,0.57,0.57,0.58,0.57,0.55,0.54,0.54,0.51,0.52,0.51,0.5,0.52,0.49,0.5,0.51,0.52,0.54,0.55,0.57,0.56,0.57,0.54,0.56,0.54,0.56,0.56,0.58,0.59,0.58,0.6,0.63,0.67,0.65,0.6,0.61,0.65,0.54,0.55,0.5,0.51,0.61,0.64,0.66,0.64,0.62,0.62,0.61,0.59,0.53,0.52,0.53,0.56,0.56,0.55,0.57]},"4":{"m":[0.0,0.11,0.11,0.32,0.38,0.46,0.54,0.58,0.61,0.64,0.7,0.76,0.77,0.77,0.78,0.78,0.73,0.68,0.64,0.58,0.6,0.58,0.6,0.57,0.57,0.53,0.51,0.49,0.45,0.37,0.34,0.25,0.35,0.49,0.64,0.69,0.68,0.67,0.67,0.69,0.71,0.66,0.61,0.53,0.44,0.28,0.06,0.0,0.01,0.03,0.02,0.03,0.11,0.42,0.63,0.76,0.84,0.82,0.79,0.67,0.45,0.18,0.02,0.04,0.02,1.0,0.36,0.87,1.0,0.88,1.0,1.0,0.98,1.0,0.57,0.63,0.65,0.72,0.79,0.82,0.85,0.87],"x":[0.5,0.04,0.05,0.06,0.08,0.08,0.1,0.11,0.13,0.15,0.16,0.17,0.19,0.2,0.23,0.25,0.29,0.32,0.34,0.36,0.38,0.41,0.42,0.44,0.46,0.46,0.47,0.49,0.49,0.49,0.5,0.63,0.6,0.53,0.5,0.48,0.48,0.47,0.47,0.45,0.44,0.43,0.41,0.41,0.4,0.36,0.34,0.23,0.27,0.3,0.25,0.27,0.26,0.28,0.29,0.3,0.32,0.33,0.35,0.36,0.36,0.42,0.48,0.36,0.43,0.43,0.27,0.32,0.3,0.17,0.17,0.16,0.15,0.44,0.35,0.35,0.35,0.36,0.36,0.35,0.35,0.35],"y":[0.4,0.61,0.65,0.65,0.65,0.66,0.65,0.64,0.64,0.63,0.63,0.64,0.64,0.65,0.64,0.63,0.63,0.63,0.62,0.62,0.61,0.61,0.61,0.61,0.59,0.6,0.59,0.58,0.58,0.58,0.57,0.52,0.55,0.58,0.59,0.59,0.59,0.6,0.59,0.59,0.58,0.59,0.58,0.59,0.58,0.59,0.67,0.36,0.47,0.48,0.43,0.45,0.65,0.65,0.65,0.64,0.63,0.63,0.63,0.64,0.63,0.53,0.55,0.51,0.52,0.53,0.51,0.5,0.53,0.55,0.54,0.54,0.55,0.54,0.63,0.62,0.62,0.62,0.61,0.61,0.6,0.6]},"5":{"m":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.22,0.26,0.07,0.0,0.0,0.0,0.0,0.0,0.0,0.12,0.41,0.48,0.46,0.33,0.02,0.0,0.04,0.06,0.06,0.01,0.05,0.03,0.07,0.07,0.06,0.04,0.03,1.0,0.92,1.0,0.79,0.72,0.74,0.5,0.8,0.74,1.0,1.0,0.73,0.79,0.7,0.49,0.69,1.0,0.01,0.09,0.09,0.1,0.15,0.1,0.09,0.13,0.08,0.54,0.72,0.63,0.17,0.0,0.0,0.0,0.1,0.42,0.35,0.06,0.0,0.62,0.57,0.3,0.5,0.22,0.08,0.04,0.0,0.0,0.0],"x":[0.5,0.5,0.5,0.16,0.17,0.17,0.17,0.24,0.24,0.26,0.27,0.27,0.27,0.27,0.27,0.19,0.26,0.26,0.28,0.3,0.31,0.33,0.37,0.38,0.37,0.36,0.32,0.33,0.32,0.34,0.34,0.33,0.33,0.35,0.45,0.22,0.18,0.15,0.14,0.12,0.14,0.13,0.16,0.18,0.19,0.19,0.15,0.12,0.12,0.12,0.45,0.4,0.4,0.39,0.37,0.36,0.35,0.35,0.39,0.35,0.32,0.29,0.26,0.24,0.24,0.24,0.24,0.25,0.23,0.2,0.16,0.16,0.21,0.21,0.21,0.21,0.2,0.21,0.21,0.21,0.21,0.21],"y":[0.4,0.4,0.4,0.21,0.14,0.14,0.14,0.32,0.32,0.32,0.44,0.44,0.44,0.44,0.44,0.38,0.42,0.4,0.39,0.4,0.42,0.44,0.58,0.57,0.58,0.59,0.59,0.59,0.59,0.6,0.6,0.6,0.58,0.59,0.42,0.36,0.39,0.43,0.46,0.51,0.54,0.5,0.49,0.56,0.65,0.66,0.64,0.63,0.63,0.6,0.43,0.57,0.58,0.58,0.47,0.48,0.45,0.46,0.59,0.49,0.4,0.37,0.35,0.36,0.36,0.36,0.36,0.43,0.41,0.4,0.53,0.53,0.53,0.48,0.53,0.46,0.48,0.47,0.37,0.37,0.37,0.37]},"6":{"m":[0.0,0.03,0.04,0.16,0.26,0.37,0.52,0.58,0.55,0.55,0.6,0.59,0.53,0.51,0.59,0.58,0.52,0.46,0.52,0.54,0.5,0.48,0.52,0.53,0.55,1.0,0.72,0.98,1.0,1.0,0.89,0.48,0.47,0.45,0.42,0.35,0.28,0.22,0.15,0.24,0.12,0.05,0.08,0.24,0.24,0.11,0.38,0.77,0.67,0.65,0.23,0.48,0.79,0.77,0.44,0.05,0.07,0.04,0.17,0.26,0.21,0.07,0.24,0.09,0.21,0.47,0.65,0.62,0.39,0.31,0.81,1.0,1.0,0.76,0.38,0.21,0.08,0.0,0.09,0.31,0.39,0.35],"x":[0.5,0.03,0.03,0.03,0.04,0.06,0.06,0.07,0.09,0.12,0.16,0.17,0.2,0.22,0.25,0.27,0.28,0.31,0.34,0.36,0.37,0.39,0.42,0.44,0.44,0.61,0.63,0.6,0.57,0.54,0.52,0.54,0.55,0.54,0.54,0.56,0.56,0.57,0.57,0.48,0.5,0.5,0.59,0.61,0.62,0.62,0.55,0.59,0.62,0.69,0.77,0.69,0.67,0.64,0.62,0.55,0.55,0.55,0.61,0.61,0.61,0.58,0.61,0.59,0.58,0.61,0.65,0.7,0.73,0.71,0.67,0.64,0.62,0.62,0.62,0.63,0.6,0.58,0.61,0.61,0.62,0.62],"y":[0.4,0.54,0.53,0.47,0.52,0.55,0.51,0.52,0.5,0.52,0.5,0.52,0.5,0.51,0.51,0.53,0.52,0.51,0.51,0.51,0.53,0.52,0.52,0.5,0.55,0.6,0.73,0.7,0.65,0.6,0.54,0.5,0.46,0.45,0.44,0.43,0.42,0.41,0.4,0.44,0.44,0.4,0.4,0.43,0.42,0.43,0.53,0.56,0.59,0.63,0.71,0.64,0.61,0.58,0.52,0.66,0.61,0.57,0.48,0.47,0.47,0.54,0.49,0.54,0.59,0.6,0.67,0.71,0.75,0.61,0.58,0.56,0.52,0.5,0.54,0.56,0.42,0.33,0.42,0.45,0.45,0.5]},"7":{"m":[0.0,0.0,0.0,0.0,0.0,0.21,0.25,0.08,0.22,0.36,0.21,0.23,0.52,0.56,0.4,0.1,0.39,0.46,0.71,0.61,1.0,1.0,0.91,0.15,0.05,0.05,0.04,0.04,0.02,0.31,0.4,0.5,0.32,0.0,0.0,0.0,0.0,0.04,0.58,0.72,0.71,0.17,0.0,0.0,0.0,0.0,0.02,0.04,0.0,0.05,0.03,0.05,0.09,0.77,0.74,0.44,0.7,1.0,0.21,0.16,0.08,0.48,0.62,0.76,0.96,0.74,0.1,0.02,0.0,0.36,1.0,1.0,0.59,0.97,0.28,0.19,0.07,0.02,0.0,0.01,0.04,0.06],"x":[0.5,0.5,0.5,0.5,0.5,0.66,0.65,0.65,0.65,0.65,0.67,0.67,0.66,0.65,0.64,0.6,0.6,0.58,0.56,0.46,0.41,0.4,0.39,0.38,0.53,0.53,0.54,0.54,0.53,0.6,0.61,0.62,0.64,0.64,0.64,0.64,0.64,0.65,0.63,0.62,0.59,0.59,0.59,0.59,0.59,0.59,0.57,0.57,0.55,0.57,0.56,0.56,0.55,0.59,0.59,0.57,0.56,0.53,0.53,0.55,0.56,0.57,0.57,0.6,0.62,0.65,0.65,0.63,0.63,0.55,0.46,0.43,0.36,0.49,0.44,0.45,0.4,0.18,0.14,0.38,0.29,0.27],"y":[0.4,0.4,0.4,0.4,0.4,0.47,0.42,0.41,0.43,0.45,0.46,0.44,0.43,0.43,0.42,0.75,0.73,0.69,0.61,0.52,0.48,0.46,0.41,0.37,0.42,0.43,0.41,0.42,0.42,0.42,0.42,0.44,0.45,0.45,0.45,0.45,0.45,0.44,0.43,0.42,0.44,0.39,0.39,0.39,0.39,0.39,0.49,0.48,0.47,0.48,0.49,0.5,0.48,0.49,0.56,0.61,0.57,0.76,0.57,0.58,0.57,0.53,0.51,0.45,0.42,0.41,0.38,0.36,0.36,0.34,0.37,0.44,0.47,0.8,0.16,0.16,0.34,0.62,0.76,0.66,0.56,0.57]},"8":{"m":[0.0,0.0,0.0,0.03,0.03,0.02,0.03,0.02,0.01,0.01,0.01,0.0,0.01,0.03,0.05,0.1,0.14,0.21,0.25,0.31,0.34,0.43,0.5,0.53,0.57,0.59,0.63,0.64,0.69,0.68,0.7,0.75,0.73,0.73,0.69,0.65,0.58,0.51,0.43,0.34,0.26,0.19,0.12,0.07,0.03,0.02,0.03,0.01,0.02,0.04,1.0,0.25,0.34,0.35,0.21,0.0,0.19,0.25,0.22,0.07,0.05,0.07,0.02,0.2,0.63,0.91,1.0,1.0,1.0,1.0,0.67,0.44,0.2,0.06,0.02,0.01,0.02,0.01,0.01,0.01,0.01,0.01],"x":[0.5,0.5,0.53,0.5,0.5,0.51,0.52,0.51,0.5,0.5,0.5,0.51,0.6,0.54,0.55,0.54,0.49,0.5,0.53,0.5,0.5,0.52,0.51,0.5,0.5,0.5,0.54,0.55,0.55,0.56,0.57,0.56,0.56,0.55,0.54,0.56,0.54,0.53,0.55,0.53,0.56,0.55,0.56,0.6,0.63,0.77,0.65,0.8,0.69,0.5,0.48,0.48,0.48,0.49,0.47,0.41,0.46,0.48,0.47,0.45,0.47,0.47,0.59,0.59,0.56,0.55,0.53,0.54,0.55,0.53,0.54,0.54,0.53,0.54,0.48,0.51,0.5,0.49,0.41,0.44,0.51,0.47],"y":[0.4,0.4,0.66,0.56,0.53,0.51,0.52,0.52,0.47,0.48,0.48,0.48,0.5,0.5,0.5,0.5,0.52,0.51,0.51,0.5,0.49,0.51,0.51,0.5,0.51,0.51,0.52,0.52,0.52,0.52,0.52,0.52,0.52,0.53,0.53,0.53,0.52,0.53,0.53,0.52,0.53,0.52,0.51,0.51,0.46,0.44,0.48,0.43,0.37,0.46,0.52,0.56,0.47,0.44,0.42,0.47,0.43,0.44,0.47,0.52,0.49,0.49,0.59,0.54,0.51,0.52,0.53,0.48,0.44,0.4,0.4,0.38,0.41,0.4,0.51,0.5,0.5,0.49,0.52,0.55,0.55,0.54]},"9":{"m":[0.0,0.05,0.08,0.08,0.11,0.03,0.03,0.01,0.01,0.0,0.0,0.01,0.05,0.05,0.06,0.07,0.02,0.01,0.0,0.01,0.23,0.45,0.77,1.0,1.0,1.0,0.75,0.73,0.9,0.98,0.88,0.74,0.67,0.5,0.24,0.19,0.22,0.3,0.27,0.33,0.33,0.1,0.05,0.11,0.12,0.08,0.03,0.02,0.02,0.01,0.01,0.11,0.11,0.13,0.08,0.02,1.0,0.03,0.12,0.18,0.16,0.16,0.1,0.18,0.1,0.21,0.15,0.11,0.16,0.17,0.23,0.11,1.0,0.18,0.24,0.11,0.14,0.07,0.07,0.04,0.05],"x":[0.5,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.48,0.48,0.48,0.48,0.48,0.5,0.49,0.5,0.5,0.5,0.5,0.22,0.11,0.17,0.19,0.23,0.26,0.42,0.53,0.52,0.51,0.51,0.52,0.52,0.55,0.53,0.62,0.77,0.69,0.68,0.56,0.35,0.33,0.55,0.54,0.53,0.53,0.57,0.63,0.53,0.42,0.46,0.52,0.53,0.53,0.53,0.55,0.48,0.7,0.69,0.6,0.57,0.59,0.5,0.59,0.48,0.6,0.54,0.48,0.44,0.49,0.55,0.44,0.52,0.56,0.57,0.54,0.56,0.67,0.54,0.46,0.72],"y":[0.4,0.64,0.61,0.56,0.56,0.56,0.55,0.53,0.53,0.53,0.53,0.53,0.56,0.54,0.53,0.54,0.51,0.49,0.49,0.52,0.5,0.49,0.5,0.52,0.54,0.56,0.55,0.55,0.55,0.54,0.54,0.52,0.52,0.53,0.54,0.62,0.78,0.72,0.73,0.64,0.52,0.51,0.59,0.58,0.55,0.55,0.55,0.6,0.56,0.52,0.57,0.58,0.6,0.62,0.59,0.55,0.51,0.58,0.41,0.5,0.52,0.54,0.66,0.64,0.67,0.6,0.59,0.64,0.64,0.55,0.5,0.62,0.5,0.6,0.6,0.4,0.52,0.65,0.63,0.64,0.69]}};
+const sl=document.currentScript.closest('section'),qat=sl.querySelector('.ekz-pullar'),seyf=sl.querySelector('.ekz-seyf'),
+  disk=sl.querySelector('.ekz-disk'),teshik=sl.querySelector('.ekz-teshik');
+const kartalar=[...sl.querySelectorAll('.ekz-k')].map(k=>({v:k.querySelector('video'),n:+k.dataset.n,yig:Math.random()}));
+const DOLLAR='<svg width="54" height="27" viewBox="0 0 54 27"><rect x=".5" y=".5" width="53" height="26" rx="3" fill="url(#ekzPul)" stroke="#2c7a43"/><rect x="4" y="4" width="46" height="19" rx="2" fill="none" stroke="#e9fbe9" stroke-opacity=".7"/><circle cx="27" cy="13.5" r="8" fill="#e9fbe9" stroke="#2c7a43"/><text x="27" y="18.2" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="13" fill="#1f6b37">$</text><circle cx="9.5" cy="13.5" r="2" fill="#2c7a43" opacity=".5"/><circle cx="44.5" cy="13.5" r="2" fill="#2c7a43" opacity=".5"/></svg>';
+const TANGA='<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="url(#ekzOltin)" stroke="#b37c0c" stroke-width="1.5"/><circle cx="14" cy="14" r="9.5" fill="none" stroke="#fff3c4" stroke-opacity=".8"/><text x="14" y="19" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="14" fill="#8a5a00">$</text></svg>';
+const uchar=[];
+/* slayd koordinatalaridagi joy (sahna masshtabidan qat'i nazar) */
+function joy(el){const s=sl.getBoundingClientRect(),k=s.width/1920,r=el.getBoundingClientRect();return{x:(r.left-s.left)/k,y:(r.top-s.top)/k,w:r.width/k,h:r.height/k}}
+function chiqar(o,idx){
+  if(uchar.length>=160)return;
+  const H=HARAKAT[o.n],r=joy(o.v),t=joy(teshik);
+  const sx=r.x+H.x[idx]*r.w+(Math.random()-.5)*40,sy=r.y+H.y[idx]*r.h+(Math.random()-.5)*30;
+  const tx=t.x+t.w/2,ty=t.y+t.h/2;
+  const tomon=sx<900?-1:sx>1020?1:(Math.random()<.5?-1:1);
+  const el=document.createElement('div'),tanga=Math.random()<.3;
+  el.className='ekz-pul';el.innerHTML=tanga?TANGA:DOLLAR;qat.appendChild(el);
+  uchar.push({el,b:performance.now(),chiq:.45,ucish:1.7+Math.random()*.7,p0:[sx,sy],
+    p1:[sx+tomon*(180+Math.random()*160),sy-140-Math.random()*120],
+    p2:[tx+tomon*(260+Math.random()*220),ty+120+Math.random()*120],p3:[tx,ty],
+    w:tanga?14:27,h:tanga?14:13.5,aylan:(Math.random()<.5?-1:1)*(240+Math.random()*300),b0:(Math.random()-.5)*40});
+}
+const kub=(a,b,c,d,t)=>{const u=1-t;return u*u*u*a+3*u*u*t*b+3*u*t*t*c+t*t*t*d};
+const silliq=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+let diskB=0,nurT=0;
+function tushdi(){
+  diskB+=36;disk.style.transform=`rotate(${diskB}deg)`;
+  seyf.classList.add('qabul');clearTimeout(nurT);nurT=setTimeout(()=>seyf.classList.remove('qabul'),120);
+  seyf.animate([{transform:'scale(1)'},{transform:'scale(1.045)'},{transform:'scale(1)'}],{duration:260,easing:'ease-out'});
+}
+let old=performance.now();
+(function kadr(now){
+  const dt=Math.min(.1,(now-old)/1000);old=now;
+  if(!sl.classList.contains('on')){while(uchar.length)uchar.pop().el.remove();requestAnimationFrame(kadr);return}
+  for(const o of kartalar){
+    if(o.v.paused||o.v.readyState<2)continue;
+    const H=HARAKAT[o.n],idx=Math.min(H.m.length-1,Math.max(0,Math.floor(o.v.currentTime*8)));
+    o.yig+=(.12+2.4*Math.pow(H.m[idx],1.4))*dt;
+    while(o.yig>=1){o.yig-=1;chiqar(o,idx)}
+  }
+  for(let j=uchar.length-1;j>=0;j--){
+    const p=uchar[j],s=(now-p.b)/1000;let x,y,sc,rot,op;
+    if(s<p.chiq){const k=1-Math.pow(1-s/p.chiq,3);x=p.p0[0];y=p.p0[1]-34*k;sc=.25+.75*k;rot=p.b0*k;op=Math.min(1,k*1.6)}
+    else{
+      const t=Math.min(1,(s-p.chiq)/p.ucish),e=silliq(t);
+      x=kub(p.p0[0],p.p1[0],p.p2[0],p.p3[0],e);y=kub(p.p0[1]-34,p.p1[1],p.p2[1],p.p3[1],e);
+      sc=1-.55*e*e;rot=p.b0+p.aylan*e*(1-e*.85);op=t>.94?(1-t)/.06:1;
+      if(t>=1){p.el.remove();uchar.splice(j,1);tushdi();continue}
+    }
+    p.el.style.opacity=op;p.el.style.transform=`translate(${x-p.w}px,${y-p.h}px) rotate(${rot}deg) scale(${sc})`;
+  }
+  requestAnimationFrame(kadr);
+})(old);
+})();
+</script>
 </section>
 
-<section class="slide tl" data-steps="1" aria-label="Watsco">
+<section class="slide tas" data-steps="1" aria-label="Ta'sischi uchun">
   <div class="head">
-    <div class="kick rv">2-pog'ona · sohamizdan misol · AQSh</div>
-    <h2 class="rv" style="--d:.15s">Shimoliy Amerikadagi eng katta HVAC distribyutori<br><em>zavod bo'lib boshlagan</em></h2>
+    <div class="kick rv">1-qism · Ta'sischi uchun</div>
+    <h2 class="rv" style="--d:.15s">Ekosistema <em>kompaniya egasiga</em> nima beradi?</h2>
+  </div>
+  <div class="tb">
+    <div class="hd rv" style="--d:.3s"></div><div class="hd rv" style="--d:.3s">ODDIY ZAVOD</div><div class="hd b rv" style="--d:.3s">EKOSISTEMA EGASI</div>
+    <div class="q r" style="--d:0.50s">Mijoz kimga bog'langan?</div><div class="a r" style="--d:0.50s">Ko'pincha menejerga — menejer ketsa, mijoz ham ketishi mumkin</div><div class="b r" style="--d:0.50s">Kompaniyaga<small>tarixi, narxlari, KPlari — hammasi ilovada saqlanadi</small></div>
+    <div class="q r" style="--d:0.85s">Daromad qayerdan?</div><div class="a r" style="--d:0.85s">Bitta manba — o'z mahsuloti</div><div class="b r" style="--d:0.85s">Bir nechta manba<small>o'z mahsuloti + boshqa sotuvchilar ulushi + xizmatlar</small></div>
+    <div class="q r" style="--d:1.20s">Raqobatchi arzonroq bersa?</div><div class="a r" style="--d:1.20s">Mijoz narxga qarab ketadi</div><div class="b r" style="--d:1.20s">Ketish qiyin<small>KP, yetkazish, usta — hammasi bir joyda, odatlangan</small></div>
+    <div class="q r" style="--d:1.55s">Bozorni qanchalik ko'radi?</div><div class="a r" style="--d:1.55s">Faqat sotilgan mahsulotni</div><div class="b r" style="--d:1.55s">Butun talabni<small>mijoz nima qidirgan, nima olgan, nimadan voz kechgan</small></div>
+    <div class="q r" style="--d:1.90s">Kompaniya nimaga baholanadi?</div><div class="a r" style="--d:1.90s">Bino, uskuna, ombordagi mahsulot</div><div class="b r end" style="--d:1.90s">Bularga qo'shimcha<small>mijozlar bazasi va platformaning o'zi ham boylik</small></div>
+  </div>
+  <div class="bz st"><div class="q">QISQASI</div><div class="a">Zavod mahsulot sotadi. Ekosistema egasi esa mijozni o'zida ushlab, undan yillab daromad oladi.</div></div>
+</section>
+
+<section class="slide ws" data-steps="1" aria-label="Watsco">
+  <div class="head">
+    <div class="kick rv">1-qism · Sohamizdan misol · AQSh</div>
+    <h2 class="rv" style="--d:.15s">Watsco zavod edi — bugun Amerikadagi <em>eng katta HVAC distribyutori</em></h2>
+    <p class="iz rv" style="--d:.3s"><b>HVAC</b> — isitish, ventilyatsiya, konditsioner. <b>Distribyutor</b> — boshqa zavodlar mahsulotini olib, montajchilarga sotadigan kompaniya.</p>
   </div>
   <div class="track"><i></i></div>
   <div class="nodes">
-    <div class="n" style="--d:.5s"><div class="y">1956</div><div class="t"><b>Zavod.</b> Konditsioner va sovutish tizimlari uchun ehtiyot qism, asbob ishlab chiqaradi</div></div>
-    <div class="n" style="--d:1.2s"><div class="y">1989</div><div class="t">Gemaire distribyutorining <b>80%</b> ini sotib oladi — <b>distribyutorlikka birinchi qadam</b></div></div>
-    <div class="n" style="--d:1.9s"><div class="y">1993</div><div class="t">Daromadning <b>¾ qismi</b> endi distribyutorlikdan keladi</div></div>
-    <div class="n cut" style="--d:2.6s"><div class="y">1998</div><div class="t"><b>Zavodni sotadi.</b> U daromadning 8% ini ham bermayotgan edi</div></div>
-    <div class="n now" style="--d:3.3s"><div class="y">2025</div><div class="t">Savdoning <b>35%</b> i internet orqali, ilovasidan <b>≈73 000</b> montajchi foydalanadi</div></div>
+    <div class="n" style="--d:.5s"><div class="y">1956</div><div class="nm">Zavod ochiladi</div><div class="t">Floridada Watsco zavodi (keyin «Watsco Components»): konditsioner va isitish uchun ehtiyot qismlar</div><div class="pul"><small>1988 YIL SAVDOSI</small>22 mln $</div></div>
+    <div class="n" style="--d:1.1s"><div class="y">1989</div><div class="nm">Distribyutor sotib oladi</div><div class="t">Gemaire distribyutorining 80% ini oladi — deyarli bir yillik savdosiga teng pulga</div><div class="pul"><small>NARXI</small>17 mln $</div></div>
+    <div class="n" style="--d:1.7s"><div class="y">1993</div><div class="nm">Savdoning ¾ qismi — distribyutorlikdan</div><div class="t">Jami 231 mln $: distribyutorlik ≈182 mln $, zavod atigi ≈22 mln $</div><div class="pul"><small>DISTRIBYUTORLIK</small>≈182 mln $</div></div>
+    <div class="n cut" style="--d:2.3s"><div class="y">1998</div><div class="nm">Zavodni sotadi</div><div class="t">Savdo 1 mlrd $ ga yetdi. Distribyutorlikdan boshqa hamma ish 8% ham bermas edi — shuning uchun zavod boshqa ishlab chiqaruvchiga sotildi</div><div class="pul"><small>ZAVOD VA BOSHQALAR</small>80 mln $ dan kam</div></div>
+    <div class="n now" style="--d:2.9s"><div class="y">2025</div><div class="nm">Bugun</div><div class="t">Jami savdo 7,2 mlrd $. Ilovasidan ≈73 000 montajchi foydalanadi</div><div class="pul"><small>INTERNET ORQALI · 35%</small>≈2,5 mlrd $</div></div>
   </div>
-  <div class="bz st">
-    <div class="q">BIZGA NIMA?</div>
-    <div class="a">Watsco zavoddan voz kechib distribyutor bo'ldi. Bizda zavod ham bor — ustiga distribyutorlikni qo'shamiz.</div>
-  </div>
-  <div class="src">Manba: Watsco press-relizi 17.02.2026 · FundingUniverse «History of Watsco Inc.» · Wikipedia</div>
+  <div class="bz st"><div class="q">JIHOZVENT UCHUN</div><div class="a">Biznes model o'zgarishi mumkin. Watsco zavoddan voz kechdi — biz zavodni saqlaymiz.</div></div>
+  <div class="src">Manba: Watsco hisoboti (SEC, 1995) · Watsco press-relizlari 01.06.1998 va 17.02.2026 · FundingUniverse «History of Watsco Inc.»</div>
 </section>
 
-<section class="slide mh" data-steps="1" aria-label="Bozorimizda">
+<section class="slide inet grid" data-steps="1" data-air="560,1080,250,1450,.6,.75" aria-label="Internet">
   <div class="head">
-    <div class="kick rv">2-pog'ona · O'zbekiston bozori</div>
-    <h2 class="rv" style="--d:.15s">Bizning bozorda ham shu narsalar ishlayapti</h2>
+    <div class="kick rv">1-qism · Savdo internetga o'tmoqda</div>
+    <h2 class="rv" style="--d:.15s">Dunyoda savdo internetga o'tmoqda.<br>O'zbekistonda bu endi boshlanmoqda.</h2>
   </div>
-  <div class="cards">
-    <div class="c rv" style="--d:.4s"><span class="tag">Ochiq narx</span><div class="nm">Iklim</div><div class="t">Narxlari saytda ochiq. Montaj tashkilotlari va buyurtmachilar KP tuzishda ularning narxiga qaraydi.</div></div>
-    <div class="c rv" style="--d:.6s"><span class="tag">Montajchi</span><div class="nm">UZCLIMAT</div><div class="t">Asosiy mijozi — montajchilar. Montajchiga 5% beradi.</div></div>
-    <div class="c z rv" style="--d:.8s"><span class="tag">Zavod + dilerlar</span><div class="nm">Akfa Build</div><div class="t">O'z zavodi bor (Shivaki) va respublika bo'ylab dilerlari bor.</div></div>
+  <div class="nums">
+    <div class="rv" style="--d:.4s"><div class="num"><span data-count="97" data-dec="97,3">0</span><i>%</i></div><div class="cap">10 yoshdan katta aholi <b>internetdan foydalanadi</b></div></div>
+    <div class="rv" style="--d:.7s"><div class="num hot"><span data-count="4.6" data-dec="4,6">0</span><i>%</i></div><div class="cap">O'zbekistonda savdoning <b>internet orqali</b> qismi — 100 so'mlik xariddan 4,6 so'mi</div></div>
+    <div class="rv" style="--d:1s"><div class="num cold"><span data-count="22">0</span><i>%</i></div><div class="cap">dunyoda o'rtacha — <b>bizdan 5 baravar ko'p</b></div></div>
   </div>
-  <div class="bz st"><div class="q">BIZGA NIMA?</div><div class="a">Zavod, ochiq narx va montajchi — Climavent uchalasini bitta joyga yig'adi.</div></div>
-  <div class="src">Manba: Jihozvent raqobatchilar ro'yxati (rahbariyat tuzgan) · kompaniyalar saytlari</div>
+  <div class="hj">
+    <div class="rv" style="--d:1.3s">Bugun internet savdosi <b>1,3 mlrd $</b> — 8 yilda 20 baravar o'sgan</div>
+    <div class="rv" style="--d:1.5s">Davlat maqsadi — ulushni <b>9–11%</b> ga yetkazish, ya'ni ikki baravar</div>
+  </div>
+  <div class="bz st"><div class="q">JIHOZVENT UCHUN</div><div class="a">Internet savdosi ikki baravar ko'payadi. Undan ulush olish uchun hozir boshlash kerak.</div></div>
+  <div class="src">Manba: Prezident yig'ilishi, 2026 aprel (president.uz) · Statistika qo'mitasi, 2026 yanvar–avgust</div>
 </section>
 
-<section class="slide ek grid" data-steps="1" aria-label="Ekosistema">
-  <div class="head">
-    <div class="kick rv">3–4-pog'ona · Ekosistema va uning foydasi</div>
-    <h2 class="rv" style="--d:.15s">Bir mijoz — <em>ko'p xizmat</em></h2>
-  </div>
-  <div class="chains">
-    <div class="ch">
-      <div class="nm rv" style="--d:.3s">Uzum <small>O'ZBEKISTON</small></div>
-      <div class="row"><span class="run" style="--d:1.2s"></span>
-        <div class="pt f" style="--d:.4s">Market</div><div class="pt" style="--d:.55s">Bank karta</div><div class="pt" style="--d:.7s">Nasiya</div><div class="pt" style="--d:.85s">Tezkor</div></div>
-      <div class="t rv" style="--d:1s"><b>20 mln+</b> foydalanuvchi · nasiya bir yilda <b>3 baravar</b> o'sdi</div>
-    </div>
-    <div class="ch">
-      <div class="nm rv" style="--d:.6s">Yandex Go <small>BITTA ILOVADA</small></div>
-      <div class="row"><span class="run" style="--d:1.8s"></span>
-        <div class="pt f" style="--d:.7s">Taksi</div><div class="pt" style="--d:.85s">Ovqat yetkazish</div><div class="pt" style="--d:1s">Lavka</div><div class="pt" style="--d:1.15s">Market</div></div>
-      <div class="t rv" style="--d:1.3s">taksiga kirgan odam ovqat va mahsulotni ham shu ilovadan buyuradi</div>
-    </div>
-  </div>
-  <div class="fy rv" style="--d:.5s">
-    <h3>FOYDASI</h3>
+<section class="slide ajr" aria-label="2-qism">
+  <div class="lt">
+    <div class="kick rv">1-qism xulosasi</div>
     <ul>
-      <li><span>01</span><div>Mijoz qaytib keladi<small>keyingi xarid uchun boshqa joy qidirmaydi</small></div></li>
-      <li><span>02</span><div>Bir xizmat keyingisiga mijoz olib keladi<small>har yangi xizmat noldan boshlanmaydi</small></div></li>
-      <li><span>03</span><div>Mijoz haqida hammasi bir joyda<small>unga kerakli narsani o'z vaqtida taklif qilish mumkin</small></div></li>
+      <li class="rv" style="--d:.2s"><span>01</span><div><b>Biznes model o'zgarishi mumkin</b><small>Watsco zavod edi — distribyutor bo'lib, sohada eng kattasiga aylandi</small></div></li>
+      <li class="rv" style="--d:.4s"><span>02</span><div><b>Ekosistema mijozni ushlab qoladi</b><small>keyingi ehtiyojini ham shu yerdan oladi, boshqa joy qidirmaydi</small></div></li>
+      <li class="rv" style="--d:.6s"><span>03</span><div><b>Savdo internetga ko'chmoqda</b><small>O'zbekistonda bu endi boshlanmoqda: 4,6% → 9–11%</small></div></li>
     </ul>
   </div>
-  <div class="bz st"><div class="q">BIZGA NIMA?</div><div class="a">Montaj firmasi tovar, KP, yetkazish va o'rnatishni bitta Climavent ilovasidan oladi.</div></div>
-  <div class="src">Manba: Uzum 2025 yil yakunlari (uzum.com) · Yandex Go ilovasi (App Store) · UzDaily: Yandex Lavka Toshkentda</div>
+  <div class="rt">
+    <img class="logo rv" src="media/logo-m.png" alt="Climavent" style="--d:.9s">
+    <div class="kick rv" style="--d:.7s">Shuning uchun</div>
+    <div class="no rv" style="--d:.8s">2-qism</div>
+    <h2 class="rv" style="--d:.95s">Climavent marketpleysiga 3 yillik yo'l</h2>
+    <p class="rv" style="--d:1.1s">Qaysi pog'onadan qaysi pog'onaga, qancha vaqtda va qanday foyda bilan</p>
+  </div>
 </section>
 
-<section class="slide fq grid" data-air="0,1080,200,1500,.28,.45" aria-label="Farqimiz">
+<section class="slide yol" aria-label="Climavent yo'li">
   <div class="head">
-    <div class="kick rv">Bizning reja</div>
-    <h2 class="rv" style="--d:.15s">Zavod qoladi, ustiga sotuv tarmog'i qo'shiladi</h2>
+    <div class="kick rv">2-qism · Biz qayerdamiz va qayerga boramiz</div>
+    <h2 class="rv" style="--d:.15s">Climavent yo'li: <em>4 pog'ona, 3 yil</em></h2>
   </div>
-  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
-    <line class="divider" x1="760" y1="330" x2="760" y2="980"/>
-    <!-- chap: Watsco -->
-    <g class="g" style="--d:.4s">
-      <text class="lbl" x="120" y="350">HOZIR</text>
-      <g class="box"><rect x="120" y="390" width="520" height="104" rx="18"/><text x="150" y="438">Jihozvent zavodi</text><text class="s" x="150" y="472">o'z tovarimiz</text></g>
-      <path class="p" id="w0" d="M380 494 L380 580"/>
-      <g class="box"><rect x="120" y="580" width="520" height="104" rx="18"/><text x="150" y="628">Sotuv bo'limi</text><text class="s" x="150" y="662">menejerlar va KP</text></g>
-      <path class="p" id="w1" d="M380 684 L380 770"/>
-      <g class="box"><rect x="120" y="770" width="520" height="104" rx="18"/><text x="150" y="832">Yirik sanoat mijozlari</text></g>
-      <circle class="dot" r="7"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#w0"/></animateMotion></circle>
-      <circle class="dot" r="7"><animateMotion dur="1.6s" begin=".8s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
-    </g>
-    <!-- o'ng: Jihozvent + Climavent -->
-    <g class="g" style="--d:1s">
-      <text class="lbl" x="860" y="350">CLIMAVENT BILAN</text>
-      <g class="box"><rect x="860" y="390" width="440" height="104" rx="18"/><text x="890" y="438">Jihozvent zavodi</text><text class="s" x="890" y="472">o'z tovarimiz</text></g>
-      <g class="box soon"><rect x="1360" y="390" width="440" height="104" rx="18"/><text x="1390" y="438">Boshqa brendlar</text><text class="s" x="1390" y="472">keyingi qadam</text></g>
-      <path class="p" id="a1" d="M1080 494 C1080 540 1330 530 1330 580"/>
-      <path class="p" id="a2" d="M1580 494 C1580 540 1330 530 1330 580"/>
-      <g class="box hot"><rect x="1010" y="580" width="640" height="104" rx="18"/><text x="1040" y="628">Climavent platformasi</text><text class="s" x="1040" y="662">katalog · buyurtma · KP · yetkazish</text></g>
-      <path class="p" id="b1" d="M1330 684 C1330 730 1010 720 1010 770"/>
-      <path class="p" id="b2" d="M1330 684 L1330 770"/>
-      <path class="p" id="b3" d="M1330 684 C1330 730 1650 720 1650 770"/>
-      <g class="box"><rect x="860" y="770" width="300" height="104" rx="18"/><text x="884" y="814">Montaj</text><text x="884" y="850">firmalari</text></g>
-      <g class="box"><rect x="1180" y="770" width="300" height="104" rx="18"/><text x="1204" y="814">Loyiha</text><text x="1204" y="850">tashkilotlari</text></g>
-      <g class="box"><rect x="1500" y="770" width="300" height="104" rx="18"/><text x="1524" y="814">Sanoat</text><text x="1524" y="850">korxonalari</text></g>
-      <circle class="dot" r="7"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#a1"/></animateMotion></circle>
-      <circle class="dot" r="7" opacity=".5"><animateMotion dur="1.8s" begin=".9s" repeatCount="indefinite"><mpath href="#a2"/></animateMotion></circle>
-      <circle class="dot" r="7"><animateMotion dur="1.6s" begin=".2s" repeatCount="indefinite"><mpath href="#b1"/></animateMotion></circle>
-      <circle class="dot" r="7"><animateMotion dur="1.6s" begin=".7s" repeatCount="indefinite"><mpath href="#b2"/></animateMotion></circle>
-      <circle class="dot" r="7"><animateMotion dur="1.6s" begin="1.2s" repeatCount="indefinite"><mpath href="#b3"/></animateMotion></circle>
-    </g>
-  </svg>
-</section>
-
-<section class="slide pm" aria-label="Pul qayerdan">
-  <div class="head">
-    <div class="kick rv">Bizning biznes modelimiz</div>
-    <h2 class="rv" style="--d:.15s">Sanoatda uskunani uch tomon hal qiladi — Climavent uchalasiga ham kerak</h2>
+  <div class="steps">
+    <div class="s now" style="--h:500px"><span class="tm">0–6 OY</span><div class="nm">Jihozvent mahsuloti</div><div class="iz">birinchi sotuvchi — Jihozvent zavodi</div><div class="t">Jihozvent mahsuloti narxi bilan Climaventda. Quruvchilar, korxonalar, loyiha tashkilotlari va montaj firmalari ulanadi</div><div class="fy"><i>FOYDASI</i>Yangi mijozlar, KP va buyurtma tezroq</div></div>
+    <div class="s" style="--h:556px"><span class="tm">6–12 OY</span><span class="qr">ALOHIDA QAROR</span><div class="nm">Distribyutor</div><div class="iz">boshqa zavodlar mahsulotini ham sotish</div><div class="t">Jihozvent ishlab chiqarmaydigan mahsulotlar qo'shiladi — raqobatchi emas, to'ldiruvchi</div><div class="fy"><i>FOYDASI</i>Obyektga kerak hamma narsani mijoz bir joydan oladi</div></div>
+    <div class="s" style="--h:612px"><span class="tm">2-YIL</span><span class="qr">ALOHIDA QAROR</span><div class="nm">Marketpleys</div><div class="iz">internet bozor: ko'p sotuvchi bir joyda</div><div class="t">Boshqa do'konlar kiradi — kimni kiritishni Jihozvent hal qiladi</div><div class="fy"><i>FOYDASI</i>Har savdodan ulush — o'zimiz sotmagan mahsulotdan ham</div></div>
+    <div class="s" style="--h:668px"><span class="tm">2–3-YIL</span><span class="qr">ALOHIDA QAROR</span><div class="nm">Ekosistema</div><div class="iz">hamma xizmat bitta tizimda</div><div class="t">Yetkazish, o'rnatish (Climavent Pro) va AI yordamchilar — bitta tizimda</div><div class="fy"><i>FOYDASI</i>Mijoz qaytib keladi, boshqa joy qidirmaydi</div></div>
   </div>
-  <div class="chain">
-    <div class="ch rv" style="--d:.4s"><div class="v">TANLAYDI</div><div class="w">Loyiha tashkiloti</div><div class="g">Climavent beradi: <b>texnik ma'lumot va tovar tanlash</b></div></div>
-    <div class="ch rv" style="--d:.55s"><div class="v">SOTIB OLADI</div><div class="w">Montaj firmasi</div><div class="g">Climavent beradi: <b>firma narxi, tez KP, yetkazish</b></div></div>
-    <div class="ch rv" style="--d:.7s"><div class="v">TO'LAYDI</div><div class="w">Sanoat korxonasi</div><div class="g">Climavent beradi: <b>qayta buyurtma va hujjatlar bir joyda</b></div></div>
-  </div>
-  <div class="inc rv" style="--d:.5s">
-    <h3>PUL QAYERDAN KELADI</h3>
-    <div class="row main"><span class="n">1</span><div class="w">Jihozvent tovari<small>asosiy daromad — zavod marjasi</small></div><span class="s sin">sinovda</span></div>
-    <div class="row"><span class="n">2</span><div class="w">Qayta xarid<small>ehtiyot qism, almashtiriladigan qism, kengaytirish</small></div><span class="s tak">taklif</span></div>
-    <div class="row"><span class="n">3</span><div class="w">Boshqa brendlar va do'konlar<small>ulardan komissiya</small></div><span class="s tak">rejada</span></div>
-    <div class="row"><span class="n">4</span><div class="w">Yetkazish va o'rnatish<small>Climavent Pro orqali</small></div><span class="s tay">tizim tayyor</span></div>
-  </div>
-  <div class="note rv" style="--d:.9s"><b>Komissiya — eng kichik daromad.</b> Asosiy pul — o'z tovarimiz va qayta xariddan.</div>
+  <div class="here rv" style="--d:1.4s;--hh:500px">BUGUN SO'RAYMIZ</div>
+  <div class="base"></div>
+  <div class="today rv" style="--d:.4s">BUGUN ✓ Jihozvent: zavod, 2002 yildan · Climavent: platforma, sinovda</div>
+  <div class="note rv" style="--d:1.6s">2–4-pog'ona: har biri <b>alohida qaror</b> — natijani ko'rib, siz hal qilasiz</div>
 </section>
 
 <section class="slide cv" aria-label="Climavent nima">
   <div class="head">
-    <div class="kick rv">Climavent ekosistemasi</div>
+    <div class="kick rv">2-qism · Nima tayyor</div>
     <h2 class="rv" style="--d:.15s">Sotuvchi, xaridor, usta va kuryer — bitta tizimda</h2>
     <p class="lead rv" style="--d:.35s">Har kimning o'z ilovasi bor, ma'lumot esa bitta bazada. Buyurtma qayerda turgani hammaga ko'rinadi.</p>
   </div>
@@ -612,45 +1016,41 @@ body.still .st{opacity:1;transform:none}
     <path class="ln" style="--d:1.1s" d="M1180 470 L930 820"/>
   </svg>
   <div class="hub"><img src="media/logo-m.png" alt=""></div>
-  <div class="sat rv" style="left:1010px;top:170px;--d:.6s"><div class="nm">Xaridor ilovasi</div><div class="t">montaj firmasi, loyiha tashkiloti</div><span class="pl">sinovda</span></div>
-  <div class="sat rv" style="left:1600px;top:170px;--d:.75s"><div class="nm">Hamkor ilovasi</div><div class="t">sotuvchi: Jihozvent, keyin boshqa do'konlar</div><span class="pl">sinovda</span></div>
+  <div class="sat rv" style="left:1010px;top:170px;--d:.6s"><div class="nm">Xaridor ilovasi</div><div class="t">quruvchi, korxona, montaj firmasi</div><span class="pl">sinovda</span></div>
+  <div class="sat rv" style="left:1600px;top:170px;--d:.75s"><div class="nm">Hamkor ilovasi</div><div class="t">sotuvchi: Jihozvent (keyinchalik — boshqalar)</div><span class="pl">sinovda</span></div>
   <div class="sat rv" style="left:1640px;top:520px;--d:.9s"><div class="nm">Climavent Pro</div><div class="t">usta va kuryer</div><span class="pl">sinovda</span></div>
-  <div class="sat rv" style="left:1420px;top:790px;--d:1.05s"><div class="nm">Boshqaruv paneli</div><div class="t">tovar, narx, buyurtma, xodimlar</div><span class="pl ok">ishlayapti</span></div>
+  <div class="sat rv" style="left:1420px;top:790px;--d:1.05s"><div class="nm">Boshqaruv paneli</div><div class="t">mahsulot, narx, buyurtma, xodimlar</div><span class="pl ok">ishlayapti</span></div>
   <div class="sat rv" style="left:930px;top:750px;--d:1.2s"><div class="nm">AI agentlar</div><div class="t">KP, narx, analog, tender</div><span class="pl">sinovda</span></div>
+  <div class="lnks rv" style="left:120px;bottom:110px;--d:1.4s"><span class="q">JONLI:</span><a class="lnk" href="https://climavent.uz" target="_blank" rel="noopener">Sayt <small>climavent.uz</small></a><a class="lnk" href="https://climavent-hamkor.vercel.app" target="_blank" rel="noopener">Boshqaruv paneli</a></div>
 </section>
 
-<section class="slide full" aria-label="Bitta buyurtma">
-  <video src="media/buyurtma.mp4" poster="media/buyurtma.jpg" muted playsinline preload="auto"></video>
-</section>
-
-<section class="slide ap" aria-label="Xaridor ilovasi">
-  <div class="blob"></div>
-  <div class="phone rv"><video src="media/xaridor.mp4" poster="media/xaridor.jpg" muted loop playsinline preload="auto"></video></div>
+<section class="slide ilv" aria-label="Ilovalar">
   <div class="txt">
-    <div class="kick rv" style="--d:.2s">Bu maket emas · telefondan yozib olingan</div>
-    <h2 class="rv" style="--d:.3s">Xaridor ilovasi</h2>
-    <ul>
-      <li class="rv" style="--d:.5s"><span>01</span><div>Katalog va qidiruv<small>model nomini yozsa — tovar chiqadi</small></div></li>
-      <li class="rv" style="--d:.65s"><span>02</span><div>Savat → buyurtma yoki KP<small>KP Climavent blankasida tayyorlanadi</small></div></li>
-      <li class="rv" style="--d:.8s"><span>03</span><div>Do'kon bilan chat<small>telefon qilmasdan, ilovaning ichida</small></div></li>
-    </ul>
-    <div class="pill rv" style="--d:1s">Holati: sinovda</div>
+    <div class="kick rv">2-qism · Bu maket emas · telefondan yozib olingan</div>
+    <h2 class="rv" style="--d:.15s">Xaridor va sotuvchi ilovalari</h2>
+    <div class="gr rv" style="--d:.35s">
+      <h3>Xaridor ilovasi <small>quruvchi, korxona, montaj firmasi</small></h3>
+      <ul>
+        <li>Katalog va qidiruv — model nomini yozsa, mahsulot chiqadi</li>
+        <li>Savat → buyurtma yoki KP (Climavent blankida)</li>
+        <li>Sotuvchi bilan chat — ilovaning ichida</li>
+      </ul>
+    </div>
+    <div class="gr rv" style="--d:.55s">
+      <h3>Hamkor ilovasi <small>sotuvchi: Jihozvent</small></h3>
+      <ul>
+        <li>Buyurtma va KP so'rovi shu yerga keladi</li>
+        <li>Narxni yozadi — KP mijozga ketadi</li>
+        <li>Yetkazish: o'zi, Climavent yoki olib ketish</li>
+      </ul>
+    </div>
+    <div class="pro rv" style="--d:.75s"><span class="bd">PRO</span><div class="t"><b>Climavent Pro</b> — usta va kuryer ilovasi: vazifani oladi, yetkazadi, o'rnatadi</div></div>
+    <div class="pill rv" style="--d:.9s">Holati: sinovda</div>
   </div>
-</section>
-
-<section class="slide hp" aria-label="Hamkor va Pro">
-  <div class="txt">
-    <div class="kick rv">Sotuvchi va usta uchun · telefondan yozib olingan</div>
-    <h2 class="rv" style="--d:.15s">Hamkor ilovasi</h2>
-    <ul>
-      <li class="rv" style="--d:.4s"><span>01</span>Buyurtma va KP so'rovlari shu yerga keladi</li>
-      <li class="rv" style="--d:.55s"><span>02</span>Narxni yozadi — KP mijozga ketadi</li>
-      <li class="rv" style="--d:.7s"><span>03</span>Yetkazish: o'zi, Climavent yoki olib ketish</li>
-    </ul>
-    <div class="pro rv" style="--d:.95s"><span class="bd">PRO</span><div class="t"><b>Climavent Pro</b> — usta va kuryer ilovasi: vazifani oladi, yetkazadi, o'rnatadi, suratini yuklaydi</div></div>
-  </div>
-  <div class="phone rv" style="--d:.2s"><video src="media/hamkor.mp4" poster="media/hamkor.jpg" muted loop playsinline preload="auto"></video></div>
-  <div class="pill rv" style="--d:1.1s">Holati: sinovda</div>
+  <div class="phone x rv" style="--d:.2s"><video src="media/xaridor.mp4" poster="media/xaridor.jpg" muted loop playsinline preload="auto"></video></div>
+  <div class="phone h rv" style="--d:.35s"><video src="media/hamkor.mp4" poster="media/hamkor.jpg" muted loop playsinline preload="auto"></video></div>
+  <div class="cap x rv" style="--d:.5s">XARIDOR</div>
+  <div class="cap h rv" style="--d:.6s">HAMKOR (SOTUVCHI)</div>
 </section>
 
 <section class="slide ai" aria-label="AI agentlar">
@@ -659,21 +1059,37 @@ body.still .st{opacity:1;transform:none}
     <h2 class="rv" style="--d:.15s">Qo'lda qilinadigan ishni AI tayyorlab beradi</h2>
   </div>
   <div class="cards">
-    <div class="c kp rv" style="--d:.4s"><div class="i">01 · TZ → KP</div><div class="nm">Spetsifikatsiyadan KP</div><div class="t">Ro'yxatni o'qiydi, katalogdan mos tovarni topadi, KP qoralamasini tayyorlaydi</div></div>
-    <div class="c rv" style="--d:.55s"><div class="i">02 · NARX</div><div class="nm">Raqobatchi narxi</div><div class="t">Raqobatchilarning ochiq saytlaridan shu tovarning narxini topadi</div></div>
-    <div class="c rv" style="--d:.7s"><div class="i">03 · ANALOG</div><div class="nm">O'xshash tovar</div><div class="t">Mijoz boshqa brend modelini yozsa — katalogimizdagi o'xshashini ko'rsatadi</div></div>
-    <div class="c rv" style="--d:.85s"><div class="i">04 · TENDER</div><div class="nm">Tender lotlari</div><div class="t">Lot hujjatini o'qib, bizdagi mos tovarni ko'rsatadi</div></div>
+    <div class="c kp rv" style="--d:.4s"><div class="i">01 · TZ → KP</div><div class="nm">Spetsifikatsiyadan KP</div><div class="t">Ro'yxatni o'qiydi, katalogdan mos mahsulotni topadi, KP qoralamasini tayyorlaydi</div></div>
+    <div class="c rv" style="--d:.55s"><div class="i">02 · NARX</div><div class="nm">Raqobatchi narxi</div><div class="t">Raqobatchilarning ochiq saytlaridan shu mahsulotning narxini topadi</div></div>
+    <div class="c rv" style="--d:.7s"><div class="i">03 · ANALOG</div><div class="nm">O'xshash mahsulot</div><div class="t">Mijoz boshqa brend modelini yozsa — katalogimizdagi o'xshashini ko'rsatadi</div></div>
+    <div class="c rv" style="--d:.85s"><div class="i">04 · TENDER</div><div class="nm">Tender lotlari</div><div class="t">Lot hujjatini o'qib, bizdagi mos mahsulotni ko'rsatadi</div></div>
   </div>
   <div class="chat rv" style="--d:.3s">
     <div class="top"><i>AI</i><div><b>Climavent yordamchi</b><small>Telegram</small></div></div>
     <div class="m u" style="--d:1s">spetsifikatsiya.pdf</div>
     <div class="m b" style="--d:1.9s">5 ta qator o'qildi. <b>5 tasi katalogda bor.</b></div>
     <div class="m b" style="--d:2.7s">KP qoralamasi tayyor — menejer tekshiradi ✓</div>
-    <div class="m u" style="--d:3.6s">Iklim'da VKS 200 qancha?</div>
+    <div class="m u" style="--d:3.6s">Iklimda VKS 200 qancha?</div>
     <div class="m b" style="--d:4.4s">Iklim saytida: <b>1 233 000 so'm</b></div>
   </div>
   <div class="note rv" style="--d:1s">yozishma namunasi · narx Iklim saytidan, 05.10.2026</div>
+  <div class="lnks rv" style="left:790px;bottom:84px;--d:1.3s"><a class="lnk" href="ai/index.html" target="_blank">Batafsil: AI taqdimoti</a></div>
   <div class="foot rv" style="--d:1.1s">Oxirgi qarorni menejer qiladi<span>Holati: sinovda</span></div>
+</section>
+
+<section class="slide fyd" aria-label="Jihozventga foydasi">
+  <div class="head">
+    <div class="kick rv">2-qism · Jihozventga foydasi</div>
+    <h2 class="rv" style="--d:.15s">Climavent Jihozventga nima beradi</h2>
+    <p class="lead rv" style="--d:.25s"><b>Birinchi pog'onaning o'zi</b> ikki foyda beradi. Qolgan ikkitasi — keyingi pog'onalarda, sizning qaroringiz bilan.</p>
+  </div>
+  <div class="cards">
+    <div class="c n rv" style="--d:.35s"><span class="pg">1-POG'ONA</span><div class="ic">01</div><div class="nm">Yangi mijozlar</div><div class="t">Quruvchilar, korxonalar va montaj firmalari Jihozvent katalogini narxi bilan telefonida ko'radi</div></div>
+    <div class="c n rv" style="--d:.5s"><span class="pg">1-POG'ONA</span><div class="ic">02</div><div class="nm">Tezroq sotuv</div><div class="t">KP va buyurtma ilovada. AI qoralama tayyorlaydi, menejer tekshiradi</div></div>
+    <div class="c rv" style="--d:.65s"><span class="pg">2-POG'ONA · KEYIN</span><div class="ic">03</div><div class="nm">Kattaroq buyurtma</div><div class="t">Obyektga kerak hamma narsa bir joydan: Jihozvent mahsuloti va boshqa brendlar</div></div>
+    <div class="c rv" style="--d:.8s"><span class="pg">3–4-POG'ONA · KEYIN</span><div class="ic">04</div><div class="nm">Qo'shimcha daromad</div><div class="t">Boshqa do'konlar savdosidan ulush. Mijoz qaytib keladi</div></div>
+  </div>
+  <div class="ol rv" style="--d:1.1s"><div class="q">HAR OY KO'RSATAMIZ</div><div class="a">platformadan chiqqan KP<i>·</i>KPdan buyurtmaga o'tish<i>·</i>qayta buyurtma bergan firmalar<i>·</i>yalpi foyda</div></div>
 </section>
 
 <section class="slide full" data-sound aria-label="Climavent videosi">
@@ -684,7 +1100,7 @@ body.still .st{opacity:1;transform:none}
   <img class="logo rv" src="media/logo-w.png" alt="Climavent">
   <div class="top">
     <div class="kick rv">Taklifimiz</div>
-    <h1 class="rv" style="--d:.15s">Climavent — Jihozvent'ning onlayn savdo platformasi va <em>ekosistemasi</em></h1>
+    <h1 class="rv" style="--d:.15s">Maqsad — Climavent marketpleysi. <em>Birinchi qadam — bugun</em></h1>
   </div>
   <svg class="rm" width="1920" height="1080" viewBox="0 0 1920 1080">
     <path class="road" d="M680 830 C900 830 900 750 1120 750 C1340 750 1340 670 1560 670 C1690 670 1760 620 1830 560"/>
@@ -697,11 +1113,10 @@ body.still .st{opacity:1;transform:none}
     <text class="here rv" style="--d:1.6s" x="680" y="900">BIZ SHU YERDAMIZ</text>
   </svg>
   <div class="cd ok rv" style="left:120px;top:655px;--d:.5s"><div class="l">TAYYOR ✓</div><div class="h">Platforma yozilgan</div><div class="t">ilovalar, server va boshqaruv paneli ishlayapti</div></div>
-  <div class="cd now rv" style="left:560px;top:575px;--d:1.3s"><div class="l">1-QADAM</div><div class="h">Start: Jihozvent tovari</div><div class="t">mavjud mijozlar, montaj firmalari, loyiha tashkilotlari</div></div>
-  <div class="cd fut rv" style="left:1000px;top:495px;--d:1.6s"><div class="l">2-QADAM</div><div class="h">Natijani o'lchaymiz</div><div class="t">buyurtmalar, KP tezligi, mijoz fikri</div></div>
-  <div class="cd fut rv" style="left:1440px;top:415px;--d:1.9s"><div class="l">3-QADAM</div><div class="h">Kengaytiramiz</div><div class="t">natija bo'lsa: boshqa brendlar, do'konlar, xizmatlar</div></div>
+  <div class="cd now rv" style="left:560px;top:575px;--d:1.3s"><div class="l">1-QADAM · HOZIR SO'RAYMIZ</div><div class="h">Start: Jihozvent mahsuloti</div><div class="t">quruvchilar, korxonalar, montaj firmalari; menejerlarga AI yordamchi</div></div>
+  <div class="cd fut rv" style="left:1000px;top:495px;--d:1.6s"><div class="l">2-QADAM</div><div class="h">Natijani o'lchaymiz</div><div class="t">har oy: KP, buyurtma, qayta buyurtma</div></div>
+  <div class="cd fut rv" style="left:1440px;top:415px;--d:1.9s"><div class="l">3-QADAM · SIZNING QARORINGIZ BILAN</div><div class="h">Keyingi pog'onalar</div><div class="t">natija bo'lsa: boshqa mahsulotlar, do'konlar, xizmatlar</div></div>
 </section>
-
 </div>
 <div id="bar"></div><div id="hud"></div>
 <script>
@@ -709,13 +1124,15 @@ if(/still/.test(location.search))document.body.classList.add('still');
 const S=[...document.querySelectorAll('.slide')],stage=document.getElementById('stage');
 let i=0,step=0;
 function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${k})`}
+/* ekran 16:9 bo'lmasa slayd atrofidagi bo'sh joy slayd foni rangida bo'ladi (qora emas) */
+function chet(sl){const cs=getComputedStyle(sl);let c=cs.backgroundColor;if(/rgba\(0, 0, 0, 0\)|transparent/.test(c)){const m=cs.backgroundImage.match(/rgba?\([^)]*\)/g);c=m?m[m.length-1]:'#03152B'}document.body.style.backgroundColor=c}
 function show(n){
   S[i].classList.remove('on');S[i].querySelectorAll('video').forEach(v=>v.pause());
   i=Math.max(0,Math.min(S.length-1,n));step=0;
   S[i].querySelectorAll('.st').forEach(e=>e.classList.remove('show'));
   void S[i].offsetWidth;S[i].classList.add('on');
   S[i].querySelectorAll('video').forEach(v=>{v.currentTime=0;if(S[i].hasAttribute('data-sound'))v.muted=false;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{})})});
-  setAir(S[i]);count(S[i]);
+  setAir(S[i]);count(S[i]);chet(S[i]);
   document.getElementById('hud').textContent=(i+1)+' / '+S.length;
   document.getElementById('bar').style.width=((i+1)/S.length*100)+'%';
   try{history.replaceState(null,'','#'+(i+1))}catch(e){}
@@ -759,7 +1176,7 @@ function count(sl){sl.querySelectorAll('[data-count]').forEach(el=>{
   (function tick(now){const k=Math.min(1,Math.max(0,(now-t0)/dur));const val=to*(1-Math.pow(1-k,3));
     el.textContent=k<1?val.toFixed(f).replace('.',','):(dec||String(to).replace('.',','));if(k<1)requestAnimationFrame(tick)})(performance.now());
 })}
-function next(){const st=[...S[i].querySelectorAll('.st')];if(step<st.length){st[step++].classList.add('show');return}show(i+1)}
+function next(){const st=[...S[i].querySelectorAll('.st')],gs=[];st.forEach(e=>{const k=e.dataset.g||e;if(!gs.includes(k))gs.push(k)});if(step<gs.length){const k=gs[step++];st.forEach(e=>{if((e.dataset.g||e)===k)e.classList.add('show')});return}show(i+1)}
 function prev(){show(i-1)}
 /* navigatsiya faqat klaviaturadan: → / ← (pult uchun PageDown / PageUp ham). Sichqoncha slaydni almashtirmaydi. */
 function vidToggle(){const v=S[i].querySelector('.full video');if(!v)return;if(v.paused){v.play().catch(()=>{})}else v.pause()}
