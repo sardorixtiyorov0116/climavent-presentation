@@ -717,6 +717,11 @@ body.still .st{opacity:1;transform:none}
 .lnk::after{content:"↗";font-size:24px;color:var(--cold)}
 .lnks{position:absolute;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .lnks .q{font-family:var(--mono);font-size:18px;letter-spacing:.08em;color:#4A6A8C;margin-right:4px}
+/* ---------- TAKLIFIMIZ: 1-qadam foydasi qatori ---------- */
+.sr .fy1{position:absolute;left:120px;top:380px;width:840px;display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+.sr .fy1 .q{grid-column:1/-1;font-family:var(--mono);font-size:18px;letter-spacing:.1em;color:#8FE3BE}
+.sr .fy1 .c{font-size:21px;line-height:1.35;color:#C9DBEC;padding-left:22px;border-left:4px solid #8FE3BE}
+.sr .fy1 .c b{display:block;font-size:27px;color:#fff;margin-bottom:2px}
 </style>
 </head>
 <body>
@@ -967,24 +972,6 @@ let old=performance.now();
   <div class="src">Manba: Prezident yig'ilishi, 2026 aprel (president.uz) · Statistika qo'mitasi, 2026 yanvar–avgust</div>
 </section>
 
-<section class="slide ajr" aria-label="2-qism">
-  <div class="lt">
-    <div class="kick rv">1-qism xulosasi</div>
-    <ul>
-      <li class="rv" style="--d:.2s"><span>01</span><div><b>Biznes model o'zgarishi mumkin</b><small>Watsco zavod edi — distribyutor bo'lib, sohada eng kattasiga aylandi</small></div></li>
-      <li class="rv" style="--d:.4s"><span>02</span><div><b>Ekosistema mijozni ushlab qoladi</b><small>keyingi ehtiyojini ham shu yerdan oladi, boshqa joy qidirmaydi</small></div></li>
-      <li class="rv" style="--d:.6s"><span>03</span><div><b>Savdo internetga ko'chmoqda</b><small>O'zbekistonda bu endi boshlanmoqda: 4,6% → 9–11%</small></div></li>
-    </ul>
-  </div>
-  <div class="rt">
-    <img class="logo rv" src="media/logo-m.png" alt="Climavent" style="--d:.9s">
-    <div class="kick rv" style="--d:.7s">Shuning uchun</div>
-    <div class="no rv" style="--d:.8s">2-qism</div>
-    <h2 class="rv" style="--d:.95s">Climavent marketpleysiga 3 yillik yo'l</h2>
-    <p class="rv" style="--d:1.1s">Qaysi pog'onadan qaysi pog'onaga, qancha vaqtda va qanday foyda bilan</p>
-  </div>
-</section>
-
 <section class="slide yol" aria-label="Climavent yo'li">
   <div class="head">
     <div class="kick rv">2-qism · Biz qayerdamiz va qayerga boramiz</div>
@@ -1077,27 +1064,13 @@ let old=performance.now();
   <div class="foot rv" style="--d:1.1s">Oxirgi qarorni menejer qiladi<span>Holati: sinovda</span></div>
 </section>
 
-<section class="slide fyd" aria-label="Jihozventga foydasi">
-  <div class="head">
-    <div class="kick rv">2-qism · Jihozventga foydasi</div>
-    <h2 class="rv" style="--d:.15s">Climavent Jihozventga nima beradi</h2>
-    <p class="lead rv" style="--d:.25s"><b>Birinchi pog'onaning o'zi</b> ikki foyda beradi. Qolgan ikkitasi — keyingi pog'onalarda, sizning qaroringiz bilan.</p>
-  </div>
-  <div class="cards">
-    <div class="c n rv" style="--d:.35s"><span class="pg">1-POG'ONA</span><div class="ic">01</div><div class="nm">Yangi mijozlar</div><div class="t">Quruvchilar, korxonalar va montaj firmalari Jihozvent katalogini narxi bilan telefonida ko'radi</div></div>
-    <div class="c n rv" style="--d:.5s"><span class="pg">1-POG'ONA</span><div class="ic">02</div><div class="nm">Tezroq sotuv</div><div class="t">KP va buyurtma ilovada. AI qoralama tayyorlaydi, menejer tekshiradi</div></div>
-    <div class="c rv" style="--d:.65s"><span class="pg">2-POG'ONA · KEYIN</span><div class="ic">03</div><div class="nm">Kattaroq buyurtma</div><div class="t">Obyektga kerak hamma narsa bir joydan: Jihozvent mahsuloti va boshqa brendlar</div></div>
-    <div class="c rv" style="--d:.8s"><span class="pg">3–4-POG'ONA · KEYIN</span><div class="ic">04</div><div class="nm">Qo'shimcha daromad</div><div class="t">Boshqa do'konlar savdosidan ulush. Mijoz qaytib keladi</div></div>
-  </div>
-  <div class="ol rv" style="--d:1.1s"><div class="q">HAR OY KO'RSATAMIZ</div><div class="a">platformadan chiqqan KP<i>·</i>KPdan buyurtmaga o'tish<i>·</i>qayta buyurtma bergan firmalar<i>·</i>yalpi foyda</div></div>
-</section>
-
 <section class="slide full" data-sound aria-label="Climavent videosi">
   <video src="media/biz.mp4" poster="media/biz.jpg" playsinline preload="auto"></video>
 </section>
 
 <section class="slide sr grid" aria-label="So'rov">
   <img class="logo rv" src="media/logo-w.png" alt="Climavent">
+  <div class="fy1 rv" style="--d:.5s"><span class="q">JIHOZVENTGA FOYDASI — 1-QADAMNING O'ZIDA</span><div class="c"><b>Yangi mijozlar</b>quruvchilar, korxonalar, montaj firmalari katalogni narxi bilan ko'radi</div><div class="c"><b>Tezroq sotuv</b>KP va buyurtma ilovada, AI qoralama tayyorlaydi</div></div>
   <div class="top">
     <div class="kick rv">Taklifimiz</div>
     <h1 class="rv" style="--d:.15s">Maqsad — Climavent marketpleysi. <em>Birinchi qadam — bugun</em></h1>
@@ -1114,7 +1087,7 @@ let old=performance.now();
   </svg>
   <div class="cd ok rv" style="left:120px;top:655px;--d:.5s"><div class="l">TAYYOR ✓</div><div class="h">Platforma yozilgan</div><div class="t">ilovalar, server va boshqaruv paneli ishlayapti</div></div>
   <div class="cd now rv" style="left:560px;top:575px;--d:1.3s"><div class="l">1-QADAM · HOZIR SO'RAYMIZ</div><div class="h">Start: Jihozvent mahsuloti</div><div class="t">quruvchilar, korxonalar, montaj firmalari; menejerlarga AI yordamchi</div></div>
-  <div class="cd fut rv" style="left:1000px;top:495px;--d:1.6s"><div class="l">2-QADAM</div><div class="h">Natijani o'lchaymiz</div><div class="t">har oy: KP, buyurtma, qayta buyurtma</div></div>
+  <div class="cd fut rv" style="left:1000px;top:495px;--d:1.6s"><div class="l">2-QADAM</div><div class="h">Natijani o'lchaymiz</div><div class="t">har oy: KP, buyurtma, qayta buyurtma, yalpi foyda</div></div>
   <div class="cd fut rv" style="left:1440px;top:415px;--d:1.9s"><div class="l">3-QADAM · SIZNING QARORINGIZ BILAN</div><div class="h">Keyingi pog'onalar</div><div class="t">natija bo'lsa: boshqa mahsulotlar, do'konlar, xizmatlar</div></div>
 </section>
 </div>
